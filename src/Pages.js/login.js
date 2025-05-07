@@ -54,11 +54,11 @@ const [selectedMethod, setSelectedMethod] = useState('email-otp'); // default se
         setStep('otp');
         setSecondsLeft(50);
         setResendEnabled(false);
-        await axios.post('http://localhost:5000/api/login/email-login', { email }, { withCredentials: true });
+        await axios.post('http://localhost:5000/api/user/email-login', { email }, { withCredentials: true });
         setMessage('OTP sent to your email.');
       } else {
         setLoading(true);
-        await axios.post('http://localhost:5000/api/login/verify-otp', { email, otp }, { withCredentials: true });
+        await axios.post('http://localhost:5000/api/user/verify-otp', { email, otp }, { withCredentials: true });
         setLoading(false);
         setMessage('Logged in successfully!');
         navigate('/Dashboard');
@@ -78,7 +78,7 @@ const [selectedMethod, setSelectedMethod] = useState('email-otp'); // default se
   
     try {
       await axios.post(
-        'http://localhost:5000/api/login/login-or-register',
+        'http://localhost:5000/api/user/login-or-register',
         { email, password },
         { withCredentials: true }
       );
@@ -99,7 +99,7 @@ const [selectedMethod, setSelectedMethod] = useState('email-otp'); // default se
       const { user } = result;
   
       await axios.post(
-        "http://localhost:5000/api/login/google-login",
+        "http://localhost:5000/api/user/google-login",
         {
           email: user.email,
           googleId: user.uid,
@@ -107,7 +107,7 @@ const [selectedMethod, setSelectedMethod] = useState('email-otp'); // default se
         { withCredentials: true }
       );
   
-      navigate("/");
+      navigate("/Dashboard");
     } catch (err) {
       console.error("Google login error:", err);
       alert("Google login failed");
@@ -128,19 +128,19 @@ const [selectedMethod, setSelectedMethod] = useState('email-otp'); // default se
           <img
             src="https://res.cloudinary.com/dunsl7vvf/image/upload/v1746554424/WhatsApp_Image_2025-05-06_at_23.27.24_44d5ba8c_xqvjzz.jpg"
             alt="Login Banner"
-            className="w-full lg:scale-[1.00] rounded-lg shadow-lg"
+            className="w-full  lg:scale-[1.00] rounded-lg shadow-lg"
           />
           
         </div>
 
         {/* Right side form */}
         <div className="flex-1 flex justify-center items-center  bg-white px-4 py-2">
-          <div className="w-full mt-0 max-w-md">
-            <div className="lg:hidden  mb-6">
+        <div className="w-full mt-0 max-w-md">
+            <div className="lg:hidden  mb-4">
               <img
                 src="https://res.cloudinary.com/dunsl7vvf/image/upload/v1746554424/WhatsApp_Image_2025-05-06_at_23.27.24_44d5ba8c_xqvjzz.jpg"
                 alt="Mobile Banner"
-                className="w-full h-55  shadow object-cover scale-[1.07]"
+                className="w-full h-[40vh] shadow object-cover scale-[1.07]"
               />
             </div>
 
@@ -174,7 +174,9 @@ const [selectedMethod, setSelectedMethod] = useState('email-otp'); // default se
   <span className="flex-grow h-px bg-gray-300"></span>
   <span className="mx-4 text-gray-500 text-sm font-medium">OR</span>
   <span className="flex-grow h-px bg-gray-300"></span>
+  
 </div>
+
                 </div>
                 <div className="space-y-4 mt-6">
                 <button
@@ -200,7 +202,10 @@ const [selectedMethod, setSelectedMethod] = useState('email-otp'); // default se
                 >
                   Login / Signup with Email & Password
                 </button>
-              </div></div>
+                
+              </div>
+              
+              </div>
               
             )}
 

@@ -45,7 +45,7 @@ export default function Sidebar() {
           isOpen ? 'translate-x-0' : '-translate-x-full'
         } lg:translate-x-0 lg:block`}
       >
-        <h2 className="text-2xl font-bold mb-6">INVINCIBLE</h2>
+        <h2 className="text-2xl font-bold mb-6">CAR HISTORY DEKHO</h2>
         <ul className="space-y-3">
           {menuItems.map((item, idx) => (
             <li

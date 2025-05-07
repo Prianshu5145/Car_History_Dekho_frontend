@@ -28,7 +28,7 @@ const Navbar = () => {
     />
   </Link>
   <Link
-    to="/Dashboard"
+    to="/login"
     className="md:hidden mr-5  bg-gradient-to-r from-purple-500 to-pink-500 hover:from-pink-500 hover:to-purple-500 text-white font-semibold py-2 px-2 rounded transition duration-500"
   >
     Dashboard Login

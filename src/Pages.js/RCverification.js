@@ -175,11 +175,14 @@ const RCResponse = () => {
 
   
 
+const [loading, setLoading] = useState(false);
 
+const [submissionSuccess, setSubmissionSuccess] = useState(false);
 const [errorInfo, setErrorInfo] = useState(null);
   
 const handleSubmit = async (e) => {
   e.preventDefault();
+  setLoading(true);
 
   try {
     const response = await fetch("http://localhost:5000/api/service/call", {
@@ -189,8 +192,11 @@ const handleSubmit = async (e) => {
       },
       credentials: "include",
       body: JSON.stringify({
-        vehicleNumber,
-        serviceName: "RC Verification",
+        serviceName: "RC Verification" ,
+        payload: {
+  vehicleNumber: vehicleNumber.toUpperCase(),
+}
+
       }),
     });
 
@@ -230,7 +236,9 @@ const handleSubmit = async (e) => {
     
 
     
-      generateServicePDF(data); // Pass the correct data to the PDF generation function
+      generateServicePDF(data);
+      setSubmissionSuccess(true);
+ // Pass the correct data to the PDF generation function
     } 
     catch (error) {
       setErrorInfo({
@@ -238,7 +246,11 @@ const handleSubmit = async (e) => {
         message: 'Network or server error. Please try again.',
       });
     }
-      
+    finally {
+      setLoading(false);
+      }
+   
+   
 };
 
 
@@ -262,7 +274,9 @@ const handleSubmit = async (e) => {
     
    <div className="min-h-screen bg-white lg:pl-[19.2rem]"> <Sidebar/>
    <MobileMenu/>
-   <Header/>
+   <Header  disableButtons={loading} />
+
+
    {errorInfo && (
   <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
     <div className="bg-white border-l-8 border-red-500 rounded-2xl shadow-2xl w-full max-w-2xl mx-6 p-8 animate-fade-in">
@@ -350,22 +364,61 @@ const handleSubmit = async (e) => {
              type="submit"
              className="mt-4 w-full sm:w-auto bg-gradient-to-r from-blue-500 to-purple-600 text-white px-6 py-2 rounded-lg shadow hover:brightness-110 transition-all"
            >
-             Submit
+             {loading ? (
+  <div className="fixed inset-0 z-50 bg-white/60 backdrop-blur-sm flex items-center justify-center pointer-events-none">
+    <div className="flex flex-col items-center justify-center space-y-8 p-4 rounded-2xl shadow-2xl bg-white/90 backdrop-blur-md pointer-events-none w-full max-w-sm md:max-w-md lg:max-w-lg mt-[-200px] lg:mt-[-40px]">
+      
+      {/* Spinner Container */}
+      <div className="relative w-32 h-32 md:w-40 md:h-40 lg:w-48 lg:h-48">
+        {/* Outer Spinner Circle */}
+        <div className="absolute inset-0 border-[6px] md:border-[6px] border-t-transparent border-l-blue-500 border-r-blue-300 border-b-transparent rounded-full animate-spin"></div>
+
+        {/* Inner Circle */}
+        <div className="absolute inset-4 bg-white rounded-full shadow-inner flex items-center justify-center">
+          <img
+            src="https://res.cloudinary.com/dztz5ltuq/image/upload/v1731448689/apple-touch-icon_jrhfll.png"
+            alt="Car Logo"
+            className="w-12 h-12 md:w-16 md:h-16 animate-rotateY"
+          />
+        </div>
+      </div>
+
+      {/* Loading Text */}
+      <p className="w-full text-lg md:text-xl font-semibold text-gray-800 text-center">
+        <strong>Generating Report... Please wait.</strong>
+      </p>
+
+      {/* Brand Name */}
+      <span className="text-blue-500 text-base font-medium">Car History Dekho</span>
+    </div>
+  </div>
+) : (
+  'Submit'
+)}
+
            </button>
          </div>
        </form>
  
        {/* Sample Response Button */}
        <div className="mt-6 text-center">
-         <a
-           href="/sample-response.pdf"
-           target="_blank"
-           rel="noopener noreferrer"
-           className="inline-block text-blue-600 underline text-sm hover:text-blue-800 transition-colors"
-         >
-         Click to view Sample RC verification Report
-         </a>
-       </div>
+  <button
+    onClick={() => {
+      if (!loading) {
+        window.open("/sample-response.pdf", "_blank", "noopener,noreferrer");
+      }
+    }}
+    disabled={loading}
+    className={`text-blue-600 underline text-sm transition-colors bg-white  lg:bg-blue-50/60 border-none ${
+      loading
+        ? "opacity-50 cursor-not-allowed pointer-events-none"
+        : "hover:text-blue-800"
+    }`}
+  >
+    Click to view Sample Check Report
+  </button>
+</div>
+
  
        {/* Title + Description */}
        <div className="mt-4 border-t pt-4 border-gray-200">
@@ -467,6 +520,22 @@ const handleSubmit = async (e) => {
    />
  </div>
  </div>
+
+ {submissionSuccess && (
+        <div className="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-50 z-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg max-w-md text-center">
+            <h2 className="text-xl font-semibold text-green-600">Report generated successfully.</h2>
+            <p className="mt-2 text-gray-700">THANK YOU.</p>
+            <button
+              onClick={() => setSubmissionSuccess(false)}
+              className="mt-4 px-6 py-2 bg-blue-500 text
+              white rounded-lg hover:bg-blue-600 transition"
+            >
+            Close
+            </button>
+          </div>
+        </div>
+      )}
 
  </div>
   );

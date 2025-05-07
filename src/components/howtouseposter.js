@@ -57,7 +57,7 @@ const PosterSection = () => {
 
             {/* Sell Your Car Button */}
             <div className="flex justify-center mt-3 mb-1">
-            <Link to="/sell">
+            <Link to="/login">
     <button className="bg-white text-blue-600 px-5 py-3 rounded-full shadow-md border border-blue-600 hover:bg-blue-50 transition-transform duration-200 hover:scale-105">
       Explore Now
     </button>

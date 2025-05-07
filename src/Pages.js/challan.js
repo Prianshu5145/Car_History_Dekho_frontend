@@ -100,23 +100,26 @@ const ChallanResponse = () => {
                 doc.addPage();
                 currentY = 20;
             }
-
+console.log('offence',challan.offence_details?.[0]?.name);
             const body = [
                 ['Challan No :', challan.challan_no || '-'],
                 ['Date & Time :', challan.challan_date_time || '-'],
                 ['Place :', challan.challan_place || '-'],
                 ['Status :', challan.challan_status || '-'],
                 ['Owner Name :', challan.owner_name || '-'],
-                ['Violator :', challan.name_of_violator || '-'],
-                ['Offence :', challan.offence_details?.[0]?.name || '-']
+                
+                ['challan Amount :', challan.fine_imposed || '-']
+               
+                
             ];
 
             if (challan.amount_of_fine_imposed != null && challan.amount_of_fine_imposed !== '') {
                 const formattedAmount = parseFloat(challan.amount_of_fine_imposed).toFixed(2).replace(/\.00$/, '');
                 body.push(['Fine Imposed :', formattedAmount]);
             }
-
+            body.push(['Offence :', challan.offence_details?.[0]?.name || '-']);
             body.push(['Court Name', challan.court_name || '-']);
+            body.push(['Court Address', challan.court_address || '-']);
 
             autoTable(doc, {
                 startY: currentY,
@@ -203,75 +206,81 @@ console.log('y',y);
   
 
   
-
-  
+const [loading, setLoading] = useState(false);
+const [submissionSuccess, setSubmissionSuccess] = useState(false);
   
 const [errorInfo, setErrorInfo] = useState(null);
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-  
-    try {
-      const response = await fetch("http://localhost:5000/api/service/call", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-        body: JSON.stringify({
-          vehicleNumber,
-          serviceName: "Challan Check",
-        }),
-      });
-  
-      if (!response.ok) {
-        if (response.status === 402) {
-          setErrorInfo({
-            type: 'payment',
-            message: <p className="text-lg text-gray-800">
-            Insufficient balance.
-            <br />
-            <strong> Please recharge your wallet.</strong>
-          </p>,
-          });
-        } else if (response.status === 401) {
-          setErrorInfo({
-            type: 'auth',
-            message: <p className="text-lg text-gray-800">
-           Session expired.
-            <br />
-            <strong>Please login again.</strong>
-          </p>
-          ,
-          });
-        } else {
-          setErrorInfo({
-            type: 'generic',
-            message: 'Something went wrong. Please try again later.',
-          });
-        }
-        return;
-      }
-  
-      const data = await response.json();
-     
-      
-  
-      
-      generateChallanPDF(data); // Pass the correct data to the PDF generation function
-      } 
-      catch (error) {
+const handleSubmit = async (e) => {
+  e.preventDefault();
+ 
+  setLoading(true);
+
+  try {
+    const response = await fetch("http://localhost:5000/api/service/call", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify({
+        serviceName: "Challan Check",  // or "Challan Check" if needed
+       payload: {
+  vehicleNumber: vehicleNumber.toUpperCase(),
+}
+      }),
+    });
+
+    if (!response.ok) {
+      if (response.status === 402) {
+        setErrorInfo({
+          type: 'payment',
+          message: (
+            <p className="text-lg text-gray-800">
+              Insufficient balance.
+              <br />
+              <strong>Please recharge your wallet.</strong>
+            </p>
+          ),
+        });
+      } else if (response.status === 401) {
+        setErrorInfo({
+          type: 'auth',
+          message: (
+            <p className="text-lg text-gray-800">
+              Session expired.
+              <br />
+              <strong>Please login again.</strong>
+            </p>
+          ),
+        });
+      } else {
         setErrorInfo({
           type: 'generic',
-          message: 'Network or server error. Please try again.',
+          message: 'Something went wrong. Please try again later.',
         });
       }
-        
-  };
+      return;
+    }
+
+    const data = await response.json();
+    generateChallanPDF(data);
+    setSubmissionSuccess(true);
+    // Or handle data accordingly
+  } catch (error) {
+    setErrorInfo({
+      type: 'generic',
+      message: 'Network or server error. Please try again.',
+    });
+   } finally {
+   setLoading(false);
+   }
+};
+
   return (
     
    <div className="min-h-screen bg-white lg:pl-[19.2rem]"> <Sidebar/>
    <MobileMenu/>
-   <Header/>
+   <Header  disableButtons={loading} />
    {errorInfo && (
   <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
     <div className="bg-white border-l-8 border-red-500 rounded-2xl shadow-2xl w-full max-w-2xl mx-6 p-8 animate-fade-in">
@@ -358,24 +367,91 @@ const [errorInfo, setErrorInfo] = useState(null);
            />
            <button
              type="submit"
+             disabled={loading} 
              className="mt-4 w-full sm:w-auto bg-gradient-to-r from-blue-500 to-purple-600 text-white px-6 py-2 rounded-lg shadow hover:brightness-110 transition-all"
            >
-             Submit
+  {loading ? (
+  <div className="fixed inset-0 z-50 bg-white/60 backdrop-blur-sm flex items-center justify-center pointer-events-none">
+    <div className="flex flex-col items-center justify-center space-y-8 p-4 rounded-2xl shadow-2xl bg-white/90 backdrop-blur-md pointer-events-none w-full max-w-sm md:max-w-md lg:max-w-lg mt-[-200px] lg:mt-[-40px]">
+      
+      {/* Spinner Container */}
+      <div className="relative w-32 h-32 md:w-40 md:h-40 lg:w-48 lg:h-48">
+        {/* Outer Spinner Circle */}
+        <div className="absolute inset-0 border-[6px] md:border-[6px] border-t-transparent border-l-blue-500 border-r-blue-300 border-b-transparent rounded-full animate-spin"></div>
+
+        {/* Inner Circle */}
+        <div className="absolute inset-4 bg-white rounded-full shadow-inner flex items-center justify-center">
+          <img
+            src="https://res.cloudinary.com/dztz5ltuq/image/upload/v1731448689/apple-touch-icon_jrhfll.png"
+            alt="Car Logo"
+            className="w-12 h-12 md:w-16 md:h-16 animate-rotateY"
+          />
+        </div>
+      </div>
+
+      {/* Loading Text */}
+      <p className="w-full text-lg md:text-xl font-semibold text-gray-800 text-center">
+        <strong>Generating Report... Please wait.</strong>
+      </p>
+
+      {/* Brand Name */}
+      <span className="text-blue-500 text-base font-medium">Car History Dekho</span>
+    </div>
+  </div>
+) : (
+  'Submit'
+)}
+
+
+
+
+
+
+
+
+
+
+
+
+
            </button>
+           {submissionSuccess && (
+        <div className="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-50 z-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg max-w-md text-center">
+            <h2 className="text-xl font-semibold text-green-600">Report generated successfully.</h2>
+            <p className="mt-2 text-gray-700">THANK YOU.</p>
+            <button
+              onClick={() => setSubmissionSuccess(false)}
+              className="mt-4 px-6 py-2 bg-blue-500 text
+              white rounded-lg hover:bg-blue-600 transition"
+            >
+            Close
+            </button>
+          </div>
+        </div>
+      )}
          </div>
        </form>
  
        {/* Sample Response Button */}
        <div className="mt-6 text-center">
-         <a
-           href="/sample-response.pdf"
-           target="_blank"
-           rel="noopener noreferrer"
-           className="inline-block text-blue-600 underline text-sm hover:text-blue-800 transition-colors"
-         >
-         Click to view Sample Check Report
-         </a>
-       </div>
+  <button
+    onClick={() => {
+      if (!loading) {
+        window.open("/sample-response.pdf", "_blank", "noopener,noreferrer");
+      }
+    }}
+    disabled={loading}
+    className={`text-blue-600 underline text-sm transition-colors bg-white  lg:bg-blue-50/60 border-none ${
+      loading
+        ? "opacity-50 cursor-not-allowed pointer-events-none"
+        : "hover:text-blue-800"
+    }`}
+  >
+    Click to view Sample Check Report
+  </button>
+</div>
+
  
        {/* Title + Description */}
        <div className="mt-4 border-t pt-4 border-gray-200">
