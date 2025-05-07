@@ -206,12 +206,18 @@ const navigate = useNavigate();
     
               {isOpen && (
                 <div className="absolute right-0 mt-2 w-48 bg-white border rounded-lg shadow-lg z-10">
-                  <ul>
-                    <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Profile</li>
-                    <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Settings</li>
-                    <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Support</li>
-                    <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Logout</li>
-                  </ul>
+                <ul>
+  <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
+    <Link to="/profile">Profile</Link>
+  </li>
+ 
+  <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
+    <Link to="/support">Support</Link>
+  </li>
+  <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
+    <Link to="/logout">Logout</Link> {/* Add logout functionality if needed */}
+  </li>
+</ul>
                 </div>
               )}
             </div>

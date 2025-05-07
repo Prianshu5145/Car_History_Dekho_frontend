@@ -78,11 +78,11 @@ const MarutiResponse = () => {
           lineWidth: 0.2 
         },
         bodyStyles: { textColor: [0, 0, 0], lineColor: [0, 0, 0], lineWidth: 0.1 },
-        tableWidth: 'auto',
+       
         columnStyles: {
     0: { cellWidth: 70 }, // Adjust width of first column as needed
   },
-          bodyStyles: { textColor: [0, 0, 0], lineColor: [0, 0, 0], lineWidth: 0.1 },
+         
           tableWidth: 'auto',
           didParseCell: function (data) {
             if (data.section === 'body' && data.row.index === 1) {

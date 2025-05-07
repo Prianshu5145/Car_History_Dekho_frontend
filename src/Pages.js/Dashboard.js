@@ -1,14 +1,11 @@
 import { useState, useEffect, useRef } from "react";
 import axios from "axios";
-import Footer from "../components/footer";
+
 import {
-  Bell,
-  Phone,
+ 
+  
   RefreshCw,
-  Plus,
-  User,
-  RotateCcw,
-  PlusCircle,
+  
 } from "lucide-react";
 import Sidebar from "../components/sidebar";
 import MobileMenu from "../components/MobileMenu";

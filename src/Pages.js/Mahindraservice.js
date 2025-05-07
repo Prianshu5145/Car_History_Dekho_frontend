@@ -40,13 +40,14 @@ const MahindraResponse = () => {
          const tableSpacing = 117; // Adjust if content overflows
          const startY = baseY + tableIndexOnPage * tableSpacing;
      
-         if(recordNumber!=totalRecords){
-         doc.setFontSize(17);
-         doc.text(`Service Record No. ${recordNumber}`, 14, startY);}
-         else{
-         doc.setFontSize(17);
-         doc.text(`Service Record No. ${recordNumber} (Latest Service)`, 14, startY);
-         }
+         if (recordNumber !== totalRecords) {
+          doc.setFontSize(17);
+          doc.text(`Service Record No. ${recordNumber}`, 14, startY);
+      } else {
+          doc.setFontSize(17);
+          doc.text(`Service Record No. ${recordNumber} (Latest Service)`, 14, startY);
+      }
+      
          doc.setFontSize(14);
          autoTable(doc, {
            startY: startY + 6,

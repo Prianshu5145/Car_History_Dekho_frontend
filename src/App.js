@@ -15,6 +15,7 @@ import PaymentPage from './Pages.js/razorpay.js'
 import AadhaarResponse from './Pages.js/Aadharcard.js'
 import Transactions from './Pages.js/transaction.js'
 import Profile from './Pages.js/Profile.js'
+import logout from './Pages.js/logout.js'
 function App() {
  
   return (
@@ -35,6 +36,7 @@ function App() {
       <Route path="/Aadhar-Response" element={<AadhaarResponse />} />
       <Route path="/transactions" element={<Transactions />} />
       <Route path="/profile" element={<Profile />} />
+      <Route path="/logout" element={<Logout />} />
 
       </Routes>
     </div>

@@ -1,31 +1,29 @@
-import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../Contexts/AuthContext'; // Adjust the import based on your context path
+// logout.js
 
-const Logout = () => {
-  const { logout } = useAuth(); // Access logout function from your AuthContext
-  const navigate = useNavigate();
 
-  useEffect(() => {
-    const handleLogout = async () => {
-      try {
-        await logout();
-        // Call the logout function to handle any necessary state updates
-        navigate('/'); // Redirect to login page after successful logout
-      } catch (error) {
-        console.error('Failed to log out:', error);
-      }
-    };
 
-    handleLogout();
-  }, [logout, navigate]);
+ const Logout = async () => {
+  try {
+    // Make the request to the backend to clear the token cookie
+    const response = await fetch('http://localhost:5000/api/user/logout', {
+      method: 'POST', // or 'GET' based on your backend
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
 
-  return (
-    <div className="flex flex-col items-center justify-center h-screen">
-      <h1 className="text-2xl font-bold">Logging out...</h1>
-      <p className="mt-4">You will be redirected shortly.</p>
-    </div>
-  );
+    if (response.ok) {
+      const data = await response.json();
+      console.log(data.message); // You can log the message or show a notification
+      
+      // Redirect to login page or home page after logging out
+      window.location.href = '/Dashboard'; // or use useHistory to navigate in React
+    } else {
+      console.error('Logout failed');
+    }
+  } catch (error) {
+    console.error('Error during logout:', error);
+  }
 };
 
 export default Logout;
