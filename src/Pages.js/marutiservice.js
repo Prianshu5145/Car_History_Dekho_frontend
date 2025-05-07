@@ -40,7 +40,7 @@ const MarutiResponse = () => {
         const tableSpacing = 130; // Adjust if content overflows
         const startY = baseY + tableIndexOnPage * tableSpacing;
     
-        if(recordNumber!=totalRecords){
+        if(recordNumber!==totalRecords){
         doc.setFontSize(17);
         doc.text(`Service Record No. ${recordNumber}`, 14, startY);}
         else{
@@ -159,7 +159,7 @@ const [errorInfo, setErrorInfo] = useState(null);
         const data = await response.json();
        
         // Access the result data from the nested structure
-        const { result } = data.data;
+        
     
        
         generateServicePDF(data); 

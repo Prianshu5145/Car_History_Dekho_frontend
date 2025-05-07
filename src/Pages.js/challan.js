@@ -100,7 +100,7 @@ const ChallanResponse = () => {
                 doc.addPage();
                 currentY = 20;
             }
-console.log('offence',challan.offence_details?.[0]?.name);
+
             const body = [
                 ['Challan No :', challan.challan_no || '-'],
                 ['Date & Time :', challan.challan_date_time || '-'],
@@ -168,7 +168,7 @@ console.log('offence',challan.offence_details?.[0]?.name);
     const regularPending = filterChallans(Pending_data, false, true);
     const ePending = filterChallans(Pending_data, false, false);
     const totalPending = virtualPending.length + regularPending.length + ePending.length;
-    let count =0;
+    
     y = drawMainSectionTitle("Pending Challans", totalPending, y+3,count1);
     y = drawSection(`1. Pending Virtual Court Challans (${virtualPending.length} Challan)`, virtualPending, y+3, false, tableCountRef,count1,count2);
     y = drawSection(`2. Pending Regular Court Challans (${regularPending.length} Challan)`, regularPending, y+3, false, tableCountRef,count1,count2);
@@ -184,7 +184,7 @@ console.log('offence',challan.offence_details?.[0]?.name);
         y = 20;
         count1++;
     }
-console.log('y',y);
+
 
     y = drawMainSectionTitle("Disposed(Paid) Challans", Disposed_data.length, y+3);
     console.log('y',y);

@@ -9,7 +9,7 @@ import {
   IdCard,
   CreditCard,
   Contact,
-  MoreVertical
+  
 } from 'lucide-react';
 
 export default function Sidebar() {

@@ -5,7 +5,7 @@ import { useAuth } from '../Contexts/AuthContext.js';
 import Navbar from '../components/navbar.js';
 import { auth, provider, signInWithPopup } from "../firebase.js";
 const Login = () => {
-  const { login } = useAuth();
+  
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [otp, setOtp] = useState('');

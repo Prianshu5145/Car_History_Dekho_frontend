@@ -5,7 +5,7 @@ import {
   FaRegAddressCard,
   FaUniversity,
   FaTachometerAlt,
-  FaTools,
+ 
   FaExclamationTriangle,
  
   
@@ -13,7 +13,7 @@ import {
 import { MdSpeed,  } from "react-icons/md";
 import { HiArrowRight } from 'react-icons/hi';
 import { GiSpeedometer } from "react-icons/gi";
-import { BsCheckCircleFill } from "react-icons/bs";
+
 import { HiOutlineIdentification } from "react-icons/hi";
 const services = [
   

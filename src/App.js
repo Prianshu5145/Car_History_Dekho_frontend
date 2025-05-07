@@ -15,7 +15,7 @@ import PaymentPage from './Pages.js/razorpay.js'
 import AadhaarResponse from './Pages.js/Aadharcard.js'
 import Transactions from './Pages.js/transaction.js'
 import Profile from './Pages.js/Profile.js'
-import logout from './Pages.js/logout.js'
+
 function App() {
  
   return (

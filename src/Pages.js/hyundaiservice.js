@@ -41,7 +41,7 @@ const HyundaiResponse = () => {
       const tableSpacing = 100; // Adjust if content overflows
       const startY = baseY + tableIndexOnPage * tableSpacing;
   
-      if(recordNumber!=totalRecords){
+      if(recordNumber!==totalRecords){
       doc.setFontSize(17);
       doc.text(`Service Record No. ${recordNumber}`, 14, startY);}
       else{

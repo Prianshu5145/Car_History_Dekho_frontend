@@ -27,7 +27,7 @@ import numWords from 'num-words';
 export default function Header({ disableButtons }){
   const [isOpenbalance, setIsOpenbalance] = useState(false);
   const [amount, setAmount] = useState('');
-const [addbalancebutton,setaddbalancebutton]=useState(false);
+
   const openPopup = () => setIsOpenbalance(true);
   const closePopup = () => {
     setAmount('');
@@ -87,9 +87,7 @@ const navigate = useNavigate();
     }
   };
 
-  const items = [
-    { key: "walletBalance", label: "Wallet Balance", color: "blue" },
-  ];
+  
   const handlePayment = async (e) => {
     e.preventDefault();
     if (!amount || isNaN(amount)) return alert("Enter a valid amount");

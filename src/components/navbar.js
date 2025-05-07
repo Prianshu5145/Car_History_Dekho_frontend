@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { FaUser, FaBars, FaTimes ,FaEnvelope} from 'react-icons/fa'; 
+import { FaBars, FaTimes ,} from 'react-icons/fa'; 
 import { useAuth } from '../Contexts/AuthContext'; 
 
 const Navbar = () => {
