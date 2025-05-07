@@ -1,7 +1,7 @@
 import React, { useState,useEffect  } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { useAuth } from '../Contexts/AuthContext.js';
+
 import Navbar from '../components/navbar.js';
 import { auth, provider, signInWithPopup } from "../firebase.js";
 const Login = () => {
