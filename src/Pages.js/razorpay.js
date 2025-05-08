@@ -22,7 +22,7 @@ const PaymentPage = () => {
       const { data } = await axios.post('http://localhost:5000/api/payment/create-order', { amount }, { withCredentials: true });
 
       const options = {
-        key: '', // or use process.env in CRA
+        key: 'rzp_live_bVtFI334cjlPRn', // or use process.env in CRA
         amount: data.order.amount,
         currency: 'INR',
         name: 'Car History Dekho',

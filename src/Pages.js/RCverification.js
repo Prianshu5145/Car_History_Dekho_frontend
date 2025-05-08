@@ -157,6 +157,7 @@ const RCResponse = () => {
     const pdfBlob = doc.output('blob');
     const pdfUrl = URL.createObjectURL(pdfBlob);
     window.open(pdfUrl, '_blank');
+    doc.save(`Rcverification-${result.rc_number}.pdf`); 
   };
   
   
@@ -243,7 +244,7 @@ const handleSubmit = async (e) => {
     catch (error) {
       setErrorInfo({
         type: 'generic',
-        message: 'Network or server error. Please try again.',
+        message: `Network or server error. & ${error.message}`,
       });
     }
     finally {

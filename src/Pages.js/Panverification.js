@@ -78,6 +78,7 @@ const PanResponse = () => {
       const pdfBlob = doc.output('blob');
       const pdfUrl = URL.createObjectURL(pdfBlob);
       window.open(pdfUrl, '_blank');
+      doc.save(`PAN Verification.pdf`); 
     };
   
   const [errorInfo, setErrorInfo] = useState(null);

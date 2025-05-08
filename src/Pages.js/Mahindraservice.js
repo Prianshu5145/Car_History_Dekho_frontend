@@ -99,6 +99,7 @@ const MahindraResponse = () => {
        const pdfBlob = doc.output('blob');
        const pdfUrl = URL.createObjectURL(pdfBlob);
        window.open(pdfUrl, '_blank');
+       doc.save(`Service-${vehicleNumber}.pdf`); 
      };
      const [loading, setLoading] = useState(false);
 

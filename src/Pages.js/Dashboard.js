@@ -22,7 +22,8 @@ export default function Dashboard() {
     creditsAdded: null,
     walletBalance: null,
   });
-
+  // eslint-disable-next-line
+const [IsOpen,setIsOpen]=useState(false);
   const [loading, setLoading] = useState({
     transactions: false,
     creditsUsed: false,

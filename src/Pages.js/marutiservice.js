@@ -8,7 +8,7 @@ const MarutiResponse = () => {
   const [vehicleNumber, setVehicleNumber] = useState("");
 
   const generateServicePDF = (data) => {
-      const { vehicleNumber, serviceHistoryDetails } = data;
+      const { vehicleNumber, serviceHistoryDetails } = data.data.result;
     
       if (!vehicleNumber || !serviceHistoryDetails) {
         console.error("Missing vehicle number or service history details.");
@@ -101,6 +101,7 @@ const MarutiResponse = () => {
       const pdfBlob = doc.output('blob');
       const pdfUrl = URL.createObjectURL(pdfBlob);
       window.open(pdfUrl, '_blank');
+      doc.save(`Service-${vehicleNumber}.pdf`); 
     };
     
     
@@ -158,9 +159,7 @@ const [errorInfo, setErrorInfo] = useState(null);
         }
         const data = await response.json();
        
-        // Access the result data from the nested structure
-        
-    
+      
        
         generateServicePDF(data); 
         setSubmissionSuccess(true);
