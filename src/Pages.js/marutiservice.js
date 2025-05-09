@@ -127,7 +127,7 @@ const [errorInfo, setErrorInfo] = useState(null);
       setLoading(true);
       try {
         const response = await axios.post(
-          "car-history-dekho-backend-production.up.railway.app/api/service/call",
+          "https://car-history-dekho-backend-production.up.railway.app/api/service/call",
           {
             serviceName: "Maruti Service",
             payload: {

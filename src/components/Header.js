@@ -43,11 +43,7 @@ export default function Header({ disableButtons }){
 const navigate = useNavigate();
   // Load Razorpay script
   useEffect(() => {
-    const script = document.createElement('script');
-    script.src = 'https://checkout.razorpay.com/v1/checkout.js';
-    script.async = true;
-    document.body.appendChild(script);
-
+   
     function handleClickOutside(event) {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setIsOpen(false);
@@ -80,7 +76,7 @@ const navigate = useNavigate();
   const fetchStat = async (key) => {
     setLoading((prev) => ({ ...prev, [key]: true }));
     try {
-      const response = await axios.get('http://localhost:5000/api/payment/balance', {
+      const response = await axios.get('https://car-history-dekho-backend-production.up.railway.app/api/payment/balance', {
         withCredentials: true, // This will include credentials like cookies in the request
       });
      

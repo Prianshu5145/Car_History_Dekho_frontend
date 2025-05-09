@@ -14,7 +14,7 @@ const AddWalletPopup = ({ isOpen, onClose, onSuccess }) => {
     if (!amount || isNaN(amount)) return alert("Enter a valid amount");
 
     try {
-      const { data } = await axios.post('car-history-dekho-backend-production.up.railway.app/api/payment/create-order', { amount }, { withCredentials: true });
+      const { data } = await axios.post('https://car-history-dekho-backend-production.up.railway.app/api/payment/create-order', { amount }, { withCredentials: true });
 
       const options = {
         key: 'rzp_live_bVtFI334cjlPRn',
@@ -25,7 +25,7 @@ const AddWalletPopup = ({ isOpen, onClose, onSuccess }) => {
         order_id: data.order.id,
         handler: async function (response) {
           try {
-            const verifyRes = await axios.post('car-history-dekho-backend-production.up.railway.app/api/payment/verify', {
+            const verifyRes = await axios.post('https://car-history-dekho-backend-production.up.railway.app/api/payment/verify', {
               ...response,
               amount: Number(amount),
             }, { withCredentials: true });

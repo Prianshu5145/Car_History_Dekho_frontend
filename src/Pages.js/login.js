@@ -54,11 +54,11 @@ const [selectedMethod, setSelectedMethod] = useState('email-otp'); // default se
         setStep('otp');
         setSecondsLeft(50);
         setResendEnabled(false);
-        await axios.post('car-history-dekho-backend-production.up.railway.app/api/user/email-login', { email }, { withCredentials: true });
+        await axios.post('https://car-history-dekho-backend-production.up.railway.app/api/user/email-login', { email }, { withCredentials: true });
         setMessage('OTP sent to your email.');
       } else {
         setLoading(true);
-        await axios.post('car-history-dekho-backend-production.up.railway.app/api/user/verify-otp', { email, otp }, { withCredentials: true });
+        await axios.post('https://car-history-dekho-backend-production.up.railway.app/api/user/verify-otp', { email, otp }, { withCredentials: true });
         setLoading(false);
         setMessage('Logged in successfully!');
         navigate('/Dashboard');
@@ -78,7 +78,7 @@ const [selectedMethod, setSelectedMethod] = useState('email-otp'); // default se
   
     try {
       await axios.post(
-        'car-history-dekho-backend-production.up.railway.app/api/user/login-or-register',
+        'https://car-history-dekho-backend-production.up.railway.app/api/user/login-or-register',
         { email, password },
         { withCredentials: true }
       );
@@ -99,7 +99,7 @@ const [selectedMethod, setSelectedMethod] = useState('email-otp'); // default se
       const { user } = result;
   
       await axios.post(
-        "car-history-dekho-backend-production.up.railway.app/api/user/google-login",
+        "https://car-history-dekho-backend-production.up.railway.app/api/user/google-login",
         {
           email: user.email,
           googleId: user.uid,
@@ -240,7 +240,7 @@ const [selectedMethod, setSelectedMethod] = useState('email-otp'); // default se
           onClick={() => {
             setSecondsLeft(10);
             setResendEnabled(false);
-            axios.post('car-history-dekho-backend-production.up.railway.app/api/user/email-login', { email });
+            axios.post('https://car-history-dekho-backend-production.up.railway.app/api/user/email-login', { email });
             setMessage('OTP resent to your email.');
           }}
           className="text-blue-500 hover:underline text-sm"

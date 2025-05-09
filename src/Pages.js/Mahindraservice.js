@@ -125,7 +125,7 @@ const [submissionSuccess, setSubmissionSuccess] = useState(false);
     
       try {
         const response = await axios.post(
-          "car-history-dekho-backend-production.up.railway.app/api/service/call",
+          "https://car-history-dekho-backend-production.up.railway.app/api/service/call",
           {
             serviceName: "Mahindra Service",
             payload: {

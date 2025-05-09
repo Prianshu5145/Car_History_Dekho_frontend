@@ -1,6 +1,6 @@
 const Logout = async () => {
   try {
-    const response = await fetch('car-history-dekho-backend-production.up.railway.app/api/user/logout', {
+    const response = await fetch('https://car-history-dekho-backend-production.up.railway.app/api/user/logout', {
       method: 'POST',
       credentials: 'include', // Important to send cookies
     });
