@@ -50,10 +50,10 @@ const [IsOpen,setIsOpen]=useState(false);
   const fetchWalletBalance = async () => {
     setLoading(prev => ({ ...prev, walletBalance: true }));
     try {
-      const res = await axios.get('http://localhost:5000/api/payment/balance', { withCredentials: true });
+      const res = await axios.get('car-history-dekho-backend-production.up.railway.app/api/payment/balance', { withCredentials: true });
       setData(prev => ({ ...prev, walletBalance: res.data.balance }));
     } catch (err) {
-      console.error("Wallet balance fetch error:", err);
+      
     } finally {
       setLoading(prev => ({ ...prev, walletBalance: false }));
     }
@@ -62,11 +62,11 @@ const [IsOpen,setIsOpen]=useState(false);
   const fetchTotalTransactions = async () => {
     setLoading(prev => ({ ...prev, transactions: true }));
     try {
-      const res = await axios.get('http://localhost:5000/api/payment/total-transaction', { withCredentials: true });
+      const res = await axios.get('car-history-dekho-backend-production.up.railway.app/api/payment/total-transaction', { withCredentials: true });
       console.log('total',res);
       setData(prev => ({ ...prev, transactions: res.data.totalTransactions }));
     } catch (err) {
-      console.error("Transactions fetch error:", err);
+     
     } finally {
       setLoading(prev => ({ ...prev, transactions: false }));
     }
@@ -75,10 +75,10 @@ const [IsOpen,setIsOpen]=useState(false);
   const fetchCreditsUsed = async () => {
     setLoading(prev => ({ ...prev, creditsUsed: true }));
     try {
-      const res = await axios.get('http://localhost:5000/api/payment/total-debit', { withCredentials: true });
+      const res = await axios.get('car-history-dekho-backend-production.up.railway.app/api/payment/total-debit', { withCredentials: true });
       setData(prev => ({ ...prev, creditsUsed: res.data.totalCreditUsed }));
     } catch (err) {
-      console.error("Credits used fetch error:", err);
+     
     } finally {
       setLoading(prev => ({ ...prev, creditsUsed: false }));
     }
@@ -87,10 +87,10 @@ const [IsOpen,setIsOpen]=useState(false);
   const fetchCreditsAdded = async () => {
     setLoading(prev => ({ ...prev, creditsAdded: true }));
     try {
-      const res = await axios.get('http://localhost:5000/api/payment/total-credit', { withCredentials: true });
+      const res = await axios.get('car-history-dekho-backend-production.up.railway.app/api/payment/total-credit', { withCredentials: true });
       setData(prev => ({ ...prev, creditsAdded: res.data.totalCreditAdded }));
     } catch (err) {
-      console.error("Credits added fetch error:", err);
+      
     } finally {
       setLoading(prev => ({ ...prev, creditsAdded: false }));
     }

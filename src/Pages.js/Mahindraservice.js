@@ -4,9 +4,22 @@ import Sidebar from "../components/sidebar";
 import MobileMenu from "../components/MobileMenu";
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
+import axios from 'axios';
+import AddWalletPopup from '../components/AddWalletPopup';
 const MahindraResponse = () => {
   const [vehicleNumber, setVehicleNumber] = useState("");
+const [isPopupOpen, setIsPopupOpen] = useState(false);
 
+  const handleAddBalance = () => {
+    setIsPopupOpen(true);   // Open the popup
+    setErrorInfo(null)     // Call any other function you want
+  };
+  
+  const handleClosePopup = () => setIsPopupOpen(false);
+  const handleSuccess = (newBalance) => {
+    
+    
+  };
  const generateServicePDF = (data) => {
        const { vehicleNumber, serviceHistoryDetails } = data;
      
@@ -109,76 +122,79 @@ const [submissionSuccess, setSubmissionSuccess] = useState(false);
      const handleSubmit = async (e) => {
       e.preventDefault();
       setLoading(true);
-
+    
       try {
-        const response = await fetch("http://localhost:5000/api/service/call", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          credentials: "include",
-          body: JSON.stringify({
-           
+        const response = await axios.post(
+          "car-history-dekho-backend-production.up.railway.app/api/service/call",
+          {
             serviceName: "Mahindra Service",
             payload: {
               vehicleNumber: vehicleNumber.toUpperCase(),
-            }
-            
-          }),
-        });
+            },
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+            withCredentials: true, // ✅ Correct key for cookies
+          }
+        );
     
-        if (!response.ok) {
-          if (response.status === 402) {
+        // ✅ No .json() needed with Axios
+        const { result } = response.data.data;
+    
+        generateServicePDF(result);
+        setSubmissionSuccess(true);
+      } catch (error) {
+        if (axios.isAxiosError(error)) {
+          const status = error.response?.status;
+          const errorData = error.response?.data;
+    
+          if (status === 402) {
             setErrorInfo({
-              type: 'payment',
-              message: <p className="text-lg text-gray-800">
-              Insufficient balance.
-              <br />
-              <strong> Please recharge your wallet.</strong>
-            </p>,
+              type: "payment",
+              message: (
+                <p className="text-lg text-gray-800">
+                  Insufficient balance. <br /> Rs.25 Required for this Service
+                  <br />
+                  <strong>Please recharge your wallet.</strong>
+                </p>
+              ),
             });
-          } else if (response.status === 401) {
+          } else if (status === 401) {
             setErrorInfo({
-              type: 'auth',
-              message: <p className="text-lg text-gray-800">
-              Session expired.
-              <br />
-              <strong>Please login again.</strong>
-            </p>
-            ,
+              type: "auth",
+              message: (
+                <p className="text-lg text-gray-800">
+                  Session expired or Unauthenticated
+                  <br />
+                  <strong>Please login again.</strong>
+                </p>
+              ),
             });
           } else {
             setErrorInfo({
-              type: 'generic',
-              message: 'Something went wrong. Please try again later.',
+              type: "generic",
+              message: (
+                <p className="text-lg text-gray-800">
+                  Server Error
+                  <br />
+                  <strong>{errorData?.message || error.message}</strong>
+                </p>
+              ),
             });
           }
-          return;
+        } else {
+          setErrorInfo({
+            type: "generic",
+            message: "Unknown error occurred.",
+          });
         }
-    
-        const data = await response.json();
-       
-        // Access the result data from the nested structure
-        const { result } = data.data;
-    
-         
-          
-          generateServicePDF(result); 
-          setSubmissionSuccess(true);
-
-// Pass the correct data to the PDF generation function
-      }
-       catch (error) {
-        setErrorInfo({
-          type: 'generic',
-          message: 'Network or server error. Please try again.',
-        });
-      }
-      finally {
+      } finally {
         setLoading(false);
-        }
-     
+      }
     };
+    
   return (
     
    <div className="min-h-screen bg-white lg:pl-[19.2rem]"> <Sidebar/>
@@ -196,7 +212,7 @@ const [submissionSuccess, setSubmissionSuccess] = useState(false);
       <div className="flex justify-end space-x-4">
         {errorInfo.type === 'payment' && (
           <button
-            onClick={() => window.location.href = '/Payment-Page'}
+             onClick={handleAddBalance}
             className="bg-red-600 text-white px-6 py-3 rounded-lg hover:bg-red-700 transition"
           >
             Recharge Wallet
@@ -222,6 +238,11 @@ const [submissionSuccess, setSubmissionSuccess] = useState(false);
     </div>
   </div>
 )}
+<AddWalletPopup
+        isOpen={isPopupOpen}
+        onClose={handleClosePopup}
+        onSuccess={handleSuccess}
+      />
    <div className="px-4 sm:px-8 py-6 flex  lg:max-w-screen lg:bg-white   lg:p-0 lg:sm:p-10 ">
    
  
@@ -306,8 +327,11 @@ const [submissionSuccess, setSubmissionSuccess] = useState(false);
 
            </button>
            <span className="text-red-600 font-semibold block mt-2">
-  NOTE : This service is currently working for Bolero and Thar model vehicles only.
+  NOTE: This service is currently working for{" "}
+  <span className="underline">Bolero</span> and{" "}
+  <span className="underline">Thar</span> model vehicles only.
 </span>
+
 
          </div>
        </form>

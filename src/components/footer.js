@@ -51,7 +51,7 @@ const Footer = () => {
             <p className="text-gray-400 mb-2">
               Email: 
               <a href="mailto:team@carhistorydekho.in" className="text-blue-400 hover:text-blue-500 transition ml-1">
-                team@carhistorydekho.in
+                team@carhistorydekho.com
               </a>
             </p>
             <p className="text-gray-400">

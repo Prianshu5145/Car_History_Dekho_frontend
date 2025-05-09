@@ -4,9 +4,22 @@ import Sidebar from "../components/sidebar";
 import MobileMenu from "../components/MobileMenu";
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
+import axios from 'axios';
+import AddWalletPopup from '../components/AddWalletPopup';
 const MarutiResponse = () => {
   const [vehicleNumber, setVehicleNumber] = useState("");
+ const [isPopupOpen, setIsPopupOpen] = useState(false);
 
+  const handleAddBalance = () => {
+    setIsPopupOpen(true);   // Open the popup
+    setErrorInfo(null)     // Call any other function you want
+  };
+  
+  const handleClosePopup = () => setIsPopupOpen(false);
+  const handleSuccess = (newBalance) => {
+    console.log("Payment success. New balance:", newBalance);
+    
+  };
   const generateServicePDF = (data) => {
       const { vehicleNumber, serviceHistoryDetails } = data.data.result;
     
@@ -113,69 +126,78 @@ const [errorInfo, setErrorInfo] = useState(null);
      
       setLoading(true);
       try {
-        const response = await fetch("http://localhost:5000/api/service/call", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          credentials: "include",
-          body: JSON.stringify({
-            
+        const response = await axios.post(
+          "car-history-dekho-backend-production.up.railway.app/api/service/call",
+          {
             serviceName: "Maruti Service",
             payload: {
               vehicleNumber: vehicleNumber.toUpperCase(),
             }
-            
-          }),
-        });
-    
-        if (!response.ok) {
-          if (response.status === 402) {
-            setErrorInfo({
-              type: 'payment',
-              message: <p className="text-lg text-gray-800">
-              Insufficient balance.
-              <br />
-              <strong> Please recharge your wallet.</strong>
-            </p>,
-            });
-          } else if (response.status === 401) {
-            setErrorInfo({
-              type: 'auth',
-              message: <p className="text-lg text-gray-800">
-              Session expired.
-              <br />
-              <strong>Please login again.</strong>
-            </p>
-            ,
-            });
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+            withCredentials: true, // ✅ Correct key for sending cookies
+          }
+        );
+      
+        const data = response.data;
+      
+        generateServicePDF(data); 
+        setSubmissionSuccess(true);
+      
+      }
+      
+        catch (error) {
+          if (axios.isAxiosError(error)) {
+            const status = error.response?.status;
+            const errorData = error.response?.data;
+      
+            if (status === 402) {
+              setErrorInfo({
+                type: 'payment',
+                message: (
+                  <p className="text-lg text-gray-800">
+                    Insufficient balance. <br/> Rs.25 Required for this Service
+                    <br />
+                    <strong>Please recharge your wallet.</strong>
+                  </p>
+                ),
+              });
+            } else if (status === 401) {
+              setErrorInfo({
+                type: 'auth',
+                message: (
+                  <p className="text-lg text-gray-800">
+                    Session expired or Unauthenticated
+                    <br />
+                    <strong>Please login again.</strong>
+                  </p>
+                ),
+              });
+            } else {
+              setErrorInfo({
+                type: 'generic',
+                message: (
+                  <p className="text-lg text-gray-800">
+                    {'Server Error'}
+                    <br />
+                    <strong>{errorData?.message || error.message}</strong>
+                  </p>
+                ),
+              });
+            }
           } else {
             setErrorInfo({
               type: 'generic',
-              message: 'Something went wrong. Please try again later.',
+              message: 'Unknown error occurred.',
             });
           }
-          return;
+        } finally {
+          setLoading(false);
         }
-        const data = await response.json();
-       
-      
-       
-        generateServicePDF(data); 
-        setSubmissionSuccess(true);
-          // Pass the correct data to the PDF generation function
-        
-        }
-       catch (error) {
-        setErrorInfo({
-          type: 'generic',
-          message: 'Network or server error. Please try again.',
-        });
-      }
-      finally {
-        setLoading(false); 
-      }
-    };
+      };
   return (
     
    <div className="min-h-screen bg-white lg:pl-[19.2rem]"> <Sidebar/>
@@ -193,7 +215,7 @@ const [errorInfo, setErrorInfo] = useState(null);
       <div className="flex justify-end space-x-4">
         {errorInfo.type === 'payment' && (
           <button
-            onClick={() => window.location.href = '/Payment-Page'}
+          onClick={handleAddBalance}
             className="bg-red-600 text-white px-6 py-3 rounded-lg hover:bg-red-700 transition"
           >
             Recharge Wallet
@@ -218,7 +240,13 @@ const [errorInfo, setErrorInfo] = useState(null);
       </div>
     </div>
   </div>
-)}<div className="px-4 sm:px-8 py-6 flex  lg:max-w-screen lg:bg-white   lg:p-0 lg:sm:p-10 ">
+)}
+<AddWalletPopup
+        isOpen={isPopupOpen}
+        onClose={handleClosePopup}
+        onSuccess={handleSuccess}
+      />
+<div className="px-4 sm:px-8 py-6 flex  lg:max-w-screen lg:bg-white   lg:p-0 lg:sm:p-10 ">
    
  
    <div className="w-full lg:max-w-screen-md lg:bg-blue-50/60 lg:border-b lg:border-blue-200  lg:shadow-lg lg:p-6 lg:sm:p-10 ">

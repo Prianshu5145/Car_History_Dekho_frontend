@@ -5,11 +5,23 @@ import MobileMenu from "../components/MobileMenu";
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 
-
+import axios from 'axios';
+import AddWalletPopup from '../components/AddWalletPopup';
 const ChallanResponse = () => {
   const [vehicleNumber, setVehicleNumber] = useState("");
 
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
   
+    const handleAddBalance = () => {
+      setIsPopupOpen(true);   // Open the popup
+      setErrorInfo(null)     // Call any other function you want
+    };
+    
+    const handleClosePopup = () => setIsPopupOpen(false);
+    const handleSuccess = (newBalance) => {
+      console.log("Payment success. New balance:", newBalance);
+      
+    };
 
   
   
@@ -212,42 +224,53 @@ const [submissionSuccess, setSubmissionSuccess] = useState(false);
 const [errorInfo, setErrorInfo] = useState(null);
 const handleSubmit = async (e) => {
   e.preventDefault();
- 
   setLoading(true);
 
   try {
-    const response = await fetch("http://localhost:5000/api/service/call", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
+    const response = await axios.post(
+      "car-history-dekho-backend-production.up.railway.app/api/service/call",
+      {
+        serviceName: "Challan Check",
+        payload: {
+          vehicleNumber: vehicleNumber.toUpperCase(),
+        },
       },
-      credentials: "include",
-      body: JSON.stringify({
-        serviceName: "Challan Check",  // or "Challan Check" if needed
-       payload: {
-  vehicleNumber: vehicleNumber.toUpperCase(),
-}
-      }),
-    });
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        withCredentials: true,
+      }
+    );
 
-    if (!response.ok) {
-      if (response.status === 402) {
+    // No need to call response.json() with axios
+    const data = response.data;
+    
+    generateChallanPDF(data);
+    setSubmissionSuccess(true);
+
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const status = error.response?.status;
+      const errorData = error.response?.data;
+
+      if (status === 402) {
         setErrorInfo({
           type: 'payment',
           message: (
             <p className="text-lg text-gray-800">
-              Insufficient balance.
+              Insufficient balance. <br /> Rs.4 Required for this Service
               <br />
               <strong>Please recharge your wallet.</strong>
             </p>
           ),
         });
-      } else if (response.status === 401) {
+      } else if (status === 401) {
         setErrorInfo({
           type: 'auth',
           message: (
             <p className="text-lg text-gray-800">
-              Session expired.
+              Session expired or Unauthenticated
               <br />
               <strong>Please login again.</strong>
             </p>
@@ -256,25 +279,26 @@ const handleSubmit = async (e) => {
       } else {
         setErrorInfo({
           type: 'generic',
-          message: 'Something went wrong. Please try again later.',
+          message: (
+            <p className="text-lg text-gray-800">
+              Server Error
+              <br />
+              <strong>{errorData?.message || error.message}</strong>
+            </p>
+          ),
         });
       }
-      return;
+    } else {
+      setErrorInfo({
+        type: 'generic',
+        message: 'Unknown error occurred.',
+      });
     }
-
-    const data = await response.json();
-    generateChallanPDF(data);
-    setSubmissionSuccess(true);
-    // Or handle data accordingly
-  } catch (error) {
-    setErrorInfo({
-      type: 'generic',
-      message: 'Network or server error. Please try again.',
-    });
-   } finally {
-   setLoading(false);
-   }
+  } finally {
+    setLoading(false);
+  }
 };
+
 
   return (
     
@@ -292,7 +316,7 @@ const handleSubmit = async (e) => {
       <div className="flex justify-end space-x-4">
         {errorInfo.type === 'payment' && (
           <button
-            onClick={() => window.location.href = '/Payment-Page'}
+            onClick={handleAddBalance}
             className="bg-red-600 text-white px-6 py-3 rounded-lg hover:bg-red-700 transition"
           >
             Recharge Wallet
@@ -314,6 +338,12 @@ const handleSubmit = async (e) => {
             Close
           </button>
         )}
+        <AddWalletPopup
+        isOpen={isPopupOpen}
+        onClose={handleClosePopup}
+        onSuccess={handleSuccess}
+      />
+
       </div>
     </div>
   </div>

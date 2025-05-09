@@ -5,10 +5,23 @@ import MobileMenu from "../components/MobileMenu";
 import { useNavigate } from "react-router-dom";
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
+import axios from 'axios';
+import AddWalletPopup from '../components/AddWalletPopup';
 const RCResponse = () => {
   const [vehicleNumber, setVehicleNumber] = useState("");
  
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
   
+    const handleAddBalance = () => {
+      setIsPopupOpen(true);   // Open the popup
+      setErrorInfo(null)     // Call any other function you want
+    };
+    
+    const handleClosePopup = () => setIsPopupOpen(false);
+    const handleSuccess = (newBalance) => {
+      console.log("Payment success. New balance:", newBalance);
+      
+    };
   const generateServicePDF = (data) => {
     const result = data.data.result;
   
@@ -186,73 +199,77 @@ const handleSubmit = async (e) => {
   setLoading(true);
 
   try {
-    const response = await fetch("http://localhost:5000/api/service/call", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "include",
-      body: JSON.stringify({
-        serviceName: "RC Verification" ,
+    const response = await axios.post(
+      "car-history-dekho-backend-production.up.railway.app/api/service/call",
+      {
+        serviceName: "RC Verification",
         payload: {
-  vehicleNumber: vehicleNumber.toUpperCase(),
-}
+          vehicleNumber: vehicleNumber.toUpperCase(),
+        },
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        withCredentials: true,
+      }
+    );
 
-      }),
-    });
+    const data = response.data;
 
-    if (!response.ok) {
-      if (response.status === 402) {
+    generateServicePDF(data); // Use the data as needed
+    setSubmissionSuccess(true);
+
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const status = error.response?.status;
+      const errorData = error.response?.data;
+
+      if (status === 402) {
         setErrorInfo({
-          type: 'payment',
-          message: <p className="text-lg text-gray-800">
-          Insufficient balance.
-          <br />
-          <strong> Please recharge your wallet.</strong>
-        </p>,
+          type: "payment",
+          message: (
+            <p className="text-lg text-gray-800">
+              Insufficient balance. <br /> Rs.6 Required for this Service
+              <br />
+              <strong>Please recharge your wallet.</strong>
+            </p>
+          ),
         });
-      } else if (response.status === 401) {
+      } else if (status === 401) {
         setErrorInfo({
-          type: 'auth',
-          message: <p className="text-lg text-gray-800">
-          Session expired.
-          <br />
-          <strong>Please login again.</strong>
-        </p>
-        ,
+          type: "auth",
+          message: (
+            <p className="text-lg text-gray-800">
+              Session expired or Unauthenticated
+              <br />
+              <strong>Please login again.</strong>
+            </p>
+          ),
         });
       } else {
         setErrorInfo({
-          type: 'generic',
-          message: 'Something went wrong. Please try again later.',
+          type: "generic",
+          message: (
+            <p className="text-lg text-gray-800">
+              Server Error
+              <br />
+              <strong>{errorData?.message || error.message}</strong>
+            </p>
+          ),
         });
       }
-      return;
-    }
-
-    const data = await response.json();
-     // Log the entire response to see the structure
-
-    // Access the result data from the nested structure
-    
-
-    
-      generateServicePDF(data);
-      setSubmissionSuccess(true);
- // Pass the correct data to the PDF generation function
-    } 
-    catch (error) {
+    } else {
       setErrorInfo({
-        type: 'generic',
-        message: `Network or server error. & ${error.message}`,
+        type: "generic",
+        message: "Unknown error occurred.",
       });
     }
-    finally {
-      setLoading(false);
-      }
-   
-   
+  } finally {
+    setLoading(false);
+  }
 };
+
 
 
   
@@ -289,7 +306,7 @@ const handleSubmit = async (e) => {
       <div className="flex justify-end space-x-4">
         {errorInfo.type === 'payment' && (
           <button
-            onClick={() => window.location.href = '/Payment-Page'}
+            onClick={handleAddBalance}
             className="bg-red-600 text-white px-6 py-3 rounded-lg hover:bg-red-700 transition"
           >
             Recharge Wallet
@@ -315,6 +332,11 @@ const handleSubmit = async (e) => {
     </div>
   </div>
 )}
+<AddWalletPopup
+        isOpen={isPopupOpen}
+        onClose={handleClosePopup}
+        onSuccess={handleSuccess}
+      />
 <div className="px-4 sm:px-8 py-6 flex  lg:max-w-screen lg:bg-white   lg:p-0 lg:sm:p-10 ">
    
  

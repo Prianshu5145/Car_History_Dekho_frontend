@@ -23,7 +23,7 @@ const Navbar = () => {
   <Link to="/" className="text-lg font-bold mr-6">
     <img
       src="https://res.cloudinary.com/dunsl7vvf/image/upload/v1746554424/WhatsApp_Image_2025-05-06_at_23.27.00_2c781bc6_bntx08.jpg"
-      alt="Trust N Ride Logo"
+      alt="Car History Dekho Logo"
       className="h-14 w-auto"
     />
   </Link>
@@ -87,7 +87,7 @@ const Navbar = () => {
   <div className="md:hidden absolute top-16 right-0 bg-gray-900 text-white w-full rounded z-50 shadow-lg text-lg">
 
     {/* Common Dropdown Menu for NOT Logged In */}
-    {!isLoggedIn && (
+    
       <>
         <Link to="/Home" className="block px-4 py-2 hover:bg-gray-600">Home</Link>
         <Link to="/login" className="block px-4 py-2 hover:bg-gray-600">Dashboard Login</Link>
@@ -95,48 +95,9 @@ const Navbar = () => {
        
         <Link to="/contact" className="block px-4 py-2 hover:bg-gray-600">Contact Us</Link>
       </>
-    )}
-
+   
     {/* Dropdown Menu for Logged In Users */}
-    {isLoggedIn && (
-      <>
-        <Link to="/profile" className="block px-4 py-2 hover:bg-gray-600">Profile</Link>
-        <Link to="/logout" className="block px-4 py-2 hover:bg-gray-600">Logout</Link>
-
-        {role === 'buyer' && (
-          <>
-            <Link to="/buy" className="block px-4 py-2 hover:bg-gray-600">Buy a Car</Link>
-            <Link to="/sell" className="block px-4 py-2 hover:bg-gray-600">Sell a Car</Link>
-            <Link to="/sell" className="block px-4 py-2 hover:bg-gray-600">Book Inspection of Car</Link>
-          </>
-        )}
-
-        {role === 'Employee' && (
-          <>
-            <Link to="/create-listing" className="block px-4 py-2 hover:bg-gray-600">Create Listing</Link>
-            <Link to="/my-listings" className="block px-4 py-2 hover:bg-gray-600">My Listings</Link>
-            <Link to="/my-listings" className="block px-4 py-2 hover:bg-gray-600">Update Your Listing</Link>
-            <Link to="/my-listings" className="block px-4 py-2 hover:bg-gray-600">Delete Your Listing</Link>
-            <Link to="/rtodoc" className="block px-4 py-2 hover:bg-gray-600">Dispatch RTO DOC</Link>
-            <Link to="/viewnoc" className="block px-4 py-2 hover:bg-gray-600">View RTO DOC</Link>
-            <Link to="/purchasetoken" className="block px-4 py-2 hover:bg-gray-600">Purchase Token Invoice</Link>
-            <Link to="/purchaseDeal" className="block px-4 py-2 hover:bg-gray-600">Purchase Deal Invoice</Link>
-            <Link to="/Selltoken" className="block px-4 py-2 hover:bg-gray-600">Sale Token Invoice</Link>
-            <Link to="/SellDeal" className="block px-4 py-2 hover:bg-gray-600">Sell Deal Invoice</Link>
-          </>
-        )}
-
-        {role === 'admin' && (
-          <>
-            <Link to="/update-listing" className="block px-4 py-2 hover:bg-gray-600">Update Listing</Link>
-            <Link to="/delete-listing" className="block px-4 py-2 hover:bg-gray-600">Delete Listing</Link>
-            <Link to="/uploadReview" className="block px-4 py-2 hover:bg-gray-600">Update Gallery</Link>
-            <Link to="/create-bidding" className="block px-4 py-2 hover:bg-gray-600">Create Bidding Listing</Link>
-            <Link to="/approve-dealer" className="block px-4 py-2 hover:bg-gray-600">Approve Dealer</Link>
-          </>
-        )}
-      </>
-    )}
+    
   </div>
 )}
 

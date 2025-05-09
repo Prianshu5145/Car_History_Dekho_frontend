@@ -54,11 +54,11 @@ const [selectedMethod, setSelectedMethod] = useState('email-otp'); // default se
         setStep('otp');
         setSecondsLeft(50);
         setResendEnabled(false);
-        await axios.post('http://localhost:5000/api/user/email-login', { email }, { withCredentials: true });
+        await axios.post('car-history-dekho-backend-production.up.railway.app/api/user/email-login', { email }, { withCredentials: true });
         setMessage('OTP sent to your email.');
       } else {
         setLoading(true);
-        await axios.post('http://localhost:5000/api/user/verify-otp', { email, otp }, { withCredentials: true });
+        await axios.post('car-history-dekho-backend-production.up.railway.app/api/user/verify-otp', { email, otp }, { withCredentials: true });
         setLoading(false);
         setMessage('Logged in successfully!');
         navigate('/Dashboard');
@@ -78,12 +78,12 @@ const [selectedMethod, setSelectedMethod] = useState('email-otp'); // default se
   
     try {
       await axios.post(
-        'http://localhost:5000/api/user/login-or-register',
+        'car-history-dekho-backend-production.up.railway.app/api/user/login-or-register',
         { email, password },
         { withCredentials: true }
       );
       setMessage('Logged in successfully!');
-      navigate('/');
+      navigate('/Dashboard');
     } catch (err) {
       setError(err.response?.data?.message || 'Login failed.');
     } finally {
@@ -99,7 +99,7 @@ const [selectedMethod, setSelectedMethod] = useState('email-otp'); // default se
       const { user } = result;
   
       await axios.post(
-        "http://localhost:5000/api/user/google-login",
+        "car-history-dekho-backend-production.up.railway.app/api/user/google-login",
         {
           email: user.email,
           googleId: user.uid,
@@ -109,7 +109,7 @@ const [selectedMethod, setSelectedMethod] = useState('email-otp'); // default se
   
       navigate("/Dashboard");
     } catch (err) {
-      console.error("Google login error:", err);
+     
       alert("Google login failed");
     }
   };
@@ -238,9 +238,9 @@ const [selectedMethod, setSelectedMethod] = useState('email-otp'); // default se
         <button
           type="button"
           onClick={() => {
-            setSecondsLeft(50);
+            setSecondsLeft(10);
             setResendEnabled(false);
-            axios.post('http://localhost:5000/api/login/email-login', { email });
+            axios.post('car-history-dekho-backend-production.up.railway.app/api/user/email-login', { email });
             setMessage('OTP resent to your email.');
           }}
           className="text-blue-500 hover:underline text-sm"

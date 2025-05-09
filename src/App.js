@@ -11,7 +11,7 @@ import RCResponse from './Pages.js/RCverification';
 import PanResponse from './Pages.js/Panverification';
 import ChallanResponse from './Pages.js/challan';
 import BankResponse from './Pages.js/BankAccount';
-import PaymentPage from './Pages.js/razorpay.js'
+
 import AadhaarResponse from './Pages.js/Aadharcard.js'
 import Transactions from './Pages.js/transaction.js'
 import Profile from './Pages.js/Profile.js'
@@ -22,7 +22,7 @@ function App() {
     <div>
       <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/logout" element={<Logout />} />
+    
       <Route path="/login" element={<Login />} />
       <Route path="/Dashboard" element={<Dashboard />} />
       <Route path="/h-service-Response" element={<HyundaiResponse />} />
@@ -32,7 +32,7 @@ function App() {
       <Route path="/Pan-Response" element={<PanResponse />} />
       <Route path="/challan-Response" element={<ChallanResponse />} />
       <Route path="/Bank-Response" element={<BankResponse />} />
-      <Route path="/Payment-Page" element={<PaymentPage />} />
+      
       <Route path="/Aadhar-Response" element={<AadhaarResponse />} />
       <Route path="/transactions" element={<Transactions />} />
       <Route path="/profile" element={<Profile />} />

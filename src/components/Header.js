@@ -16,7 +16,7 @@ import { Link } from 'react-router-dom';
 import { X } from 'lucide-react'; 
 import numWords from 'num-words';
   
-
+import AddWalletPopup from '../components/AddWalletPopup';
 
 
 
@@ -25,14 +25,20 @@ import numWords from 'num-words';
 
 
 export default function Header({ disableButtons }){
-  const [isOpenbalance, setIsOpenbalance] = useState(false);
-  const [amount, setAmount] = useState('');
-
-  const openPopup = () => setIsOpenbalance(true);
-  const closePopup = () => {
-    setAmount('');
-    setIsOpenbalance(false);
-  };
+ 
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+     
+       const handleAddBalance = () => {
+         setIsPopupOpen(true);   // Open the popup
+           // Call any other function you want
+       };
+       
+       const handleClosePopup = () => setIsPopupOpen(false);
+       const handleSuccess = (newBalance) => {
+         console.log("Payment success. New balance:", newBalance);
+         
+       };
+  
 
 const navigate = useNavigate();
   // Load Razorpay script
@@ -88,55 +94,7 @@ const navigate = useNavigate();
   };
 
   
-  const handlePayment = async (e) => {
-    e.preventDefault();
-    if (!amount || isNaN(amount)) return alert("Enter a valid amount");
-
-    try {
-      const { data } = await axios.post('http://localhost:5000/api/payment/create-order', { amount }, { withCredentials: true });
-
-      const options = {
-        key: 'rzp_live_bVtFI334cjlPRn', // or use process.env in CRA
-        amount: data.order.amount,
-        currency: 'INR',
-        name: 'Car History Dekho',
-        description: 'Wallet Recharge',
-        order_id: data.order.id,
-        handler: async function (response) {
-          try {
-            const verifyRes = await axios.post('http://localhost:5000/api/payment/verify', {
-              ...response,
-              amount: Number(amount),
-            }, { withCredentials: true });
-
-            alert('Payment Successful! New Balance: ₹' + verifyRes.data.newBalance);
-
-            // After payment verification, navigate to the new page (e.g., "Dashboard")
-            navigate('/Dashboard');  // Change '/success' to your desired route
-          } catch (error) {
-            console.error('Error verifying payment:', error);
-            alert('Payment verification failed');
-          }
-        },
-        prefill: {
-          name: 'Your Name',
-          email: 'email@example.com',
-        },
-        theme: {
-          color: '#22c55e',
-        },
-      };
-
-      const rzp = new window.Razorpay(options);
-      rzp.open();
-    } catch (err) {
-      console.error('Error creating order', err);
-      alert('Payment failed');
-    }
-    finally{
-      closePopup();
-    }
-  };
+ 
   
      // Optional: close the popup after navigating
   
@@ -172,7 +130,7 @@ const navigate = useNavigate();
                 {data.walletBalance !== null ? `₹${data.walletBalance}` : "-"}
               </div>
               <button
- onClick={openPopup}
+  onClick={handleAddBalance}
   disabled={disableButtons}
   className="text-green-500 hover:text-green-700 transition-all p-2 rounded-md disabled:text-gray-400 disabled:hover:text-gray-400 disabled:cursor-not-allowed"
 >
@@ -181,6 +139,11 @@ const navigate = useNavigate();
 
 
             </div>
+            <AddWalletPopup
+        isOpen={isPopupOpen}
+        onClose={handleClosePopup}
+        onSuccess={handleSuccess}
+      />
             <div className="text-xs text-black mt-1">Wallet Balance</div>
           </div>
     
@@ -213,7 +176,7 @@ const navigate = useNavigate();
     <Link to="/support">Support</Link>
   </li>
   <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
-    <Link to="/logout">Logout</Link> {/* Add logout functionality if needed */}
+    <Link to="/logout">Logout</Link> 
   </li>
 </ul>
                 </div>
@@ -227,73 +190,10 @@ const navigate = useNavigate();
       {/* Button to open popup */}
       
       {/* Modal */}
-      {isOpenbalance && (
-  <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
-    <div className="bg-white w-[90%] md:w-[75%] max-h-[90vh] overflow-auto rounded-xl shadow-lg p-6 relative">
-      {/* Close Icon */}
-      <button
-        onClick={closePopup}
-        className="absolute top-4 right-4 text-gray-500 hover:text-black"
-      >
-        <X size={24} />
-      </button>
-
-      {/* Heading */}
-      <h2 className="text-2xl font-bold mb-6 text-center">Add Wallet Balance</h2>
-
-      {/* Form */}
-      <form onSubmit={handlePayment} className="space-y-5">
-        {/* Currency */}
-        <div>
-          <label className="block mb-1 font-medium">Select Currency</label>
-          <select
-            disabled
-            className="w-full border px-4 py-2 rounded-lg bg-gray-100 cursor-not-allowed"
-          >
-            <option>Indian Rupees (INR)</option>
-          </select>
-        </div>
-
-        {/* Amount */}
-        <div>
-          <label className="block mb-1 font-medium">Enter Credit Amount</label>
-          <input
-            type="number"
-            value={amount}
-            onChange={(e) => setAmount(e.target.value)}
-            placeholder="Enter amount"
-            required
-            className="w-full border px-4 py-2 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
-          />
-        </div>
-
-        {/* Amount in Words */}
-        {amount && (
-          <div>
-            <label className="block mb-1 font-medium">Credit Amount in Words</label>
-            <input
-              type="text"
-              value={numWords(Number(amount)).replace(/^\w/, c => c.toUpperCase()) + " rupees"}
-              readOnly
-              className="w-full border px-4 py-2 rounded-lg bg-gray-100 cursor-not-allowed"
-            />
-          </div>
-        )}
-
-        {/* Submit Button */}
-        <button
-          type="submit"
-          className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition"
-        >
-          Add Balance
-        </button>
-      </form>
-    </div>
-  </div>
-)}
+      
     </div>
 
       
     </header>
     )
-}
+};

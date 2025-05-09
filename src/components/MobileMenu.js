@@ -16,7 +16,7 @@ import {
 export default function MobileMenu() {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
-
+  
   const menuItems = [
     { label: 'Dashboard', icon: <LayoutDashboard size={20} />, path: '/Dashboard' },
     { label: 'Transactions', icon: <Receipt size={20} />, path: '/transactions' },
@@ -34,6 +34,9 @@ export default function MobileMenu() {
     navigate(path);
     setOpen(false);
   };
+  const handleLogoClick = () => {
+    navigate('/Dashboard');
+  };
 
   return (
     <div className="lg:hidden">
@@ -47,12 +50,14 @@ export default function MobileMenu() {
     <Menu />
   </button>
   <div className="text-xl font-bold tracking-wide">
-    <img
-      src="https://res.cloudinary.com/dunsl7vvf/image/upload/v1746554424/WhatsApp_Image_2025-05-06_at_23.27.00_2c781bc6_bntx08.jpg"
-      alt="Logo"
-      className="h-12"
-    />
-  </div>
+      <img
+        src="https://res.cloudinary.com/dunsl7vvf/image/upload/v1746554424/WhatsApp_Image_2025-05-06_at_23.27.00_2c781bc6_bntx08.jpg"
+        alt="Logo"
+        className="h-12 cursor-pointer"
+        onClick={handleLogoClick}
+      />
+    </div>
+
 </nav>
 
 

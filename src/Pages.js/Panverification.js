@@ -4,10 +4,23 @@ import Sidebar from "../components/sidebar";
 import MobileMenu from "../components/MobileMenu";
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
+import axios from 'axios';
+import AddWalletPopup from '../components/AddWalletPopup';
 const PanResponse = () => {
   const [panNumber, setpanNumber] = useState("");
 
+const [isPopupOpen, setIsPopupOpen] = useState(false);
 
+  const handleAddBalance = () => {
+    setIsPopupOpen(true);   // Open the popup
+    setErrorInfo(null)     // Call any other function you want
+  };
+  
+  const handleClosePopup = () => setIsPopupOpen(false);
+  const handleSuccess = (newBalance) => {
+    console.log("Payment success. New balance:", newBalance);
+    
+  };
   
   
   
@@ -93,70 +106,76 @@ const PanResponse = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-
+  
     try {
-      const response = await fetch("http://localhost:5000/api/service/call", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-        body: JSON.stringify({
-         
+      const response = await axios.post(
+        "car-history-dekho-backend-production.up.railway.app/api/service/call",
+        {
           serviceName: "PAN Verification",
-          payload: {panNumber,}
-        }),
-      });
-    
-      if (!response.ok) {
-        if (response.status === 402) {
+          payload: { panNumber },
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          withCredentials: true, // Enables sending cookies
+        }
+      );
+  
+      const data = response.data;
+  
+      generateChallanPDF(data);
+      setSubmissionSuccess(true);
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        const status = error.response?.status;
+        const errorData = error.response?.data;
+  
+        if (status === 402) {
           setErrorInfo({
-            type: 'payment',
-            message: <p className="text-lg text-gray-800">
-            Insufficient balance.
-            <br />
-            <strong> Please recharge your wallet.</strong>
-          </p>,
+            type: "payment",
+            message: (
+              <p className="text-lg text-gray-800">
+                Insufficient balance. <br /> Rs.5 Required for this Service
+                <br />
+                <strong>Please recharge your wallet.</strong>
+              </p>
+            ),
           });
-        } else if (response.status === 401) {
+        } else if (status === 401) {
           setErrorInfo({
-            type: 'auth',
-            message: <p className="text-lg text-gray-800">
-            Session expired.
-            <br />
-            <strong>Please login again.</strong>
-          </p>
-          ,
+            type: "auth",
+            message: (
+              <p className="text-lg text-gray-800">
+                Session expired or Unauthenticated
+                <br />
+                <strong>Please login again.</strong>
+              </p>
+            ),
           });
         } else {
           setErrorInfo({
-            type: 'generic',
-            message: 'Something went wrong. Please try again later.',
+            type: "generic",
+            message: (
+              <p className="text-lg text-gray-800">
+                Server Error
+                <br />
+                <strong>{errorData?.message || error.message}</strong>
+              </p>
+            ),
           });
         }
-        return;
+      } else {
+        setErrorInfo({
+          type: "generic",
+          message: "Unknown error occurred.",
+        });
       }
-    
-      const data = await response.json();
-      
-      generateChallanPDF(data);
-      setSubmissionSuccess(true);
-
-
-    } catch (error) {
-      
-      setErrorInfo({
-        type: 'generic',
-        message: 'Network or server error. Please try again.',
-      });
-    }
-    finally {
+    } finally {
       setLoading(false);
-      }
-   
-   
-        
+    }
   };
+  
 
   return (
     
@@ -175,7 +194,7 @@ const PanResponse = () => {
       <div className="flex justify-end space-x-4">
         {errorInfo.type === 'payment' && (
           <button
-            onClick={() => window.location.href = '/Payment-Page'}
+            onClick={handleAddBalance}
             className="bg-red-600 text-white px-6 py-3 rounded-lg hover:bg-red-700 transition"
           >
             Recharge Wallet
@@ -197,6 +216,11 @@ const PanResponse = () => {
             Close
           </button>
         )}
+        <AddWalletPopup
+        isOpen={isPopupOpen}
+        onClose={handleClosePopup}
+        onSuccess={handleSuccess}
+      />
       </div>
     </div>
   </div>

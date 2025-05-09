@@ -9,7 +9,7 @@ const Profile = () => {
 
 
   useEffect(() => {
-    axios.get('http://localhost:5000/api/user/profile', {
+    axios.get('car-history-dekho-backend-production.up.railway.app/api/user/profile', {
       withCredentials: true,
     })
     .then(res => setEmail(res.data.email))

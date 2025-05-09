@@ -8,7 +8,7 @@ const Transactions = () => {
   const [transactions, setTransactions] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:5000/api/user/transactions', {
+    axios.get('car-history-dekho-backend-production.up.railway.app/api/user/transactions', {
       withCredentials: true,
     })
       .then(res => setTransactions(res.data.transactions))
