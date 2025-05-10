@@ -93,7 +93,9 @@ const [selectedMethod, setSelectedMethod] = useState('email-otp'); // default se
   
 
  
-  const handleGoogleLogin = async () => {
+  const handleGoogleLogin = async (e) => {
+     e.preventDefault();
+    setLoading(true);
     try {
       const result = await signInWithPopup(auth, provider);
       const { user } = result;
@@ -111,6 +113,9 @@ const [selectedMethod, setSelectedMethod] = useState('email-otp'); // default se
     } catch (err) {
      
       alert("Google login failed");
+    }
+    finally {
+      setLoading(false);
     }
   };
   
@@ -279,6 +284,7 @@ const [selectedMethod, setSelectedMethod] = useState('email-otp'); // default se
                 </p>
               </form>
             )}
+             
           </div>
         </div>
       </div>

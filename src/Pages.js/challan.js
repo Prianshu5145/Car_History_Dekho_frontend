@@ -38,7 +38,7 @@ const ChallanResponse = () => {
     const doc = new jsPDF({
         orientation: 'portrait',
         unit: 'mm',
-        format: [210, 350],
+        format: [210, 380],
     });
     let count1=0;
     let count2 = false;
@@ -192,7 +192,7 @@ const ChallanResponse = () => {
         doc.addPage({
           orientation: 'portrait',
           unit: 'mm',
-          format: [210, 350]});
+          format: [210, 380]});
         y = 20;
         count1++;
     }
