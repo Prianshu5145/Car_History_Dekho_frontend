@@ -32,35 +32,42 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Explore & Contact Sections */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 mb-10">
+        {/* Explore & Legal Sections side by side */}
+        <div className="flex justify-between mb-10">
           {/* Explore Links */}
-          <div>
+          <div className="w-full md:w-1/2">
             <h3 className="text-xl font-semibold mb-4 text-white">Explore</h3>
             <ul className="space-y-3 text-gray-400">
               <li><a href="/" className="hover:text-blue-500 transition">Home</a></li>
-              <li><a href="/Sell" className="hover:text-blue-500 transition">Dashboard Login</a></li>
+             
               <li><a href="/buy" className="hover:text-blue-500 transition">Solutions</a></li>
               <li><a href="/Gallery" className="hover:text-blue-500 transition">Contact Us</a></li>
             </ul>
           </div>
 
-          {/* Get in Touch Section */}
-          <div>
-            <h3 className="text-xl font-semibold mb-4 text-white">Get in Touch</h3>
-            <p className="text-gray-400 mb-2">
-              Email: 
-              <a href="mailto:team@carhistorydekho.in" className="text-blue-400 hover:text-blue-500 transition ml-1">
-                team@carhistorydekho.com
-              </a>
-            </p>
-            <p className="text-gray-400">
-              For support or inquiries, feel free to reach us anytime. We are here to assist you.
-            </p>
+          {/* Legal Links */}
+          <div className="w-full md:w-1/2">
+            <h3 className="text-xl font-semibold mb-4 text-white">Legal</h3>
+            <ul className="space-y-3 text-gray-400">
+              <li><a href="/privacypolicy" className="hover:text-blue-500 transition">Privacy Policy</a></li>
+              <li><a href="/T&C" className="hover:text-blue-500 transition">Terms & Conditions</a></li>
+              <li><a href="/Dpa" className="hover:text-blue-500 transition">DPA Policy</a></li>
+            </ul>
           </div>
+        </div>
 
-          {/* Registered Office Address (Optional) */}
-          {/* Add a registered office address if needed */}
+        {/* Get in Touch Section */}
+        <div className="mb-10">
+          <h3 className="text-xl font-semibold mb-4 text-white">Get in Touch</h3>
+          <p className="text-gray-400 mb-2">
+            Email: 
+            <a href="mailto:team@carhistorydekho.in" className="text-blue-400 hover:text-blue-500 transition ml-1">
+              team@carhistorydekho.com
+            </a>
+          </p>
+          <p className="text-gray-400">
+            For support or inquiries, feel free to reach us anytime. We are here to assist you.
+          </p>
         </div>
 
         {/* Divider */}

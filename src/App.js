@@ -15,29 +15,34 @@ import AadhaarResponse from './Pages.js/Aadharcard.js';
 import Transactions from './Pages.js/transaction.js';
 import Profile from './Pages.js/Profile.js';
 import ProtectedRoute from './components/ProtectedRoute';
-
+import DataProcessingAgreement from './components/DPA';
+import TermsAndConditions from './components/T&C';
+import PrivacyPolicy from './components/privacypolicy'
 function App() {
   return (
     <div>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/h-service-Response" element={<HyundaiResponse />} />
-          <Route path="/M-service-Response" element={<MarutiResponse />} />
-          <Route path="/Mh-service-Response" element={<MahindraResponse />} />
-          <Route path="/RC-Response" element={<RCResponse />} />
-          <Route path="/Pan-Response" element={<PanResponse />} />
-          <Route path="/challan-Response" element={<ChallanResponse />} />
-          <Route path="/Bank-Response" element={<BankResponse />} />
-          <Route path="/Aadhar-Response" element={<AadhaarResponse />} />
         {/* Protected Routes */}
-        <Route element={<ProtectedRoute />}>
+       
           <Route path="/Dashboard" element={<Dashboard />} />
-         
+          
+          <Route path="/h-service-Response" element={<HyundaiResponse />} />
+            <Route path="/M-service-Response" element={<MarutiResponse />} />
+            <Route path="/Mh-service-Response" element={<MahindraResponse />} />
+            <Route path="/RC-Response" element={<RCResponse />} />
+            <Route path="/Pan-Response" element={<PanResponse />} />
+            <Route path="/challan-Response" element={<ChallanResponse />} />
+            <Route path="/Bank-Response" element={<BankResponse />} />
+            <Route path="/Aadhar-Response" element={<AadhaarResponse />} />
           <Route path="/transactions" element={<Transactions />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/logout" element={<Logout />} />
-        </Route>
+          <Route path="/Dpa" element={< DataProcessingAgreement/>} />
+          <Route path="/T&C" element={< TermsAndConditions/>} />
+          <Route path="/privacypolicy" element={< PrivacyPolicy/>} />
+        
       </Routes>
     </div>
   );

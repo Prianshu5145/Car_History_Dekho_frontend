@@ -52,7 +52,7 @@ const Navbar = () => {
     Dashboard Login
   </Link>
   <Link
-    to="/contact"
+    to="/"
     className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-pink-500 hover:to-purple-500 text-white font-semibold py-2 px-4 rounded transition duration-500"
   >
     Contact Sales
@@ -83,9 +83,9 @@ const Navbar = () => {
       <>
         <Link to="/" className="block px-4 py-2 hover:bg-gray-600">Home</Link>
         <Link to="/login" className="block px-4 py-2 hover:bg-gray-600">Dashboard Login</Link>
-        <Link to="/sell" className="block px-4 py-2 hover:bg-gray-600">Solutions</Link>
+        <Link to="/" className="block px-4 py-2 hover:bg-gray-600">Solutions</Link>
        
-        <Link to="/contact" className="block px-4 py-2 hover:bg-gray-600">Contact Us</Link>
+        <Link to="/" className="block px-4 py-2 hover:bg-gray-600">Contact Us</Link>
       </>
    
     {/* Dropdown Menu for Logged In Users */}

@@ -272,9 +272,9 @@ const AadharcardResponse = () => {
         {/* Inner Circle */}
         <div className="absolute inset-4 bg-white rounded-full shadow-inner flex items-center justify-center">
           <img
-            src="https://res.cloudinary.com/dztz5ltuq/image/upload/v1731448689/apple-touch-icon_jrhfll.png"
+            src="https://res.cloudinary.com/dunsl7vvf/image/upload/v1746877150/favicon-96x96_q4luce-removebg-preview_rdzu80.png"
             alt="Car Logo"
-            className="w-12 h-12 md:w-16 md:h-16 animate-rotateY"
+            className="w-16 h-16 md:w-16 md:h-16 animate-rotateY"
           />
         </div>
       </div>
