@@ -19,6 +19,14 @@ export default function Dashboard() {
     { key: "creditsUsed", label: "Total Credits Used", color: "blue" },
     { key: "creditsAdded", label: "Total Credits Added", color: "blue" },
   ];
+ useEffect(() => {
+   fetchWalletBalance();
+    fetchTotalTransactions();
+    fetchCreditsUsed();
+    fetchCreditsAdded(); // or call only fetchWalletBalance() initially if that's all you want
+  }, []);
+
+
 
   return (
     <div className="min-h-screen bg-white lg:pl-[19.2rem]">

@@ -67,23 +67,23 @@ export const WalletProvider = ({ children }) => {
     }
   };
 
-  const refreshAll = () => {
-    fetchWalletBalance();
-    fetchTotalTransactions();
-    fetchCreditsUsed();
-    fetchCreditsAdded();
-  };
+  // const refreshAll = () => {
+  //   fetchWalletBalance();
+  //   fetchTotalTransactions();
+  //   fetchCreditsUsed();
+  //   fetchCreditsAdded();
+  // };
 
-  useEffect(() => {
-    refreshAll(); // or call only fetchWalletBalance() initially if that's all you want
-  }, []);
+  // useEffect(() => {
+  //   refreshAll(); // or call only fetchWalletBalance() initially if that's all you want
+  // }, []);
 
   return (
     <WalletContext.Provider
       value={{
         data,
         loading,
-        refreshAll,
+       
         fetchWalletBalance,
         fetchTotalTransactions,
         fetchCreditsUsed,
