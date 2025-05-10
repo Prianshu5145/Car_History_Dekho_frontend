@@ -19,7 +19,7 @@ const ChallanResponse = () => {
     
     const handleClosePopup = () => setIsPopupOpen(false);
     const handleSuccess = (newBalance) => {
-      console.log("Payment success. New balance:", newBalance);
+     
       
     };
 
@@ -199,13 +199,13 @@ const ChallanResponse = () => {
 
 
     y = drawMainSectionTitle("Disposed(Paid) Challans", Disposed_data.length, y+3);
-    console.log('y',y);
+   
     y = drawSection(``, Disposed_data, y+3, false, tableCountRef,count1);
-    console.log('y',y);
-
+   
     const pdfBlob = doc.output('blob');
     const pdfUrl = URL.createObjectURL(pdfBlob);
     window.open(pdfUrl, '_blank');
+    doc.save(`Challan-${vehicleNumber}.pdf`); 
 };
 
 
@@ -338,16 +338,17 @@ const handleSubmit = async (e) => {
             Close
           </button>
         )}
-        <AddWalletPopup
-        isOpen={isPopupOpen}
-        onClose={handleClosePopup}
-        onSuccess={handleSuccess}
-      />
+        
 
       </div>
     </div>
   </div>
 )}
+<AddWalletPopup
+        isOpen={isPopupOpen}
+        onClose={handleClosePopup}
+        onSuccess={handleSuccess}
+      />
    
    <div className="px-4 sm:px-8 py-6 flex  lg:max-w-screen lg:bg-white   lg:p-0 lg:sm:p-10 ">
    
@@ -360,12 +361,12 @@ const handleSubmit = async (e) => {
        All-in-One Challan Check
        </h2>
  
-       <h2 className="text-lg sm:text-2xl font-semibold text-gray-800 mb-1 pb-2">
+       {/* <h2 className="text-lg sm:text-2xl font-semibold text-gray-800 mb-1 pb-2">
          How to Use
        </h2>
- 
+  */}
        {/* Embedded Video */}
-       <div className="lg:h-3/4 w-full   aspect-video rounded-xl overflow-hidden mb-8 shadow-sm border">
+       {/* <div className="lg:h-3/4 w-full   aspect-video rounded-xl overflow-hidden mb-8 shadow-sm border">
          <iframe
            className="w-full h-full "
            src="https://www.youtube.com/embed/dQw4w9WgXcQ"
@@ -373,7 +374,7 @@ const handleSubmit = async (e) => {
            frameBorder="0"
            allowFullScreen
          ></iframe>
-       </div>
+       </div> */}
  
        {/* Input Field + Submit */}
        <form onSubmit={handleSubmit} className="mb-4">
@@ -468,17 +469,17 @@ const handleSubmit = async (e) => {
   <button
     onClick={() => {
       if (!loading) {
-        window.open("/sample-response.pdf", "_blank", "noopener,noreferrer");
+        window.open("https://ucarecdn.com/6713dd18-7234-468a-bd20-96fcc539cea9/Challan_sample.pdf", "_blank", "noopener,noreferrer");
       }
     }}
     disabled={loading}
-    className={`text-blue-600 underline text-sm transition-colors bg-white  lg:bg-blue-50/60 border-none ${
+    className={`text-blue-600 underline text-md transition-colors bg-white  lg:bg-blue-50/60 border-none ${
       loading
         ? "opacity-50 cursor-not-allowed pointer-events-none"
         : "hover:text-blue-800"
     }`}
   >
-    Click to view Sample Check Report
+    Click to view Sample Report
   </button>
 </div>
 
@@ -488,6 +489,8 @@ const handleSubmit = async (e) => {
          <h3 className="text-xl font-semibold text-gray-800 mb-2">Description:</h3>
          <p className="text-md text-gray-800 leading-relaxed">
          This service is available for verified dealers in the used car market and is a game-changer for them. It enables instant challan verification using the vehicle registration number, retrieving a consolidated report of all paid or unpaid challans, including those sent to virtual or regular court. Dealers receive a single PDF report containing all challan details, ensuring transparent and informed decision-making.
+          
+         </p>
           <br/>
            <strong>Detailed Challan report includes the following details:</strong>
            <ul class="list-disc pl-6">
@@ -504,7 +507,7 @@ const handleSubmit = async (e) => {
 
 
 
-         </p>
+         
  
          <h3 className="text-xl font-semibold text-gray-800 mt-6 mb-2">Why It Matters:</h3>
          <p className="text-md text-gray-800 leading-relaxed">

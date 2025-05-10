@@ -10,6 +10,7 @@
     "axios": "^1.8.4",
     "dotenv": "^16.5.0",
     "firebase": "^11.6.0",
+    "js-cookie": "^3.0.5",
     "jspdf": "^3.0.1",
     "jspdf-autotable": "^5.0.2",
     "lucide-react": "^0.501.0",
@@ -23,7 +24,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "CI=false react-scripts build",
+    "build": "SKIP_PREFLIGHT_CHECK=true CI=false react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

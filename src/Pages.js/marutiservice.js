@@ -17,7 +17,7 @@ const MarutiResponse = () => {
   
   const handleClosePopup = () => setIsPopupOpen(false);
   const handleSuccess = (newBalance) => {
-    console.log("Payment success. New balance:", newBalance);
+   
     
   };
   const generateServicePDF = (data) => {
@@ -257,12 +257,12 @@ const [errorInfo, setErrorInfo] = useState(null);
          MARUTI SUZUKI Service History Check
        </h2>
  
-       <h2 className="text-lg sm:text-2xl font-semibold text-gray-800 mb-1 pb-2">
+       {/* <h2 className="text-lg sm:text-2xl font-semibold text-gray-800 mb-1 pb-2">
          How to Use
-       </h2>
+       </h2> */}
  
        {/* Embedded Video */}
-       <div className="lg:h-3/4 w-full   aspect-video rounded-xl overflow-hidden mb-8 shadow-sm border">
+       {/* <div className="lg:h-3/4 w-full   aspect-video rounded-xl overflow-hidden mb-8 shadow-sm border">
          <iframe
            className="w-full h-full "
            src="https://www.youtube.com/embed/dQw4w9WgXcQ"
@@ -270,7 +270,7 @@ const [errorInfo, setErrorInfo] = useState(null);
            frameBorder="0"
            allowFullScreen
          ></iframe>
-       </div>
+       </div> */}
  
        {/* Input Field + Submit */}
        <form onSubmit={handleSubmit} className="mb-4">
@@ -337,17 +337,17 @@ const [errorInfo, setErrorInfo] = useState(null);
   <button
     onClick={() => {
       if (!loading) {
-        window.open("/sample-response.pdf", "_blank", "noopener,noreferrer");
+        window.open("https://ucarecdn.com/0bd5d266-c807-443b-a8de-6744e99e8199/MSERVICESAMPLES.pdf", "_blank", "noopener,noreferrer");
       }
     }}
     disabled={loading}
-    className={`text-blue-600 underline text-sm transition-colors bg-white  lg:bg-blue-50/60 border-none ${
+    className={`text-blue-600 underline text-md transition-colors bg-white  lg:bg-blue-50/60 border-none ${
       loading
         ? "opacity-50 cursor-not-allowed pointer-events-none"
         : "hover:text-blue-800"
     }`}
   >
-    Click to view Sample Check Report
+    Click to view Sample Report
   </button>
 </div>
  
@@ -356,6 +356,8 @@ const [errorInfo, setErrorInfo] = useState(null);
          <h3 className="text-xl font-semibold text-gray-800 mb-2">Description:</h3>
          <p className="text-md text-gray-800 leading-relaxed">
            This feature enables the retrieval of Maruti Suzuki vehicle service history records using the vehicle registration number (e.g., UP8CAXXXX). It helps verify the vehicle’s maintenance history and brings greater transparency and trust to used car transactions.
+          
+           </p>
           <br/>
            <strong>Service record Report includes the following details:</strong>
            <ul className="list-disc pl-5 space-y-1 mt-2">
@@ -375,7 +377,7 @@ const [errorInfo, setErrorInfo] = useState(null);
   
 </ul>
 
-         </p>
+        
  
          <h3 className="text-xl font-semibold text-gray-800 mt-6 mb-2">Why It Matters:</h3>
          <p className="text-md text-gray-800 leading-relaxed">

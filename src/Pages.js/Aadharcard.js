@@ -19,7 +19,7 @@ const AadharcardResponse = () => {
       
       const handleClosePopup = () => setIsPopupOpen(false);
       const handleSuccess = (newBalance) => {
-        console.log("Payment success. New balance:", newBalance);
+        
         
       };
   
@@ -220,13 +220,13 @@ const AadharcardResponse = () => {
        <h2 className="text-2xl sm:text-2xl font-semibold text-blue-600 mb-4 border-b border-gray-300 pb-2 flex items-center gap-2 whitespace-nowrap">
          Aadhaar Card Verification
        </h2>
- 
+{/*  
        <h2 className="text-lg sm:text-2xl font-semibold text-gray-800 mb-1 pb-2">
          How to Use
-       </h2>
+       </h2> */}
  
        {/* Embedded Video */}
-       <div className="lg:h-3/4 w-full   aspect-video rounded-xl overflow-hidden mb-8 shadow-sm border">
+       {/* <div className="lg:h-3/4 w-full   aspect-video rounded-xl overflow-hidden mb-8 shadow-sm border">
          <iframe
            className="w-full h-full "
            src="https://www.youtube.com/embed/dQw4w9WgXcQ"
@@ -234,7 +234,7 @@ const AadharcardResponse = () => {
            frameBorder="0"
            allowFullScreen
          ></iframe>
-       </div>
+       </div> */}
  
        {/* Input Field + Submit */}
        <form onSubmit={handleSubmit} className="mb-4">
@@ -243,7 +243,7 @@ const AadharcardResponse = () => {
             Aadhaar Number <span className="text-red-500">*</span>
            </label>
            <span className="block text-sm mb-2 font-medium ml-auto text-black">
-             Rs. 6/Report
+             Rs. 4/Report
            </span>
          </div>
  
@@ -305,13 +305,13 @@ const AadharcardResponse = () => {
       }
     }}
     disabled={loading}
-    className={`text-blue-600 underline text-sm transition-colors bg-white  lg:bg-blue-50/60 border-none ${
+    className={`text-blue-600 underline text-md transition-colors bg-white  lg:bg-blue-50/60 border-none ${
       loading
         ? "opacity-50 cursor-not-allowed pointer-events-none"
         : "hover:text-blue-800"
     }`}
   >
-    Click to view Sample Check Report
+    Click to view Sample  Report
   </button>
 </div>
 
@@ -321,6 +321,8 @@ const AadharcardResponse = () => {
          <h3 className="text-xl font-semibold text-gray-800 mb-2">Description:</h3>
          <p className="text-md text-gray-800 leading-relaxed">
          This service is available for verified dealers in the used car market and is a game-changer for them. It enables instant challan verification using the vehicle registration number, retrieving a consolidated report of all paid or unpaid challans, including those sent to virtual or regular court. Dealers receive a single PDF report containing all challan details, ensuring transparent and informed decision-making.
+         
+         </p>
           <br/>
            <strong>Detailed Challan report includes the following details:</strong>
            <ul className ="list-disc pl-6">
@@ -337,7 +339,7 @@ const AadharcardResponse = () => {
 
 
 
-         </p>
+         
  
          <h3 className="text-xl font-semibold text-gray-800 mt-6 mb-2">Why It Matters:</h3>
          <p className="text-md text-gray-800 leading-relaxed">

@@ -10,15 +10,14 @@ import {
   
   PlusCircle,
 } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+
 
 import { Link } from 'react-router-dom';
-import { X } from 'lucide-react'; 
-import numWords from 'num-words';
-  
+
+
 import AddWalletPopup from '../components/AddWalletPopup';
 
-
+import { useWallet } from '../Contexts/WalletContext';
 
 
 
@@ -35,12 +34,12 @@ export default function Header({ disableButtons }){
        
        const handleClosePopup = () => setIsPopupOpen(false);
        const handleSuccess = (newBalance) => {
-         console.log("Payment success. New balance:", newBalance);
+         
          
        };
   
 
-const navigate = useNavigate();
+
   // Load Razorpay script
   useEffect(() => {
    
@@ -53,9 +52,7 @@ const navigate = useNavigate();
     document.addEventListener("mousedown", handleClickOutside);
 
     // Initial fetch of stats
-    ["walletBalance"].forEach((key) => {
-      fetchStat(key);
-    });
+    
 
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
@@ -63,31 +60,10 @@ const navigate = useNavigate();
   }, []);
     const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
-
-  const [data, setData] = useState({
-    walletBalance: null,
-  });
-
-  const [loading, setLoading] = useState({
-    walletBalance: false,
-  });
+  const { data, loading, fetchWalletBalance } = useWallet();
 
  
-  const fetchStat = async (key) => {
-    setLoading((prev) => ({ ...prev, [key]: true }));
-    try {
-      const response = await axios.get('https://car-history-dekho-backend-production.up.railway.app/api/payment/balance', {
-        withCredentials: true, // This will include credentials like cookies in the request
-      });
-     
-      const value = response.data.balance;
-      setData((prev) => ({ ...prev, [key]: value }));
-    }catch (error) {
-      console.error("Fetch error:", error);
-    } finally {
-      setLoading((prev) => ({ ...prev, [key]: false }));
-    }
-  };
+  
 
   
  
@@ -113,8 +89,8 @@ const navigate = useNavigate();
           <div className="flex flex-col items-center  bg-white border border-white lg:border-blue-500 rounded-xl px-4 py-1 shadow-sm">
             <div className="flex items-center gap-3">
               <button
-                onClick={() => fetchStat("walletBalance")}
-                disabled={disableButtons}
+               onClick={fetchWalletBalance} // Call the context method here
+               disabled={disableButtons} // Optional: disable while loading
                 className="text-sm text-blue-600 flex items-center  disabled:text-gray-400 disabled:hover:text-gray-400 disabled:cursor-not-allowed gap-1"
               >
                 <RefreshCw
@@ -146,10 +122,14 @@ const navigate = useNavigate();
           {/* Right Side Icons: Call + Profile */}
           <div className="flex items-center  gap-4">
             {/* Call Button */}
-            <button disabled={disableButtons}
-            className="bg-white p-2 rounded-full text-blue-700 lg:border lg: border-blue-700 lg:transition-colors hover:bg-blue-200">
-              <Phone size={18} />
-            </button>
+            <button 
+  disabled={disableButtons}
+  className="bg-white p-2 rounded-full text-blue-700 lg:border lg: border-blue-700 lg:transition-colors hover:bg-blue-200"
+  onClick={() => window.location.href = "tel:+919119913441"} // Replace with your desired phone number
+>
+  <Phone size={18} />
+</button>
+
     
             {/* Profile Dropdown */}
             <div className="relative" ref={dropdownRef}>

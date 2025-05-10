@@ -1,20 +1,41 @@
 // components/AddWalletPopup.js
 import { X } from 'lucide-react';
 import axios from 'axios';
-import { useState } from 'react';
-import numWords from 'num-words'; // assuming you use this package
+import { useState, useEffect } from 'react';
+import numWords from 'num-words';
 import { useNavigate } from 'react-router-dom';
 
 const AddWalletPopup = ({ isOpen, onClose, onSuccess }) => {
   const [amount, setAmount] = useState('');
   const navigate = useNavigate();
+  const [razorpayLoaded, setRazorpayLoaded] = useState(false);
+
+  // Load Razorpay script dynamically once
+  useEffect(() => {
+    if (!razorpayLoaded) {
+      const script = document.createElement('script');
+      script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+      script.async = true;
+      script.onload = () => setRazorpayLoaded(true);
+      script.onerror = () => alert('Failed to load Razorpay. Please refresh.');
+      document.body.appendChild(script);
+    }
+  }, [razorpayLoaded]);
 
   const handlePayment = async (e) => {
     e.preventDefault();
     if (!amount || isNaN(amount)) return alert("Enter a valid amount");
 
+    if (typeof window.Razorpay === 'undefined') {
+      return alert("Razorpay SDK not loaded yet. Please try again.");
+    }
+
     try {
-      const { data } = await axios.post('https://car-history-dekho-backend-production.up.railway.app/api/payment/create-order', { amount }, { withCredentials: true });
+      const { data } = await axios.post(
+        'https://car-history-dekho-backend-production.up.railway.app/api/payment/create-order',
+        { amount },
+        { withCredentials: true }
+      );
 
       const options = {
         key: 'rzp_live_bVtFI334cjlPRn',
@@ -25,13 +46,13 @@ const AddWalletPopup = ({ isOpen, onClose, onSuccess }) => {
         order_id: data.order.id,
         handler: async function (response) {
           try {
-            const verifyRes = await axios.post('https://car-history-dekho-backend-production.up.railway.app/api/payment/verify', {
-              ...response,
-              amount: Number(amount),
-            }, { withCredentials: true });
+            const verifyRes = await axios.post(
+              'https://car-history-dekho-backend-production.up.railway.app/api/payment/verify',
+              { ...response, amount: Number(amount) },
+              { withCredentials: true }
+            );
 
             alert('Payment Successful! New Balance: ₹' + verifyRes.data.newBalance);
-
             if (onSuccess) onSuccess(verifyRes.data.newBalance);
             navigate('/Dashboard');
           } catch (error) {
@@ -107,8 +128,9 @@ const AddWalletPopup = ({ isOpen, onClose, onSuccess }) => {
           <button
             type="submit"
             className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition"
+            disabled={!razorpayLoaded}
           >
-            Add Balance
+            {razorpayLoaded ? "Add Balance" : "Loading Razorpay..."}
           </button>
         </form>
       </div>

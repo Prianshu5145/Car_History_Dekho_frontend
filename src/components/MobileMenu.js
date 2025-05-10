@@ -27,7 +27,7 @@ export default function MobileMenu() {
     { label: 'Challan Check', icon: <BadgeIndianRupee size={20} />, path: '/challan-Response' },
     { label: 'Bank Account Verification', icon: <CreditCard size={20} />, path: '/Bank-Response' },
     { label: 'PAN Verification', icon: <IdCard size={20} />, path: '/Pan-Response' },
-    { label: 'Aadhar Verification', icon: <Contact size={20} />, path: '/aadhar-verification' },
+    { label: 'Aadhar Verification', icon: <Contact size={20} />, path: '/Aadhar-Response' },
   ];
 
   const handleNavigate = (path) => {

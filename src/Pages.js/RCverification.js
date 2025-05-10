@@ -19,7 +19,7 @@ const RCResponse = () => {
     
     const handleClosePopup = () => setIsPopupOpen(false);
     const handleSuccess = (newBalance) => {
-      console.log("Payment success. New balance:", newBalance);
+     
       
     };
   const generateServicePDF = (data) => {
@@ -348,12 +348,12 @@ const handleSubmit = async (e) => {
          RC verification
        </h2>
  
-       <h2 className="text-lg sm:text-2xl font-semibold text-gray-800 mb-1 pb-2">
+       {/* <h2 className="text-lg sm:text-2xl font-semibold text-gray-800 mb-1 pb-2">
          How to Use
-       </h2>
+       </h2> */}
  
        {/* Embedded Video */}
-       <div className="lg:h-3/4 w-full   aspect-video rounded-xl overflow-hidden mb-8 shadow-sm border">
+       {/* <div className="lg:h-3/4 w-full   aspect-video rounded-xl overflow-hidden mb-8 shadow-sm border">
          <iframe
            className="w-full h-full "
            src="https://www.youtube.com/embed/dQw4w9WgXcQ"
@@ -361,7 +361,7 @@ const handleSubmit = async (e) => {
            frameBorder="0"
            allowFullScreen
          ></iframe>
-       </div>
+       </div> */}
  
        {/* Input Field + Submit */}
        <form onSubmit={handleSubmit} className="mb-4">
@@ -428,17 +428,17 @@ const handleSubmit = async (e) => {
   <button
     onClick={() => {
       if (!loading) {
-        window.open("/sample-response.pdf", "_blank", "noopener,noreferrer");
+        window.open("https://ucarecdn.com/5e4d765d-2a4c-4f6a-8478-2cbd108f1da1/RCVERIFICATIONSAMPLES.pdf", "_blank", "noopener,noreferrer");
       }
     }}
     disabled={loading}
-    className={`text-blue-600 underline text-sm transition-colors bg-white  lg:bg-blue-50/60 border-none ${
+    className={`text-blue-600 underline text-md transition-colors bg-white  lg:bg-blue-50/60 border-none ${
       loading
         ? "opacity-50 cursor-not-allowed pointer-events-none"
         : "hover:text-blue-800"
     }`}
   >
-    Click to view Sample Check Report
+    Click to view Sample Report
   </button>
 </div>
 
@@ -448,6 +448,7 @@ const handleSubmit = async (e) => {
          <h3 className="text-xl font-semibold text-gray-800 mb-2">Description:</h3>
          <p className="text-md text-gray-800 leading-relaxed">
          This service is available for verified dealers in the used car market and is a game-changer for them. It provides detailed RC details including ownership, registration info, vehicle specs, finance, and insurance — helping detect fraud and verify vehicles details in used car market.
+         </p>
           <br/>
            <strong>Detailed RC report includes the following details:</strong>
            <ul className="list-disc pl-5 grid grid-cols-2 gap-4 mt-2">
@@ -526,7 +527,7 @@ const handleSubmit = async (e) => {
 
 
 
-         </p>
+        
  
          <h3 className="text-xl font-semibold text-gray-800 mt-6 mb-2">Why It Matters:</h3>
          <p className="text-md text-gray-800 leading-relaxed">

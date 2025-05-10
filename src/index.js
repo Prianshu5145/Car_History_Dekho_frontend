@@ -3,20 +3,19 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import { BrowserRouter } from 'react-router-dom';
-import { AuthProvider } from './Contexts/AuthContext';
 import reportWebVitals from './reportWebVitals';
+import { WalletProvider } from './Contexts/WalletContext'; // adjust the path as needed
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <BrowserRouter>
-  <AuthProvider>
-    <App />
-  </AuthProvider>
-</BrowserRouter>,
+  <React.StrictMode>
+    <BrowserRouter>
+      <WalletProvider>
+        <App />
+      </WalletProvider>
+    </BrowserRouter>
+  </React.StrictMode>
 );
 
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+// Optional: measure performance
 reportWebVitals();

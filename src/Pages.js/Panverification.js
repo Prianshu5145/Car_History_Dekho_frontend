@@ -18,7 +18,7 @@ const [isPopupOpen, setIsPopupOpen] = useState(false);
   
   const handleClosePopup = () => setIsPopupOpen(false);
   const handleSuccess = (newBalance) => {
-    console.log("Payment success. New balance:", newBalance);
+   
     
   };
   
@@ -216,15 +216,17 @@ const [isPopupOpen, setIsPopupOpen] = useState(false);
             Close
           </button>
         )}
-        <AddWalletPopup
-        isOpen={isPopupOpen}
-        onClose={handleClosePopup}
-        onSuccess={handleSuccess}
-      />
+       
       </div>
     </div>
   </div>
 )}
+
+<AddWalletPopup
+        isOpen={isPopupOpen}
+        onClose={handleClosePopup}
+        onSuccess={handleSuccess}
+      />
 <div className="px-4 sm:px-8 py-6 flex  lg:max-w-screen lg:bg-white   lg:p-0 lg:sm:p-10 ">
    
 
@@ -238,12 +240,12 @@ const [isPopupOpen, setIsPopupOpen] = useState(false);
          PAN verification
        </h2>
  
-       <h2 className="text-lg sm:text-2xl font-semibold text-gray-800 mb-1 pb-2">
+       {/* <h2 className="text-lg sm:text-2xl font-semibold text-gray-800 mb-1 pb-2">
          How to Use
        </h2>
- 
+  */}
        {/* Embedded Video */}
-       <div className="lg:h-3/4 w-full   aspect-video rounded-xl overflow-hidden mb-8 shadow-sm border">
+       {/* <div className="lg:h-3/4 w-full   aspect-video rounded-xl overflow-hidden mb-8 shadow-sm border">
          <iframe
            className="w-full h-full "
            src="https://www.youtube.com/embed/dQw4w9WgXcQ"
@@ -251,7 +253,7 @@ const [isPopupOpen, setIsPopupOpen] = useState(false);
            frameBorder="0"
            allowFullScreen
          ></iframe>
-       </div>
+       </div> */}
  
        {/* Input Field + Submit */}
        <form onSubmit={handleSubmit} className="mb-4">
@@ -318,17 +320,17 @@ const [isPopupOpen, setIsPopupOpen] = useState(false);
   <button
     onClick={() => {
       if (!loading) {
-        window.open("/sample-response.pdf", "_blank", "noopener,noreferrer");
+        window.open("https://ucarecdn.com/96108586-ae67-4ce5-962d-3662775483a1/PANVERIFICATIONSAMPLE.pdf", "_blank", "noopener,noreferrer");
       }
     }}
     disabled={loading}
-    className={`text-blue-600 underline text-sm transition-colors bg-white  lg:bg-blue-50/60 border-none ${
+    className={`text-blue-600 underline text-md transition-colors bg-white  lg:bg-blue-50/60 border-none ${
       loading
         ? "opacity-50 cursor-not-allowed pointer-events-none"
         : "hover:text-blue-800"
     }`}
   >
-    Click to view Sample Check Report
+    Click to view Sample Report
   </button>
 </div>
 
@@ -338,6 +340,8 @@ const [isPopupOpen, setIsPopupOpen] = useState(false);
          <h3 className="text-xl font-semibold text-gray-800 mb-2">Description:</h3>
          <p className="text-md text-gray-800 leading-relaxed">
          This service is available for verified dealers in the used car market and is a game-changer for them. It enables instant PAN verification using the PAN number, helping detect identity fraud and verify the authenticity of sellers or buyer in the used car market.
+         
+         </p>
           <br/>
            <strong>Detailed PAN report includes the following details:</strong>
            <ul class="list-disc pl-6">
@@ -356,7 +360,7 @@ const [isPopupOpen, setIsPopupOpen] = useState(false);
 
 
 
-         </p>
+        
  
          <h3 className="text-xl font-semibold text-gray-800 mt-6 mb-2">Why It Matters:</h3>
          <p className="text-md text-gray-800 leading-relaxed">

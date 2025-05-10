@@ -1,100 +1,17 @@
 import { useState, useEffect, useRef } from "react";
-import axios from "axios";
-
-import {
- 
-  
-  RefreshCw,
-  
-} from "lucide-react";
+import { useWallet } from "../Contexts/WalletContext";  // Use WalletContext
+import { RefreshCw } from "lucide-react";
 import Sidebar from "../components/sidebar";
 import MobileMenu from "../components/MobileMenu";
 import DashboardGrid from "../components/dashboardbutton";
 import Header from "../components/Header";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
+
 export default function Dashboard() {
-  
   const dropdownRef = useRef(null);
 
-  const [data, setData] = useState({
-    transactions: null,
-    creditsUsed: null,
-    creditsAdded: null,
-    walletBalance: null,
-  });
-  // eslint-disable-next-line
-const [IsOpen,setIsOpen]=useState(false);
-  const [loading, setLoading] = useState({
-    transactions: false,
-    creditsUsed: false,
-    creditsAdded: false,
-    walletBalance: false,
-  });
-
-  useEffect(() => {
-    fetchWalletBalance();
-    fetchTotalTransactions();
-    fetchCreditsUsed();
-    fetchCreditsAdded();
-
-    function handleClickOutside(event) {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setIsOpen(false);
-      }
-    }
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
-
-  const fetchWalletBalance = async () => {
-    setLoading(prev => ({ ...prev, walletBalance: true }));
-    try {
-      const res = await axios.get('https://car-history-dekho-backend-production.up.railway.app/api/payment/balance', { withCredentials: true });
-      setData(prev => ({ ...prev, walletBalance: res.data.balance }));
-    } catch (err) {
-      
-    } finally {
-      setLoading(prev => ({ ...prev, walletBalance: false }));
-    }
-  };
-
-  const fetchTotalTransactions = async () => {
-    setLoading(prev => ({ ...prev, transactions: true }));
-    try {
-      const res = await axios.get('https://car-history-dekho-backend-production.up.railway.app/api/payment/total-transaction', { withCredentials: true });
-      console.log('total',res);
-      setData(prev => ({ ...prev, transactions: res.data.totalTransactions }));
-    } catch (err) {
-     
-    } finally {
-      setLoading(prev => ({ ...prev, transactions: false }));
-    }
-  };
-
-  const fetchCreditsUsed = async () => {
-    setLoading(prev => ({ ...prev, creditsUsed: true }));
-    try {
-      const res = await axios.get('https://car-history-dekho-backend-production.up.railway.app/api/payment/total-debit', { withCredentials: true });
-      setData(prev => ({ ...prev, creditsUsed: res.data.totalCreditUsed }));
-    } catch (err) {
-     
-    } finally {
-      setLoading(prev => ({ ...prev, creditsUsed: false }));
-    }
-  };
-
-  const fetchCreditsAdded = async () => {
-    setLoading(prev => ({ ...prev, creditsAdded: true }));
-    try {
-      const res = await axios.get('https://car-history-dekho-backend-production.up.railway.app/api/payment/total-credit', { withCredentials: true });
-      setData(prev => ({ ...prev, creditsAdded: res.data.totalCreditAdded }));
-    } catch (err) {
-      
-    } finally {
-      setLoading(prev => ({ ...prev, creditsAdded: false }));
-    }
-  };
+  // Use Wallet Context
+  const { data, loading, fetchWalletBalance, fetchTotalTransactions, fetchCreditsUsed, fetchCreditsAdded } = useWallet();
 
   const items = [
     { key: "walletBalance", label: "Wallet Balance", color: "blue" },
@@ -114,15 +31,15 @@ const [IsOpen,setIsOpen]=useState(false);
           <div>
             <h2 className="text-xl font-semibold mb-2">Car Dealer-Focused Products</h2>
             <p className="text-sm mb-4">
-            Empowering smart vehicle transactions with our trusted verification suite. Instantly access Odometer & Service History, RC Verification, Challan Status, and Owner Identity Checks — all in one place.
+              Empowering smart vehicle transactions with our trusted verification suite. Instantly access Odometer & Service History, RC Verification, Challan Status, and Owner Identity Checks — all in one place.
             </p>
-            
           </div>
           <div className="w-32 h-32 bg-blue-800 rounded-lg" />
         </div>
 
         <DashboardGrid />
 
+        {/* Data Display Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           {items.map((item) => (
             <div
@@ -131,13 +48,14 @@ const [IsOpen,setIsOpen]=useState(false);
             >
               <div className="text-gray-700 mb-2 font-medium">{item.label}</div>
               <div className="text-2xl font-semibold text-gray-900 mb-3">
-              {data[item.key] !== null
-  ? item.key === "transactions"
-    ? data[item.key]
-    : `₹${data[item.key]}`
-  : "--"}
-
+                {data[item.key] !== null
+                  ? item.key === "transactions"
+                    ? data[item.key]
+                    : `₹${data[item.key]}`
+                  : "--"}
               </div>
+
+              {/* Refresh Button */}
               <button
                 onClick={() => {
                   if (item.key === "walletBalance") fetchWalletBalance();
@@ -158,15 +76,13 @@ const [IsOpen,setIsOpen]=useState(false);
           <div>
             <h2 className="text-xl font-semibold mb-2">Verify Before You Buy</h2>
             <p className="text-sm mb-4">
-            From RC status to service history and PAN checks — verify everything in one place before sealing the deal.
-
-
+              From RC status to service history and PAN checks — verify everything in one place before sealing the deal.
             </p>
             <Link to="/Dashboard">
-  <button className="bg-white text-blue-700 px-4 py-2 rounded hover:bg-blue-100">
-    Explore Now
-  </button>
-</Link>
+              <button className="bg-white text-blue-700 px-4 py-2 rounded hover:bg-blue-100">
+                Explore Now
+              </button>
+            </Link>
           </div>
           <div className="w-32 h-32 bg-blue-800 rounded-lg" />
         </div>

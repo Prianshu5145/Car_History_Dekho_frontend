@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FaBars, FaTimes ,} from 'react-icons/fa'; 
-import { useAuth } from '../Contexts/AuthContext'; 
+
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const { token, role } = useAuth(); 
-  const isLoggedIn = !!token;
+  
+  
 
   useEffect(() => {
-    if (isLoggedIn) {
+   
       setMenuOpen(false);
-    }
-  }, [isLoggedIn]);
+    
+  }, []);
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
 
@@ -38,9 +38,9 @@ const Navbar = () => {
   <div className="hidden md:flex items-center flex-1">
     {/* Start with some space using ml-10 */}
     <div className="flex space-x-12 text-lg ml-20">
-      <Link to="/gallery" className="hover:text-gray-400">Home</Link>
-      <Link to="/buy" className="hover:text-gray-400">Solutions</Link>
-      <Link to="/sell" className="hover:text-gray-400">Contact Us</Link>
+      <Link to="/" className="hover:text-gray-400">Home</Link>
+      <Link to="/" className="hover:text-gray-400">Solutions</Link>
+      <Link to="/" className="hover:text-gray-400">Contact Us</Link>
     </div>
 
     {/* Push login button to far right using ml-auto */}
@@ -63,7 +63,7 @@ const Navbar = () => {
 
       {/* Mobile Menu Button */}
 <div className="md:hidden">
-  {!isLoggedIn ? (
+ 
     <button onClick={toggleMenu} className="text-black ml-auto text-lg">
       {menuOpen ? (
         <FaTimes className="h-6 w-6" />
@@ -71,15 +71,7 @@ const Navbar = () => {
         <FaBars className="h-6 w-6" />
       )}
     </button>
-  ) : (
-    <button onClick={toggleMenu} className="text-black ml-auto text-lg">
-      {menuOpen ? (
-        <FaTimes className="h-6 w-6" />
-      ) : (
-        <FaBars className="h-6 w-6" />
-      )}
-    </button>
-  )}
+  
 </div>
 
 {/* Mobile Dropdown Menu */}
@@ -89,7 +81,7 @@ const Navbar = () => {
     {/* Common Dropdown Menu for NOT Logged In */}
     
       <>
-        <Link to="/Home" className="block px-4 py-2 hover:bg-gray-600">Home</Link>
+        <Link to="/" className="block px-4 py-2 hover:bg-gray-600">Home</Link>
         <Link to="/login" className="block px-4 py-2 hover:bg-gray-600">Dashboard Login</Link>
         <Link to="/sell" className="block px-4 py-2 hover:bg-gray-600">Solutions</Link>
        

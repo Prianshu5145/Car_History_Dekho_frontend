@@ -239,12 +239,12 @@ const handleSubmit = async (e) => {
          Bank Account Verification
        </h2>
  
-       <h2 className="text-lg sm:text-2xl font-semibold text-gray-800 mb-1 pb-2">
+       {/* <h2 className="text-lg sm:text-2xl font-semibold text-gray-800 mb-1 pb-2">
          How to Use
        </h2>
- 
+  */}
        {/* Embedded Video */}
-       <div className="lg:h-3/4 w-full   aspect-video rounded-xl overflow-hidden mb-8 shadow-sm border">
+       {/* <div className="lg:h-3/4 w-full   aspect-video rounded-xl overflow-hidden mb-8 shadow-sm border">
          <iframe
            className="w-full h-full "
            src="https://www.youtube.com/embed/dQw4w9WgXcQ"
@@ -252,7 +252,7 @@ const handleSubmit = async (e) => {
            frameBorder="0"
            allowFullScreen
          ></iframe>
-       </div>
+       </div> */}
  
        {/* Input Field + Submit */}
        <form onSubmit={handleSubmit} className="mb-4">
@@ -343,13 +343,13 @@ const handleSubmit = async (e) => {
       }
     }}
     disabled={loading}
-    className={`text-blue-600 underline text-sm transition-colors bg-white  lg:bg-blue-50/60 border-none ${
+    className={`text-blue-600 underline text-md transition-colors bg-white  lg:bg-blue-50/60 border-none ${
       loading
         ? "opacity-50 cursor-not-allowed pointer-events-none"
         : "hover:text-blue-800"
     }`}
   >
-    Click to view Sample Check Report
+    Click to view Sample Report
   </button>
 </div>
 
@@ -359,7 +359,10 @@ const handleSubmit = async (e) => {
          <h3 className="text-xl font-semibold text-gray-800 mb-2">Description:</h3>
          <p className="text-md text-gray-800 leading-relaxed">
          This service allows verified dealers to instantly verify any bank account—loan, current, or savings—using the account number and IFSC code. ₹1 is credited to the beneficiary's account to confirm authenticity, and a verified report is generated to ensure secure, fraud-free transactions.
+          
+         </p>
           <br/>
+
            <strong>Detailed Bank Verification report includes the following details:</strong>
            <ul class="list-disc pl-6">
            <li>Beneficiary Name</li>
@@ -375,7 +378,7 @@ const handleSubmit = async (e) => {
 
 
 
-         </p>
+        
  
          <h3 className="text-xl font-semibold text-gray-800 mt-6 mb-2">Why It Matters:</h3>
          <p className="text-md text-gray-800 leading-relaxed">
