@@ -92,10 +92,10 @@ const [selectedMethod, setSelectedMethod] = useState('email-otp'); // default se
   };
   
 
- 
+ const [loading1, setLoading1] = useState(false);
   const handleGoogleLogin = async (e) => {
      e.preventDefault();
-    setLoading(true);
+    setLoading1(true);
     try {
       const result = await signInWithPopup(auth, provider);
       const { user } = result;
@@ -115,7 +115,7 @@ const [selectedMethod, setSelectedMethod] = useState('email-otp'); // default se
       alert("Google login failed");
     }
     finally {
-      setLoading(false);
+      setLoading1(false);
     }
   };
   
@@ -199,7 +199,37 @@ const [selectedMethod, setSelectedMethod] = useState('email-otp'); // default se
                   onClick={handleGoogleLogin}
                   className="w-full py-3 bg-red-500 text-white rounded-lg hover:bg-red-600 transition"
                 >
-                  Login / Signup with Google
+                  {loading1 ? (
+  <div className="fixed inset-0 z-50 bg-white/60 backdrop-blur-sm flex items-center justify-center pointer-events-none">
+    <div className="flex flex-col items-center justify-center space-y-8 p-4 rounded-2xl shadow-2xl bg-white/90 backdrop-blur-md pointer-events-none w-full max-w-sm md:max-w-md lg:max-w-lg mt-[-200px] lg:mt-[-40px]">
+      
+      {/* Spinner Container */}
+      <div className="relative w-32 h-32 md:w-40 md:h-40 lg:w-48 lg:h-48">
+        {/* Outer Spinner Circle */}
+        <div className="absolute inset-0 border-[6px] md:border-[6px] border-t-transparent border-l-blue-500 border-r-blue-300 border-b-transparent rounded-full animate-spin"></div>
+
+        {/* Inner Circle */}
+        <div className="absolute inset-4 bg-white rounded-full shadow-inner flex items-center justify-center">
+          <img
+            src="https://res.cloudinary.com/dunsl7vvf/image/upload/v1746877150/favicon-96x96_q4luce-removebg-preview_rdzu80.png"
+            alt="Car Logo"
+            className="w-16 h-16 md:w-16 md:h-16 animate-rotateY"
+          />
+        </div>
+      </div>
+
+      {/* Loading Text */}
+      <p className="w-full text-lg md:text-xl font-semibold text-gray-800 text-center">
+        <strong>Logging in... Please wait.</strong>
+      </p>
+
+      {/* Brand Name */}
+     
+    </div>
+  </div>
+) : (
+  'Login / Signup with Google'
+)}
                 </button>
                 <button
                   onClick={() => setStep('password')}
