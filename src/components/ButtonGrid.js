@@ -11,6 +11,24 @@ import {
 import { HiArrowRight } from 'react-icons/hi';
 
 const services = [
+
+  {
+    to: "/login",
+    icon: <FaTachometerAlt size={25} />,
+    label: "Service History",
+    color:  "from-blue-500 to-indigo-600",
+  },{
+    to: "/login",
+    icon: <FaTools size={25} />,
+    label: "Accident Report",
+    color: "from-pink-500 to-rose-500",
+  },
+   {
+    to: "/login",
+    icon: <FaExclamationTriangle size={25} />,
+    label: "Challan Check",
+    color: "from-red-500 to-orange-600",
+  },
   {
     to: "/login",
     icon: <FaRegAddressCard size={25} />,
@@ -23,24 +41,9 @@ const services = [
     label: "Bank Account Verification",
     color: "from-green-400 to-emerald-600",
   },
-  {
-    to: "/login",
-    icon: <FaTachometerAlt size={25} />,
-    label: "Odometer Record",
-    color:  "from-blue-500 to-indigo-600",
-  },
-  {
-    to: "/login",
-    icon: <FaTools size={25} />,
-    label: "Service History + Accident Report",
-    color: "from-pink-500 to-rose-500",
-  },
-  {
-    to: "/login",
-    icon: <FaExclamationTriangle size={25} />,
-    label: "Challan Check",
-    color: "from-red-500 to-orange-600",
-  },
+  
+  
+ 
   {
     to: "/login",
     icon: <FaIdCard size={25} />,

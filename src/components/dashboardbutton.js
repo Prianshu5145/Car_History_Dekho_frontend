@@ -50,6 +50,12 @@ const services = [
       ),
     color: "from-gray-500 to-emerald-500",
   },
+   {
+    to: "/challan-Response",
+    icon: <FaExclamationTriangle size={25} />,
+    label: "Challan Check",
+    color: "from-red-500 to-orange-600",
+  },
   {
     to: "/RC-Response",
     icon: <FaRegAddressCard size={25} />,
@@ -63,12 +69,7 @@ const services = [
 //     color: "from-pink-500 to-rose-500",
 //   },
 
-  {
-    to: "/challan-Response",
-    icon: <FaExclamationTriangle size={25} />,
-    label: "Challan Check",
-    color: "from-red-500 to-orange-600",
-  },
+ 
   {
     to: "/Bank-Response",
     icon: <FaUniversity size={25} />,
