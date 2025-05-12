@@ -2,10 +2,13 @@
 
 import { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate } from 'react-router-dom';
 
 const WalletContext = createContext();
 
 export const WalletProvider = ({ children }) => {
+  const navigate = useNavigate();
+
   const [data, setData] = useState({
     walletBalance: null,
     transactions: null,
@@ -26,7 +29,7 @@ export const WalletProvider = ({ children }) => {
       const res = await axios.get("https://car-history-dekho-backend-production.up.railway.app/api/payment/balance", { withCredentials: true });
       setData(prev => ({ ...prev, walletBalance: res.data.balance }));
     } catch (err) {
-      
+      navigate('/login');
     } finally {
       setLoading(prev => ({ ...prev, walletBalance: false }));
     }

@@ -9,6 +9,7 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [otp, setOtp] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
   const [step, setStep] = useState('select'); // default to email OTP
   const [error, setError] = useState('');
   const [message, setMessage] = useState('');
@@ -24,6 +25,7 @@ const Login = () => {
     setMessage('');
     setPassword('');
     setOtp('');
+    setPhoneNumber('');
     setStep('select');
     setSecondsLeft(50);
     setResendEnabled(false);
@@ -106,6 +108,7 @@ const Login = () => {
   };
 
   const handleGoogleLogin = async (e) => {
+    setError('');
     e.preventDefault();
     setLoading1(true);
     try {
@@ -123,6 +126,115 @@ const Login = () => {
       setLoading1(false);
     }
   };
+
+ const handleWhatsappOtp = async (e) => {
+  // e.preventDefault(); // Uncomment this if you're using a form submission
+  setError('');
+  setMessage('');
+
+  if (!phoneNumber) {
+    setError('Please enter your phone number before proceeding.');
+    return;
+  }
+  
+ 
+  let mobile_number = phoneNumber;
+
+  try {
+   
+
+    // If OTP is not sent, proceed to send OTP
+    console.log(resendOtp);
+   if (!otpSent || resendOtp) {
+  await axios.post(
+    'http://localhost:5000/api/user/whatsapp-login', // Endpoint to send OTP
+    { mobile_number },
+    { withCredentials: true }
+  );
+
+  setStep('whatsappOtp');
+  setOtpSent(true); // Ensure this is set so you don't re-send accidentally
+  // Reset the flag after sending
+  setSecondsLeft(50);
+  
+  
+  setResendEnabled(false);
+  setMessage('OTP sent to your WhatsApp.');
+}
+else {
+      // If OTP is already sent, proceed to verify OTP
+       setLoading(true);
+      await axios.post(
+        'http://localhost:5000/api/user/whatsapp-verify-otp',  // Endpoint to verify OTP
+        { mobile_number, otp },
+        { withCredentials: true }
+      );
+
+      setLoading(false);
+      setMessage('Logged in successfully!');
+      navigate('/Dashboard');
+    }
+  } catch (err) {
+    setError(err.response?.data?.message || 'Something went wrong.');
+    setLoading(false);
+  }
+};
+
+  const [otpSent, setOtpSent] = useState(false);
+const [resendDisabled, setResendDisabled] = useState(false);
+
+// Handle sending OTP
+const handleSendWhatsappOtp = () => {
+ 
+  const trimmedPhone = phoneNumber.trim();
+
+  // Validate: not empty and must be 10 digits
+  if (!/^\d{10}$/.test(trimmedPhone)) {
+    setError('Please enter a valid 10-digit WhatsApp number.');
+    return;
+  }
+handleWhatsappOtp();
+  // Proceed if valid
+  setOtpSent(true);
+  // ...send OTP logic here
+  startResendTimer(); // Start timer for Resend OTP button cooldown
+};
+const handleBackToWhatsappStart = () => {
+  setOtpSent(false);       // so that Send OTP button appears again
+  setOtp('');              // clear any typed OTP
+  setResendDisabled(false);
+  setLoading(false);
+  // phoneNumber remains as-is so user can edit or re-enter it
+};
+
+
+// Handle verifying OTP
+const handleVerifyWhatsappOtp = (e) => {
+  e.preventDefault();
+  handleWhatsappOtp();
+  console.log('Verifying OTP:', otp);
+  // Example API call to verify OTP can be placed here
+};
+let resendOtp =false;
+// Handle OTP resend logic
+const handleResendOtp = () => {
+  // Add the logic to resend OTP (you can call an API here)
+  //setOtpSent(false);
+resendOtp=true;
+  handleWhatsappOtp();
+  resendOtp=false;
+  startResendTimer(); // Reset the resend timer
+};
+
+// Timer for OTP resend
+const startResendTimer = () => {
+  setResendDisabled(true);
+  setTimeout(() => {
+    setResendDisabled(false); // Re-enable the resend button after 30 seconds
+  }, 30000); // 30 seconds cooldown
+};
+
+
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-blue-100">
@@ -149,16 +261,28 @@ const Login = () => {
             {message && <p className="text-green-600 text-center">{message}</p>}
 
             {/* Email input */}
-            <div>
-              <label className="block text-sm font-medium mb-1 text-gray-700">Email</label>
-              <input
-                type="email"
-                placeholder="Enter your email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
-                required
-              />
+          {step !== 'whatsappOtp' && (
+ <>
+  <label className="block text-sm font-medium mb-1 text-gray-700">Email</label>
+ <input
+  type="email"
+  placeholder="Enter your email"
+  value={email}
+  onChange={(e) => setEmail(e.target.value)}
+  readOnly={step === 'otp'}
+  className={`w-full px-4 py-3 border border-gray-500 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none ${
+    step === 'otp' ? 'bg-gray-100 cursor-not-allowed' : ''
+  }`}
+  required
+/>
+
+
+</>
+
+    
+)}
+ <div>
+              
             </div>
 
             {/* Step: OTP method default */}
@@ -166,9 +290,10 @@ const Login = () => {
               <div className="space-y-4">
                 <button
                   onClick={handleEmailOtp}
-                  className="flex items-center justify-center gap-3 w-full py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all"
+                  className="w-full py-3 text-white rounded-lg bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 transition-all
+"
                 >
-                  <FaEnvelope className="text-lg" />
+                  <img src="https://res.cloudinary.com/dunsl7vvf/image/upload/v1747004045/email-opened-svgrepo-com_jhxw3v.svg" alt="Send Email OTP" className="h-5 w-5 mr-3 inline-block" />
                   Send Email OTP
                 </button>
 
@@ -178,108 +303,212 @@ const Login = () => {
                   <span className="flex-grow h-px bg-gray-300"></span>
                 </div>
 
-
-                 
-
-
                 <button
                   onClick={handleGoogleLogin}
-                  className="flex items-center justify-center gap-3 w-full py-3 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all"
+                  className="w-full py-3 text-black bg-white border border-gray-600 rounded-lg hover:bg-gray-150 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
                 >
-                  <FaGoogle className="text-lg" />
+                  <img src="https://res.cloudinary.com/dunsl7vvf/image/upload/v1746999003/google-icon_gukp9e.svg" alt="Google Login" className="h-5 w-5 mr-3 inline-block" />
                   {loading1 ? 'Logging in...' : 'Continue with Google'}
                 </button>
- <button
+
+
+
+               <button
+  onClick={() => {
+    setError(null); // Reset the error
+    setStep('whatsappOtp'); // Move to the next step
+  }}
+  className="w-full py-3 text-black bg-white border border-gray-600 rounded-lg hover:bg-gray-150 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
+>
+  <img
+    src="https://res.cloudinary.com/dunsl7vvf/image/upload/v1746999003/whatsapp_yvxwny.png"
+    alt="WhatsApp OTP"
+    className="h-5 w-5 mr-3 inline-block"
+  />
+  Login with WhatsApp OTP
+</button>
+
+<button
   disabled
   className={`w-full py-3 rounded-lg font-semibold transition
-    ${'border-2 border-blue-600 bg-blue-100 text-blue-800 cursor-default'}
-  `}
+    border-2 border-blue-600 bg-blue-100 text-blue-800 cursor-default`}
 >
   Login with Email OTP
 </button>
+
                 <button
-                  onClick={() => setStep('password')}
-                  className="flex items-center justify-center gap-3 w-full py-3 bg-gray-800 text-white rounded-lg hover:bg-gray-900 transition-all"
+                  onClick={() => {setError(null); setStep('password')}}
+                  className="w-full py-3 text-black bg-white border border-gray-600 rounded-lg hover:bg-gray-150 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
                 >
-                  <FaLock className="text-lg" />
+                  <img src="https://res.cloudinary.com/dunsl7vvf/image/upload/v1747004310/email-mail-web-svgrepo-com_sbmkk0.svg" alt="Email & Password" className="h-5 w-5 mr-3 inline-block" />
                   Login with Email & Password
                 </button>
               </div>
             )}
 
-            {/* OTP step */}
-            {step === 'otp' && (
-              <form onSubmit={handleEmailOtp} className="space-y-4">
-                <p className="text-sm text-gray-600">
-                  OTP sent to <strong>{email}</strong>
-                </p>
-                <input
-                  type="number"
-                  placeholder="Enter OTP"
-                  value={otp}
-                  onChange={(e) => setOtp(e.target.value)}
-                  required
-                  className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
-                />
-                <button
-                  type="submit"
-                  className="w-full py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
-                >
-                  {loading ? 'Verifying...' : 'Verify OTP'}
-                </button>
+            {/* WhatsApp OTP step */}
+         {step === 'whatsappOtp' && (
+          
+  <div className="space-y-4">
+    {/* Bold label closer to input */}
+    <p className="text-sm font-semibold text-black mb-0">WhatsApp Number</p>
 
-                <div className="text-center">
-                  {!resendEnabled ? (
-                    <p className="text-sm text-gray-500">Resend OTP in {secondsLeft}s</p>
-                  ) : (
-                    <button
-                      type="button"
-                      onClick={async () => {
-                        setSecondsLeft(50);
-                        setResendEnabled(false);
-                        await axios.post('https://car-history-dekho-backend-production.up.railway.app/api/user/email-login', { email });
-                        setMessage('OTP resent to your email.');
-                      }}
-                      className="text-blue-500 text-sm hover:underline"
-                    >
-                      Resend OTP
-                    </button>
-                  )}
-                </div>
+    {/* Phone number input */}
+    <input
+      type="text"
+      placeholder="Enter WhatsApp number"
+      
+      value={phoneNumber}
+      onChange={(e) => setPhoneNumber(e.target.value)}
+      readOnly={otpSent}
+      required
+      className={`w-full px-4 py-3 border border-gray-500 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none ${
+        otpSent ? 'bg-gray-100 cursor-not-allowed' : ''
+      }`}
+    />
 
-                <p className="text-sm text-center">
-                  <button type="button" onClick={resetStates} className="text-blue-500 hover:underline">
-                    Back
-                  </button>
-                </p>
-              </form>
-            )}
+    {/* Send OTP button with more top margin */}
+    {!otpSent && (
+      <button
+        type="button"
+        onClick={handleSendWhatsappOtp}
+        className="w-full mt-6 py-3 bg-gradient-to-r  from-blue-500 to-blue-700 text-white rounded-lg hover:from-blue-600 hover:to-blue-800 transition"
+      >
+        Send OTP
+      </button>
+    )}
 
-            {/* Password step */}
+    {/* OTP input and actions */}
+    {otpSent && (
+      <div className="space-y-4">
+        <input
+          type="number"
+          placeholder="Enter OTP"
+          value={otp}
+          onChange={(e) => setOtp(e.target.value)}
+          required
+          className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+        />
+
+        <button
+          type="submit"
+          className="w-full py-3 bg-gradient-to-r from-green-500 to-green-700 text-white rounded-lg hover:from-green-600 hover:to-green-800 transition"
+          onClick={handleVerifyWhatsappOtp}
+        >
+          {loading ? 'Verifying OTP...' : 'Verify OTP'}
+        </button>
+
+        <p className="text-sm text-center mt-2">
+          <button
+            type="button"
+            className="text-blue-600 disabled:text-gray-400"
+            onClick={handleResendOtp}
+            disabled={resendDisabled}
+          >
+            {resendDisabled ? 'Resend OTP in 30s' : 'Resend OTP'}
+          </button>
+        </p>
+
+        {/* Back to WhatsApp input */}
+        <p className="text-sm text-center">
+          <button
+            type="button"
+            className="text-red-500 hover:underline"
+            onClick={handleBackToWhatsappStart}
+          >
+            ← Back to Enter WhatsApp Number again
+          </button>
+        </p>
+      </div>
+    )}
+
+    {/* Back to login methods */}
+    {!otpSent && (
+      <p className="text-sm text-center">
+        <button
+          type="button"
+          className="text-red-500 hover:underline"
+          onClick={resetStates}
+        >
+          ← Back to login methods
+        </button>
+      </p>
+    )}
+  </div>
+)}
+
+
+
+
+
+
+            {/* Email OTP step */}
+           {step === 'otp' && (
+  <div className="space-y-4">
+    <form onSubmit={handleEmailOtp} className="space-y-4">
+      <input
+        type="number"
+        placeholder="Enter OTP"
+        value={otp}
+        onChange={(e) => setOtp(e.target.value)}
+        className="w-full px-4 py-3 border border-gray-500 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+        required
+      />
+      <button
+        type="submit"
+        className="w-full py-3 text-white rounded-lg bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 transition-all"
+      >
+        {loading ? 'Verifying...' : 'Verify OTP'}
+      </button>
+    </form>
+
+    <p className="text-sm text-center">
+      <button
+        type="button"
+        className="text-red-500 hover:underline"
+        onClick={resetStates}
+      >
+        ← Back to login methods
+      </button>
+    </p>
+  </div>
+)}
+
+            {/* Password login */}
+           
+            
             {step === 'password' && (
-              <form onSubmit={handleEmailPasswordLogin} className="space-y-4">
-                <input
-                  type="password"
-                  placeholder="Enter password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                  className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
-                />
-                <button
-                  type="submit"
-                  className="w-full py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
-                >
-                  {loading ? 'Logging in...' : 'Login'}
-                </button>
+  <div className="space-y-4">
+    <form onSubmit={handleEmailPasswordLogin} className="space-y-4">
+      <input
+        type="password"
+        placeholder="Enter your password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+        required
+      />
+      <button
+        type="submit"
+        className="w-full py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+      >
+        {loading ? 'Logging in...' : 'Login with Email & Password'}
+      </button>
+    </form>
+    
+    {/* Back to login methods button, only shown when not OTP step */}
+    <p className="text-sm text-center">
+      <button
+        type="button"
+        className="text-red-500 hover:underline"
+        onClick={resetStates}
+      >
+        ← Back to login methods
+      </button>
+    </p>
+  </div>
+)}
 
-                <p className="text-sm text-center">
-                  <button type="button" onClick={resetStates} className="text-blue-500 hover:underline">
-                    Back
-                  </button>
-                </p>
-              </form>
-            )}
           </div>
         </div>
       </div>

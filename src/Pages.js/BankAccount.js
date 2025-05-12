@@ -19,7 +19,7 @@ const [isPopupOpen, setIsPopupOpen] = useState(false);
     
     const handleClosePopup = () => setIsPopupOpen(false);
     const handleSuccess = (newBalance) => {
-      console.log("Payment success. New balance:", newBalance);
+     
       
     };
 
