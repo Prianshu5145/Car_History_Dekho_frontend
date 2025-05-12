@@ -21,12 +21,12 @@ export default function Sidebar() {
     { label: 'Transactions', icon: <Receipt size={20} />, path: '/transactions' },
     { label: 'Hyundai Service History', icon: <Car size={20} />, path: '/h-service-Response' },
     { label: 'Maruti Suzuki Service History', icon: <Car size={20} />, path: '/M-service-Response' },
-    { label: 'Mahindra Service History', icon: <Car size={20} />, path: '/Mh-service-Response' },
+    // { label: 'Mahindra Service History', icon: <Car size={20} />, path: '/Mh-service-Response' },
     { label: 'RC Verification', icon: <ShieldCheck size={20} />, path: '/RC-Response' },
     { label: 'Challan Check', icon: <BadgeIndianRupee size={20} />, path: '/challan-Response' },
     { label: 'Bank Account Verification', icon: <CreditCard size={20} />, path: '/Bank-Response' },
     { label: 'PAN Verification', icon: <IdCard size={20} />, path: '/Pan-Response' },
-    { label: 'Aadhar Verification', icon: <Contact size={20} />, path: '/aadhar-verification' },
+    // { label: 'Aadhar Verification', icon: <Contact size={20} />, path: '/aadhar-verification' },
   ];
 
   const handleNavigate = (path) => {
