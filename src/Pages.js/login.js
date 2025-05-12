@@ -147,7 +147,7 @@ const Login = () => {
     console.log(resendOtp);
    if (!otpSent || resendOtp) {
   await axios.post(
-    'http://localhost:5000/api/user/whatsapp-login', // Endpoint to send OTP
+    'https://car-history-dekho-backend-production.up.railway.app/api/user/whatsapp-login', // Endpoint to send OTP
     { mobile_number },
     { withCredentials: true }
   );
@@ -165,7 +165,7 @@ else {
       // If OTP is already sent, proceed to verify OTP
        setLoading(true);
       await axios.post(
-        'http://localhost:5000/api/user/whatsapp-verify-otp',  // Endpoint to verify OTP
+        'https://car-history-dekho-backend-production.up.railway.app/api/user/whatsapp-verify-otp',  // Endpoint to verify OTP
         { mobile_number, otp },
         { withCredentials: true }
       );
