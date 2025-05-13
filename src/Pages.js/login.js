@@ -311,14 +311,12 @@ const startResendTimer = () => {
                   <img src="https://res.cloudinary.com/dunsl7vvf/image/upload/v1746999003/google-icon_gukp9e.svg" alt="Google Login" className="h-5 w-5 mr-3 inline-block" />
                   {loading1 ?  (
   <div className="fixed inset-0 z-50 bg-white/60 backdrop-blur-sm flex items-center justify-center pointer-events-none">
-    <div className="flex flex-col items-center justify-center space-y-8 p-4 rounded-2xl shadow-2xl bg-white/90 backdrop-blur-md pointer-events-none w-full max-w-sm md:max-w-md lg:max-w-lg mt-[-200px] lg:mt-[-40px]">
+    <div className="flex flex-col items-center justify-center space-y-8 p-4 rounded-2xl shadow-2xl bg-white/90 backdrop-blur-md pointer-events-none w-full max-w-sm md:max-w-md lg:max-w-lg mt-32 md:mt-40">
       
       {/* Spinner Container */}
       <div className="relative w-32 h-32 md:w-40 md:h-40 lg:w-48 lg:h-48">
         {/* Outer Spinner Circle */}
         <div className="absolute inset-0 border-[6px] md:border-[6px] border-t-transparent border-l-blue-500 border-r-blue-300 border-b-transparent rounded-full animate-spin"></div>
-
-        
       </div>
 
       {/* Loading Text */}
@@ -330,7 +328,8 @@ const startResendTimer = () => {
       <span className="text-blue-500 text-base font-medium">Car History Dekho</span>
     </div>
   </div>
-): ('Continue with Google')}
+)
+: ('Continue with Google')}
                 </button>
 
 
@@ -417,21 +416,19 @@ const startResendTimer = () => {
           className="w-full py-3 bg-gradient-to-r from-green-500 to-green-700 text-white rounded-lg hover:from-green-600 hover:to-green-800 transition"
           onClick={handleVerifyWhatsappOtp}
         >
-          {loading ?  (
+          {loading ?   (
   <div className="fixed inset-0 z-50 bg-white/60 backdrop-blur-sm flex items-center justify-center pointer-events-none">
-    <div className="flex flex-col items-center justify-center space-y-8 p-4 rounded-2xl shadow-2xl bg-white/90 backdrop-blur-md pointer-events-none w-full max-w-sm md:max-w-md lg:max-w-lg mt-[-200px] lg:mt-[-40px]">
+    <div className="flex flex-col items-center justify-center space-y-8 p-4 rounded-2xl shadow-2xl bg-white/90 backdrop-blur-md pointer-events-none w-full max-w-sm md:max-w-md lg:max-w-lg mt-32 md:mt-40">
       
       {/* Spinner Container */}
       <div className="relative w-32 h-32 md:w-40 md:h-40 lg:w-48 lg:h-48">
         {/* Outer Spinner Circle */}
         <div className="absolute inset-0 border-[6px] md:border-[6px] border-t-transparent border-l-blue-500 border-r-blue-300 border-b-transparent rounded-full animate-spin"></div>
-
-        
       </div>
 
       {/* Loading Text */}
       <p className="w-full text-lg md:text-xl font-semibold text-gray-800 text-center">
-        <strong>Verifying OTP… Please wait.</strong>
+        <strong>Verifying OTP... Please wait</strong>
       </p>
 
       {/* Brand Name */}
@@ -501,21 +498,19 @@ const startResendTimer = () => {
         type="submit"
         className="w-full py-3 text-white rounded-lg bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 transition-all"
       >
-        {loading ?  (
+        {loading ?   (
   <div className="fixed inset-0 z-50 bg-white/60 backdrop-blur-sm flex items-center justify-center pointer-events-none">
-    <div className="flex flex-col items-center justify-center space-y-8 p-4 rounded-2xl shadow-2xl bg-white/90 backdrop-blur-md pointer-events-none w-full max-w-sm md:max-w-md lg:max-w-lg mt-[-200px] lg:mt-[-40px]">
+    <div className="flex flex-col items-center justify-center space-y-8 p-4 rounded-2xl shadow-2xl bg-white/90 backdrop-blur-md pointer-events-none w-full max-w-sm md:max-w-md lg:max-w-lg mt-32 md:mt-40">
       
       {/* Spinner Container */}
       <div className="relative w-32 h-32 md:w-40 md:h-40 lg:w-48 lg:h-48">
         {/* Outer Spinner Circle */}
         <div className="absolute inset-0 border-[6px] md:border-[6px] border-t-transparent border-l-blue-500 border-r-blue-300 border-b-transparent rounded-full animate-spin"></div>
-
-        
       </div>
 
       {/* Loading Text */}
       <p className="w-full text-lg md:text-xl font-semibold text-gray-800 text-center">
-        <strong>Verifying OTP… Please wait.</strong>
+        <strong>Verifying OTP... Please wait</strong>
       </p>
 
       {/* Brand Name */}
@@ -558,14 +553,12 @@ const startResendTimer = () => {
       >
         {loading ?  (
   <div className="fixed inset-0 z-50 bg-white/60 backdrop-blur-sm flex items-center justify-center pointer-events-none">
-    <div className="flex flex-col items-center justify-center space-y-8 p-4 rounded-2xl shadow-2xl bg-white/90 backdrop-blur-md pointer-events-none w-full max-w-sm md:max-w-md lg:max-w-lg mt-[-200px] lg:mt-[-40px]">
+    <div className="flex flex-col items-center justify-center space-y-8 p-4 rounded-2xl shadow-2xl bg-white/90 backdrop-blur-md pointer-events-none w-full max-w-sm md:max-w-md lg:max-w-lg mt-32 md:mt-40">
       
       {/* Spinner Container */}
       <div className="relative w-32 h-32 md:w-40 md:h-40 lg:w-48 lg:h-48">
         {/* Outer Spinner Circle */}
         <div className="absolute inset-0 border-[6px] md:border-[6px] border-t-transparent border-l-blue-500 border-r-blue-300 border-b-transparent rounded-full animate-spin"></div>
-
-        
       </div>
 
       {/* Loading Text */}
