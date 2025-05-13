@@ -110,10 +110,11 @@ const Login = () => {
   const handleGoogleLogin = async (e) => {
     setError('');
     e.preventDefault();
-    setLoading1(true);
+  
     try {
       const result = await signInWithPopup(auth, provider);
       const { user } = result;
+        setLoading1(true);
       await axios.post(
         'https://car-history-dekho-backend-production.up.railway.app/api/user/google-login',
         { email: user.email, googleId: user.uid },
@@ -308,7 +309,28 @@ const startResendTimer = () => {
                   className="w-full py-3 text-black bg-white border border-gray-600 rounded-lg hover:bg-gray-150 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
                 >
                   <img src="https://res.cloudinary.com/dunsl7vvf/image/upload/v1746999003/google-icon_gukp9e.svg" alt="Google Login" className="h-5 w-5 mr-3 inline-block" />
-                  {loading1 ? 'Logging in...' : 'Continue with Google'}
+                  {loading1 ?  (
+  <div className="fixed inset-0 z-50 bg-white/60 backdrop-blur-sm flex items-center justify-center pointer-events-none">
+    <div className="flex flex-col items-center justify-center space-y-8 p-4 rounded-2xl shadow-2xl bg-white/90 backdrop-blur-md pointer-events-none w-full max-w-sm md:max-w-md lg:max-w-lg mt-[-200px] lg:mt-[-40px]">
+      
+      {/* Spinner Container */}
+      <div className="relative w-32 h-32 md:w-40 md:h-40 lg:w-48 lg:h-48">
+        {/* Outer Spinner Circle */}
+        <div className="absolute inset-0 border-[6px] md:border-[6px] border-t-transparent border-l-blue-500 border-r-blue-300 border-b-transparent rounded-full animate-spin"></div>
+
+        
+      </div>
+
+      {/* Loading Text */}
+      <p className="w-full text-lg md:text-xl font-semibold text-gray-800 text-center">
+        <strong>Logging in... Please wait</strong>
+      </p>
+
+      {/* Brand Name */}
+      <span className="text-blue-500 text-base font-medium">Car History Dekho</span>
+    </div>
+  </div>
+): ('Continue with Google')}
                 </button>
 
 
@@ -395,7 +417,28 @@ const startResendTimer = () => {
           className="w-full py-3 bg-gradient-to-r from-green-500 to-green-700 text-white rounded-lg hover:from-green-600 hover:to-green-800 transition"
           onClick={handleVerifyWhatsappOtp}
         >
-          {loading ? 'Verifying OTP...' : 'Verify OTP'}
+          {loading ?  (
+  <div className="fixed inset-0 z-50 bg-white/60 backdrop-blur-sm flex items-center justify-center pointer-events-none">
+    <div className="flex flex-col items-center justify-center space-y-8 p-4 rounded-2xl shadow-2xl bg-white/90 backdrop-blur-md pointer-events-none w-full max-w-sm md:max-w-md lg:max-w-lg mt-[-200px] lg:mt-[-40px]">
+      
+      {/* Spinner Container */}
+      <div className="relative w-32 h-32 md:w-40 md:h-40 lg:w-48 lg:h-48">
+        {/* Outer Spinner Circle */}
+        <div className="absolute inset-0 border-[6px] md:border-[6px] border-t-transparent border-l-blue-500 border-r-blue-300 border-b-transparent rounded-full animate-spin"></div>
+
+        
+      </div>
+
+      {/* Loading Text */}
+      <p className="w-full text-lg md:text-xl font-semibold text-gray-800 text-center">
+        <strong>Verifying OTP… Please wait.</strong>
+      </p>
+
+      {/* Brand Name */}
+      <span className="text-blue-500 text-base font-medium">Car History Dekho</span>
+    </div>
+  </div>
+): ('Verify OTP')}
         </button>
 
         <p className="text-sm text-center mt-2">
@@ -458,7 +501,28 @@ const startResendTimer = () => {
         type="submit"
         className="w-full py-3 text-white rounded-lg bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 transition-all"
       >
-        {loading ? 'Verifying...' : 'Verify OTP'}
+        {loading ?  (
+  <div className="fixed inset-0 z-50 bg-white/60 backdrop-blur-sm flex items-center justify-center pointer-events-none">
+    <div className="flex flex-col items-center justify-center space-y-8 p-4 rounded-2xl shadow-2xl bg-white/90 backdrop-blur-md pointer-events-none w-full max-w-sm md:max-w-md lg:max-w-lg mt-[-200px] lg:mt-[-40px]">
+      
+      {/* Spinner Container */}
+      <div className="relative w-32 h-32 md:w-40 md:h-40 lg:w-48 lg:h-48">
+        {/* Outer Spinner Circle */}
+        <div className="absolute inset-0 border-[6px] md:border-[6px] border-t-transparent border-l-blue-500 border-r-blue-300 border-b-transparent rounded-full animate-spin"></div>
+
+        
+      </div>
+
+      {/* Loading Text */}
+      <p className="w-full text-lg md:text-xl font-semibold text-gray-800 text-center">
+        <strong>Verifying OTP… Please wait.</strong>
+      </p>
+
+      {/* Brand Name */}
+      <span className="text-blue-500 text-base font-medium">Car History Dekho</span>
+    </div>
+  </div>
+) : ('Verify OTP')}
       </button>
     </form>
 
@@ -492,7 +556,28 @@ const startResendTimer = () => {
         type="submit"
         className="w-full py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
       >
-        {loading ? 'Logging in...' : 'Login with Email & Password'}
+        {loading ?  (
+  <div className="fixed inset-0 z-50 bg-white/60 backdrop-blur-sm flex items-center justify-center pointer-events-none">
+    <div className="flex flex-col items-center justify-center space-y-8 p-4 rounded-2xl shadow-2xl bg-white/90 backdrop-blur-md pointer-events-none w-full max-w-sm md:max-w-md lg:max-w-lg mt-[-200px] lg:mt-[-40px]">
+      
+      {/* Spinner Container */}
+      <div className="relative w-32 h-32 md:w-40 md:h-40 lg:w-48 lg:h-48">
+        {/* Outer Spinner Circle */}
+        <div className="absolute inset-0 border-[6px] md:border-[6px] border-t-transparent border-l-blue-500 border-r-blue-300 border-b-transparent rounded-full animate-spin"></div>
+
+        
+      </div>
+
+      {/* Loading Text */}
+      <p className="w-full text-lg md:text-xl font-semibold text-gray-800 text-center">
+        <strong>Logging in... Please wait</strong>
+      </p>
+
+      {/* Brand Name */}
+      <span className="text-blue-500 text-base font-medium">Car History Dekho</span>
+    </div>
+  </div>
+): ('Login with Email & Password')}
       </button>
     </form>
     
