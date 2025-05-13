@@ -327,9 +327,7 @@ const [submissionSuccess, setSubmissionSuccess] = useState(false);
 
            </button>
            <span className="text-red-600 font-semibold block mt-2">
-  NOTE: This service is currently working for{" "}
-  <span className="underline">Bolero</span> and{" "}
-  <span className="underline">Thar</span> model vehicles only.
+  NOTE: This service is currently supported for most vehicle models.
 </span>
 
 
