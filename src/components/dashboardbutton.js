@@ -62,12 +62,12 @@ const services = [
     label: "RC Verification",
     color: "from-indigo-500 to-purple-500",
   },
-  {
-    to: "/service-history",
-    icon: <FaTools size={25} />,
-    label: "Service History + Accident Report",
-    color: "from-pink-500 to-rose-500",
-  },
+  // {
+  //   to: "/service-history",
+  //   icon: <FaTools size={25} />,
+  //   label: "Service History + Accident Report",
+  //   color: "from-pink-500 to-rose-500",
+  // },
 
  
   {
