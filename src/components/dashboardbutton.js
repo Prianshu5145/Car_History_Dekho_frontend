@@ -39,17 +39,17 @@ const services = [
       ),
     color: "from-pink-500 to-purple-600",
   },
-  // {
-  //   to: "/Mh-service-Response",
-  //   icon: <GiSpeedometer size={25} />,
-  //   label:  (
-  //       <>
-  //         MAHINDRA <br />
-  //          Service history Check
-  //       </>
-  //     ),
-  //   color: "from-gray-500 to-emerald-500",
-  // },
+  {
+    to: "/Mh-service-Response",
+    icon: <GiSpeedometer size={25} />,
+    label:  (
+        <>
+          MAHINDRA <br />
+           Service history Check
+        </>
+      ),
+    color: "from-gray-500 to-emerald-500",
+  },
    {
     to: "/challan-Response",
     icon: <FaExclamationTriangle size={25} />,
@@ -62,12 +62,12 @@ const services = [
     label: "RC Verification",
     color: "from-indigo-500 to-purple-500",
   },
-//   {
-//     to: "/service-history",
-//     icon: <FaTools size={25} />,
-//     label: "Service History + Accident Report",
-//     color: "from-pink-500 to-rose-500",
-//   },
+  {
+    to: "/service-history",
+    icon: <FaTools size={25} />,
+    label: "Service History + Accident Report",
+    color: "from-pink-500 to-rose-500",
+  },
 
  
   {
@@ -82,12 +82,12 @@ const services = [
     label: "Pan Card Verification",
     color: "from-blue-400 to-cyan-500",
   },
-  // {
-  //   to: "/Aadhar-Response",
-  //   icon: <HiOutlineIdentification size={25} />,
-  //   label: "Aadhar Card Verification",
-  //   color: "from-yellow-400 to-red-500",
-  // },
+  {
+    to: "/Aadhar-Response",
+    icon: <HiOutlineIdentification size={25} />,
+    label: "Aadhar Card Verification",
+    color: "from-yellow-400 to-red-500",
+  },
 ];
 
 const DashboardGrid = () => {
