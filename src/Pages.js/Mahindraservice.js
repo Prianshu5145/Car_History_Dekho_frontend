@@ -21,99 +21,94 @@ const [isPopupOpen, setIsPopupOpen] = useState(false);
     
   };
  const generateServicePDF = (data) => {
-       const { vehicleNumber, serviceHistoryDetails } = data;
-     
-       if (!vehicleNumber || !serviceHistoryDetails) {
-         console.error("Missing vehicle number or service history details.");
-         return;
-       }
-     
-       // Create a taller-than-A4 page: width 210mm, height 400mm
-       const doc = new jsPDF({
-         orientation: 'portrait',
-         unit: 'mm',
-         format: [210, 380], // Custom size: taller than A4
-       });
-     
-       doc.setFontSize(24);
-       doc.text(`Service History Report - ${vehicleNumber}`, 14, 15);
-     
-       const totalRecords = serviceHistoryDetails.length;
-     
-       serviceHistoryDetails.forEach((record, index) => {
-         const recordNumber = totalRecords - index;
-         const tableIndexOnPage = index % 3; // 0, 1, 2
-         const pageNumber = Math.floor(index / 3);
-     
-         if (index > 0 && tableIndexOnPage === 0) {
-           doc.addPage([210, 360]); // Add another tall page
-         }
-     
-         const baseY = pageNumber === 0 ? 35 : 20; // Top margin per page
-         const tableSpacing = 117; // Adjust if content overflows
-         const startY = baseY + tableIndexOnPage * tableSpacing;
-     
-         if (recordNumber !== totalRecords) {
-          doc.setFontSize(17);
-          doc.text(`Service Record No. ${recordNumber}`, 14, startY);
-      } else {
-          doc.setFontSize(17);
-          doc.text(`Service Record No. ${recordNumber} (Latest Service)`, 14, startY);
-      }
-      
-         doc.setFontSize(14);
-         autoTable(doc, {
-           startY: startY + 6,
-          head: [[{ content: 'Vehicle Service  Details', colSpan: 2, styles: { halign: 'left' } }]],
-           body: [
-            ['Date of Service :', record.svc_date],
-             ['Recorded ODOMETER Reading :', `${record.mileage}  KM`],
-            
-             ['Service type :', `${record.work_type}`],
-             ['Service Category :', `${record.service_cate}`],
-             ['Date of Repair Order :', record.repair_order_bill_date],
-             
-             ['Service Center Name :',record.dealer_name],
-             ['Service Center Address :',record.location_name],
-            
-             ['Total Amount (INR) :', record.net_bill_amt],
-            
-           ],
-           theme: 'grid',
-           styles: { cellPadding: 3, fontSize: 10, halign: 'left' },
-           headStyles: { 
-          fillColor: [0, 112, 192], 
-          textColor: [255, 255, 255],
-          fontStyle: 'bold',
-          fontSize: 12,
-          halign: 'left',
-          lineColor: [0, 0, 0], 
-          lineWidth: 0.2 
-        },
-           bodyStyles: { textColor: [0, 0, 0], lineColor: [0, 0, 0], lineWidth: 0.1 },
-           tableWidth: 'auto',
-           columnStyles: {
-    0: { cellWidth: 71 }, // Adjust width of first column as needed
-  },
-           margin: {
-             top: 0,
-             bottom: 2,
-           },
-           didParseCell: function (data) {
-            if (data.section === 'body' && data.row.index === 1) {
-              data.cell.styles.fontStyle = 'bold';
-              data.cell.styles.fontSize = 11; // Adjust size as needed
-            }
-          },
-           
-         });
-       });
-     
-       const pdfBlob = doc.output('blob');
-       const pdfUrl = URL.createObjectURL(pdfBlob);
-       window.open(pdfUrl, '_blank');
-       doc.save(`Service-${vehicleNumber}.pdf`); 
-     };
+  const { vehicleNumber, serviceHistoryDetails } = data;
+
+  if (!vehicleNumber || !serviceHistoryDetails) {
+    console.error("Missing vehicle number or service history details.");
+    return;
+  }
+
+  const doc = new jsPDF({
+    orientation: 'portrait',
+    unit: 'mm',
+    format: [210, 380],
+  });
+
+  doc.setFontSize(24);
+  doc.text(`Service History Report - ${vehicleNumber}`, 14, 15);
+
+  const reversedDetails = serviceHistoryDetails.slice().reverse(); // Reverse the order
+  const totalRecords = reversedDetails.length;
+
+  reversedDetails.forEach((record, index) => {
+    const recordNumber = totalRecords - index;
+    const tableIndexOnPage = index % 3;
+    const pageNumber = Math.floor(index / 3);
+
+    if (index > 0 && tableIndexOnPage === 0) {
+      doc.addPage([210, 360]);
+    }
+
+    const baseY = pageNumber === 0 ? 35 : 20;
+    const tableSpacing = 117;
+    const startY = baseY + tableIndexOnPage * tableSpacing;
+
+    doc.setFontSize(17);
+    if (index === 0) {
+      doc.text(`Service Record No. ${recordNumber} (Latest Service)`, 14, startY);
+    } else {
+      doc.text(`Service Record No. ${recordNumber}`, 14, startY);
+    }
+
+    doc.setFontSize(14);
+    autoTable(doc, {
+      startY: startY + 6,
+      head: [[{ content: 'Vehicle Service  Details', colSpan: 2, styles: { halign: 'left' } }]],
+      body: [
+        ['Date of Service :', record.svc_date],
+        ['Recorded ODOMETER Reading :', `${record.mileage}  KM`],
+        ['Service type :', `${record.work_type}`],
+        ['Service Category :', `${record.service_cate}`],
+        ['Date of Repair Order :', record.repair_order_bill_date],
+        ['Service Center Name :', record.dealer_name],
+        ['Service Center Address :', record.location_name],
+        ['Total Amount (INR) :', record.net_bill_amt],
+      ],
+      theme: 'grid',
+      styles: { cellPadding: 3, fontSize: 10, halign: 'left' },
+      headStyles: {
+        fillColor: [0, 112, 192],
+        textColor: [255, 255, 255],
+        fontStyle: 'bold',
+        fontSize: 12,
+        halign: 'left',
+        lineColor: [0, 0, 0],
+        lineWidth: 0.2
+      },
+      bodyStyles: { textColor: [0, 0, 0], lineColor: [0, 0, 0], lineWidth: 0.1 },
+      tableWidth: 'auto',
+      columnStyles: {
+        0: { cellWidth: 71 },
+      },
+      margin: {
+        top: 0,
+        bottom: 2,
+      },
+      didParseCell: function (data) {
+        if (data.section === 'body' && data.row.index === 1) {
+          data.cell.styles.fontStyle = 'bold';
+          data.cell.styles.fontSize = 11;
+        }
+      },
+    });
+  });
+
+  const pdfBlob = doc.output('blob');
+  const pdfUrl = URL.createObjectURL(pdfBlob);
+  window.open(pdfUrl, '_blank');
+  doc.save(`Service-${vehicleNumber}.pdf`);
+};
+
      const [loading, setLoading] = useState(false);
 
 const [submissionSuccess, setSubmissionSuccess] = useState(false);
