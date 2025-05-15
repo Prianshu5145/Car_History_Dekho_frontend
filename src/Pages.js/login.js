@@ -483,9 +483,15 @@ const startResendTimer = () => {
 
 
             {/* Email OTP step */}
-           {step === 'otp' && (
+          {step === 'otp' && (
   <div className="space-y-4">
     <form onSubmit={handleEmailOtp} className="space-y-4">
+      
+      {/* Info Message */}
+      <span className="text-sm text-red-500">
+        Sometimes OTP is delivered in the spam folder. Please check it also.
+      </span>
+
       <input
         type="number"
         placeholder="Enter OTP"
@@ -494,30 +500,31 @@ const startResendTimer = () => {
         className="w-full px-4 py-3 border border-gray-500 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
         required
       />
+
       <button
         type="submit"
         className="w-full py-3 text-white rounded-lg bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 transition-all"
       >
-        {loading ?   (
-  <div className="fixed inset-0 z-50 bg-white/60 backdrop-blur-sm flex items-center justify-center pointer-events-none">
-    <div className="flex flex-col items-center justify-center space-y-8 p-4 rounded-2xl shadow-2xl bg-white/90 backdrop-blur-md pointer-events-none w-full max-w-sm md:max-w-md lg:max-w-lg mt-32 md:mt-40">
-      
-      {/* Spinner Container */}
-      <div className="relative w-32 h-32 md:w-40 md:h-40 lg:w-48 lg:h-48">
-        {/* Outer Spinner Circle */}
-        <div className="absolute inset-0 border-[6px] md:border-[6px] border-t-transparent border-l-blue-500 border-r-blue-300 border-b-transparent rounded-full animate-spin"></div>
-      </div>
+        {loading ? (
+          <div className="fixed inset-0 z-50 bg-white/60 backdrop-blur-sm flex items-center justify-center pointer-events-none">
+            <div className="flex flex-col items-center justify-center space-y-8 p-4 rounded-2xl shadow-2xl bg-white/90 backdrop-blur-md pointer-events-none w-full max-w-sm md:max-w-md lg:max-w-lg mt-32 md:mt-40">
+              
+              {/* Spinner Container */}
+              <div className="relative w-32 h-32 md:w-40 md:h-40 lg:w-48 lg:h-48">
+                {/* Outer Spinner Circle */}
+                <div className="absolute inset-0 border-[6px] md:border-[6px] border-t-transparent border-l-blue-500 border-r-blue-300 border-b-transparent rounded-full animate-spin"></div>
+              </div>
 
-      {/* Loading Text */}
-      <p className="w-full text-lg md:text-xl font-semibold text-gray-800 text-center">
-        <strong>Verifying OTP... Please wait</strong>
-      </p>
+              {/* Loading Text */}
+              <p className="w-full text-lg md:text-xl font-semibold text-gray-800 text-center">
+                <strong>Verifying OTP... Please wait</strong>
+              </p>
 
-      {/* Brand Name */}
-      <span className="text-blue-500 text-base font-medium">Car History Dekho</span>
-    </div>
-  </div>
-) : ('Verify OTP')}
+              {/* Brand Name */}
+              <span className="text-blue-500 text-base font-medium">Car History Dekho</span>
+            </div>
+          </div>
+        ) : ('Verify OTP')}
       </button>
     </form>
 
@@ -532,6 +539,7 @@ const startResendTimer = () => {
     </p>
   </div>
 )}
+
 
             {/* Password login */}
            

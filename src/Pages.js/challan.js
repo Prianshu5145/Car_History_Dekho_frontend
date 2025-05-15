@@ -361,20 +361,20 @@ const handleSubmit = async (e) => {
        All-in-One Challan Check
        </h2>
  
-       {/* <h2 className="text-lg sm:text-2xl font-semibold text-gray-800 mb-1 pb-2">
+        <h2 className="text-lg sm:text-2xl font-semibold text-gray-800 mb-1 pb-2">
          How to Use
        </h2>
-  */}
+  
        {/* Embedded Video */}
-       {/* <div className="lg:h-3/4 w-full   aspect-video rounded-xl overflow-hidden mb-8 shadow-sm border">
+        <div className="lg:h-3/4 w-full   aspect-video rounded-xl overflow-hidden mb-8 shadow-sm border">
          <iframe
            className="w-full h-full "
-           src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+           src="https://res.cloudinary.com/dunsl7vvf/video/upload/v1747347809/final_challan_video___Made_with_Clipchamp_clean_ovjeou.mp4"
            title="How to Use Video"
            frameBorder="0"
            allowFullScreen
          ></iframe>
-       </div> */}
+       </div> 
  
        {/* Input Field + Submit */}
        <form onSubmit={handleSubmit} className="mb-4">

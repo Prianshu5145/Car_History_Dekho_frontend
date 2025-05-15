@@ -257,20 +257,20 @@ const [errorInfo, setErrorInfo] = useState(null);
          MARUTI SUZUKI Service History Check
        </h2>
  
-       {/* <h2 className="text-lg sm:text-2xl font-semibold text-gray-800 mb-1 pb-2">
+       /* <h2 className="text-lg sm:text-2xl font-semibold text-gray-800 mb-1 pb-2">
          How to Use
-       </h2> */}
+       </h2>
  
        {/* Embedded Video */}
-       {/* <div className="lg:h-3/4 w-full   aspect-video rounded-xl overflow-hidden mb-8 shadow-sm border">
+        <div className="lg:h-3/4 w-full   aspect-video rounded-xl overflow-hidden mb-8 shadow-sm border">
          <iframe
            className="w-full h-full "
-           src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+           src="https://res.cloudinary.com/dunsl7vvf/video/upload/v1747347843/final_Maruti_video___Made_with_Clipchamp_clean_ght5nw.mp4"
            title="How to Use Video"
            frameBorder="0"
            allowFullScreen
          ></iframe>
-       </div> */}
+       </div>
  
        {/* Input Field + Submit */}
        <form onSubmit={handleSubmit} className="mb-4">
@@ -387,11 +387,6 @@ const [errorInfo, setErrorInfo] = useState(null);
      </div>
    </div>
    <div className="hidden lg:block lg:w-1/3 lg:pl-6">
-   <img
-     src="/your-image.jpg"  // Replace with your actual image path
-     alt="Decorative"
-     className="w-full h-full object-cover rounded-r-2xl"
-   />
  </div>
  </div>
 
