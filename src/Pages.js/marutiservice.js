@@ -257,7 +257,7 @@ const [errorInfo, setErrorInfo] = useState(null);
          MARUTI SUZUKI Service History Check
        </h2>
  
-       /* <h2 className="text-lg sm:text-2xl font-semibold text-gray-800 mb-1 pb-2">
+        <h2 className="text-lg sm:text-2xl font-semibold text-gray-800 mb-1 pb-2">
          How to Use
        </h2>
  

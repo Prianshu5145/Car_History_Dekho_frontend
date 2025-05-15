@@ -39,7 +39,7 @@ export default function Dashboard() {
           <div>
             <h2 className="text-xl font-semibold mb-2">Car Dealer-Focused Products</h2>
             <p className="text-sm mb-4">
-              Empowering smart vehicle transactions with our trusted verification suite. Instantly access Odometer & Service History, RC Verification, Challan Status, and Owner Identity Checks — all in one place.
+              Empowering smart vehicle transactions with our trusted verification suite.
             </p>
           </div>
           <div className="w-32 h-32 bg-blue-800 rounded-lg" />
