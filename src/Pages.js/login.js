@@ -488,7 +488,7 @@ const startResendTimer = () => {
     <form onSubmit={handleEmailOtp} className="space-y-4">
       
       {/* Info Message */}
-      <span className="text-sm text-red-500">
+      <span className="text-sm text-blue-500">
         Sometimes OTP is delivered in the spam folder. Please check it also.
       </span>
 
