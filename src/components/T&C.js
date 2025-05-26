@@ -11,8 +11,8 @@ const TermsAndConditions = () => {
       <h2 className="text-2xl font-medium">1. Acceptance of Terms</h2>
       <p>By accessing and using our services, you agree to be bound by these Terms and Conditions and our Privacy Policy.</p>
 
-      <h2 className="text-2xl font-medium">2. Services Provided</h2>
-      <p>We provide vehicle history information to verified dealers using data from third-party registered companies.</p>
+      {/* <h2 className="text-2xl font-medium">2. Services Provided</h2>
+      <p>We provide vehicle history information to verified dealers using data from third-party registered companies.</p> */}
 
       <h2 className="text-2xl font-medium">3. Dealer Verification</h2>
       <p>Dealers must register and be verified to access our services. Verification includes consent to our data processing terms.</p>
@@ -21,7 +21,8 @@ const TermsAndConditions = () => {
       <p>Services are to be used solely for legitimate business purposes. Unauthorized use or distribution of data is prohibited.</p>
 
       <h2 className="text-2xl font-medium">5. Limitation of Liability</h2>
-      <p>We are not liable for any inaccuracies in the data provided by third-party registered companies.</p>
+      <p>We are not liable for any inaccuracies in the data provided.</p>
+      {/* by third-party registered companies. */}
 
       <h2 className="text-2xl font-medium">6. Modifications to Terms</h2>
       <p>We reserve the right to modify these Terms at any time. Continued use of our services constitutes acceptance of the new Terms.</p>
