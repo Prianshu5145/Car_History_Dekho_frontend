@@ -43,9 +43,10 @@ const Transactions = () => {
                   </div>
                   <div>
                     <div className="text-gray-600">Type</div>
-                    <div className={`font-semibold ${tx.type === 'Credit' ? 'text-green-600' : 'text-red-600'}`}>
-                      {tx.type}
-                    </div>
+                   <div className={`font-semibold ${tx.type === 'Credit' ? 'text-green-600' : 'text-red-600'}`}>
+  {tx.type === 'Debit Error' ? 'Debit' : tx.type}
+</div>
+
                   </div>
                 </div>
                 <div className="border-t border-gray-300 my-2" />
