@@ -8,15 +8,17 @@ const Transactions = () => {
   const [transactions, setTransactions] = useState([]);
 
   useEffect(() => {
-    axios.get('https://car-history-dekho-backend-production.up.railway.app/api/user/transactions', {
+  const response=  axios.get('https://car-history-dekho-backend-production.up.railway.app/api/user/transactions', {
       withCredentials: true,
     })
+   
       .then(res => setTransactions(res.data.transactions))
       .catch(err => console.error(err));
+      console.log(response);
   }, []);
 
   const reversedTransactions = [...transactions].reverse();
-
+ 
   return (
     <div> 
       <Sidebar />

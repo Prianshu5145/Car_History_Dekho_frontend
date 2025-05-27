@@ -198,8 +198,8 @@ const startResendTimer = () => {
         </div>
 
         {/* Right side login */}
-        <div className="flex-1 flex items-center justify-center p-6">
-          <div className="w-full max-w-md bg-white p-8 rounded-2xl shadow-xl space-y-6">
+        <div className="flex-1 flex items-center justify-center p-6 mt-7">
+          <div className="w-full max-w-md bg-white p-8 rounded-2xl shadow-xl space-y-10">
             <h2 className="text-3xl font-extrabold text-center text-gray-800">Login / Sign Up</h2>
 
             {error && <p className="text-red-500 text-center">{error}</p>}
