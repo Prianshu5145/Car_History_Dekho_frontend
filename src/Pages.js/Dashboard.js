@@ -35,7 +35,7 @@ export default function Dashboard() {
       <Header />
 
       <main className="p-6">
-        <div className="bg-blue-700 text-white p-6 rounded-lg mb-6 flex justify-between items-center shadow">
+        {/* <div className="bg-blue-700 text-white p-6 rounded-lg mb-6 flex justify-between items-center shadow">
           <div>
             <h2 className="text-xl font-semibold mb-2">Car Dealer-Focused Products</h2>
             <p className="text-sm mb-4">
@@ -43,7 +43,7 @@ export default function Dashboard() {
             </p>
           </div>
           <div className="w-32 h-32 bg-blue-800 rounded-lg" />
-        </div>
+        </div> */}
 
         <DashboardGrid />
 
