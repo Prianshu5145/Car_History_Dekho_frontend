@@ -3,17 +3,17 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 // Inside your component:
-const location = useLocation();
-const navigate = useNavigate();
+
 
 const WalletContext = createContext();
 
 export const WalletProvider = ({ children }) => {
-  const navigate = useNavigate();
-
+ 
+const location = useLocation();
+const navigate = useNavigate();
   const [data, setData] = useState({
     walletBalance: null,
     transactions: null,
@@ -40,7 +40,7 @@ const fetchWalletBalance = async () => {
 
     // Check current URL path and navigate to /dashboard if on root
     if (location.pathname === "/") {
-      navigate("/dashboard");
+      navigate("/Dashboard");
     }
   } catch (err) {
     // Optionally handle error here
