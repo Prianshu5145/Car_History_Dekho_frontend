@@ -293,7 +293,7 @@ const handleSubmit = async (e) => {
              type="text"
              value={vehicleNumber}
              onChange={(e) => setVehicleNumber(e.target.value)}
-             placeholder="Enter vehicle number"
+             placeholder="Enter Hyundai vehicle number"
              className="w-full px-4 py-3 border border-gray-700 rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
              required
            />

@@ -279,7 +279,7 @@ const [submissionSuccess, setSubmissionSuccess] = useState(false);
              type="text"
              value={vehicleNumber}
              onChange={(e) => setVehicleNumber(e.target.value)}
-             placeholder="Enter vehicle number"
+             placeholder="Enter Mahindra vehicle number"
              className="w-full px-4 py-3 border border-gray-700 rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
              required
            />
@@ -321,7 +321,7 @@ const [submissionSuccess, setSubmissionSuccess] = useState(false);
 
            </button>
            <span className="text-red-600 font-semibold block mt-2">
-  NOTE: This service is currently supported for most vehicle models.
+  NOTE: This service currently works for most Mahindra vehicles, but not all.
 </span>
 
 
