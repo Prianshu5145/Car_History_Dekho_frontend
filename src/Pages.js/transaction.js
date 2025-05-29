@@ -14,7 +14,7 @@ const Transactions = () => {
    
       .then(res => setTransactions(res.data.transactions))
       .catch(err => console.error(err));
-      console.log(response);
+      
   }, []);
 
   const reversedTransactions = [...transactions].reverse();

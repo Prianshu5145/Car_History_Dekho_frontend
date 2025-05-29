@@ -7,6 +7,7 @@ import DashboardGrid from "../components/dashboardbutton";
 import Header from "../components/Header";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
+
 export default function Dashboard() {
   const dropdownRef = useRef(null);
 
@@ -19,12 +20,17 @@ export default function Dashboard() {
     { key: "creditsUsed", label: "Total Credits Used", color: "blue" },
     { key: "creditsAdded", label: "Total Credits Added", color: "blue" },
   ];
+  const didFetch = useRef(false);
  useEffect(() => {
-   fetchWalletBalance();
+  if (!didFetch.current) {
+    didFetch.current = true;
+
+    fetchWalletBalance();
     fetchTotalTransactions();
     fetchCreditsUsed();
-    fetchCreditsAdded(); // or call only fetchWalletBalance() initially if that's all you want
-  }, []);
+    fetchCreditsAdded();
+  }
+}, []);
 
 
 

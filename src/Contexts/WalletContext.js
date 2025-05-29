@@ -4,6 +4,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 import { useLocation } from "react-router-dom";
+import { useRef } from "react";
 
 // Inside your component:
 
@@ -86,6 +87,7 @@ const fetchWalletBalance = async () => {
       setLoading(prev => ({ ...prev, creditsAdded: false }));
     }
   };
+  const didFetch = useRef(false);
 
   const refreshAll = () => {
     fetchWalletBalance();
@@ -93,9 +95,11 @@ const fetchWalletBalance = async () => {
   };
 
   useEffect(() => {
-    refreshAll(); // or call only fetchWalletBalance() initially if that's all you want
-  }, []);
-
+  if (!didFetch.current) {
+    refreshAll(); 
+    didFetch.current = true;
+  }
+}, []);
   return (
     <WalletContext.Provider
       value={{

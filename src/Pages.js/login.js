@@ -90,8 +90,7 @@ const [resendDisabled, setResendDisabled] = useState(false);
   try {
    
 
-    // If OTP is not sent, proceed to send OTP
-    console.log(resendOtp);
+    
    if (!otpSent || resendOtp) {
   await axios.post(
     'https://car-history-dekho-backend-production.up.railway.app/api/user/whatsapp-login', // Endpoint to send OTP
@@ -158,7 +157,7 @@ const handleBackToWhatsappStart = () => {
 const handleVerifyWhatsappOtp = (e) => {
   e.preventDefault();
   handleWhatsappOtp();
-  console.log('Verifying OTP:', otp);
+  
   // Example API call to verify OTP can be placed here
 };
 let resendOtp =false;
@@ -342,7 +341,7 @@ const startResendTimer = () => {
 : ('Verify OTP')}
         </button>
 
-        <p className="text-sm text-center mt-2">
+        
         <p className="text-sm text-center mt-2">
   <button
     type="button"
@@ -354,7 +353,7 @@ const startResendTimer = () => {
   </button>
 </p>
 
-        </p>
+        
 
         {/* Back to WhatsApp input */}
         <p className="text-sm text-center">
