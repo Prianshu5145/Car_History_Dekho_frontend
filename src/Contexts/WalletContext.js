@@ -40,7 +40,7 @@ const fetchWalletBalance = async () => {
     setData(prev => ({ ...prev, walletBalance: res.data.balance }));
 
     // Navigate to /Dashboard if path is / or /buy
-    if (location.pathname === "/" || location.pathname === "/buy") {
+    if (location.pathname === "/" || location.pathname === "/buy" || location.pathname === "/Gallery") {
       navigate("/Dashboard");
     }
   } catch (err) {

@@ -30,6 +30,7 @@ function App() {
           
           <Route path="/h-service-Response" element={<HyundaiResponse />} />
           <Route path="/buy" element={<Home />} />
+           <Route path="/Gallery" element={<Home />} />
             <Route path="/M-service-Response" element={<MarutiResponse />} />
             <Route path="/Mh-service-Response" element={<MahindraResponse />} />
             <Route path="/RC-Response" element={<RCResponse />} />

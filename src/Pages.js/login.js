@@ -279,7 +279,7 @@ const startResendTimer = () => {
     {/* Phone number input */}
     <input
       type="text"
-      placeholder="Enter WhatsApp number"
+      placeholder="Enter 10 digit WhatsApp number"
       
       value={phoneNumber}
       onChange={(e) => setPhoneNumber(e.target.value)}
