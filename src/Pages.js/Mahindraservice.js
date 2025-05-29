@@ -326,7 +326,7 @@ const [submissionSuccess, setSubmissionSuccess] = useState(false);
 
            </button>
            <span className="text-red-600 font-semibold block mt-2">
-  NOTE: This service currently works for most Mahindra vehicles, but not all.
+  NOTE: This service currently works for most Mahindra vehicles, but not for all.
 </span>
 
 

@@ -4,7 +4,7 @@ import { UserCircle2 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { Helmet } from "react-helmet-async";
 const Profile = () => {
-  const [email, setEmail] = useState('');
+  const [mobile, setmobile] = useState('');
   const navigate = useNavigate();
 
 
@@ -12,7 +12,7 @@ const Profile = () => {
     axios.get('https://car-history-dekho-backend-production.up.railway.app/api/user/profile', {
       withCredentials: true,
     })
-    .then(res => setEmail(res.data.email))
+    .then(res => setmobile(res.data.mobile_number))
     .catch(err => console.error(err));
   }, []);
 
@@ -32,8 +32,8 @@ const Profile = () => {
 
         <div className="text-left space-y-2">
           <div>
-            <label className="text-gray-500 text-xs">Email</label>
-            <div className="text-gray-800 font-medium bg-gray-100 px-3 py-2 rounded-lg">{email}</div>
+            <label className="text-gray-500 text-xs">Mobile</label>
+            <div className="text-gray-800 font-medium bg-gray-100 px-3 py-2 rounded-lg">{mobile}</div>
           </div>
         </div>
 

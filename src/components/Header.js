@@ -150,11 +150,11 @@ export default function Header({ disableButtons }){
     </li>
   </Link>
   
-  <Link to="/support">
+  {/* <Link to="/support">
     <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
       Support
     </li>
-  </Link>
+  </Link> */}
   
   <Link to="/logout">
     <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">

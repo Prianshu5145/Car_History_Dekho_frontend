@@ -89,11 +89,7 @@ export default function Dashboard() {
             <p className="text-sm mb-4">
               From RC status to service history and PAN checks — verify everything in one place before sealing the deal.
             </p>
-            <Link to="/Dashboard">
-              <button className="bg-white text-blue-700 px-4 py-2 rounded hover:bg-blue-100">
-                Explore Now
-              </button>
-            </Link>
+            
           </div>
           <div className="w-32 h-32 bg-blue-800 rounded-lg" />
         </div>
