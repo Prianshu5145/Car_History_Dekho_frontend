@@ -7,6 +7,7 @@ import autoTable from 'jspdf-autotable';
 
 import axios from 'axios';
 import AddWalletPopup from '../components/AddWalletPopup';
+import { Helmet } from "react-helmet";
 const ChallanResponse = () => {
   const [vehicleNumber, setVehicleNumber] = useState("");
 
@@ -302,7 +303,11 @@ const handleSubmit = async (e) => {
 
   return (
     
-   <div className="min-h-screen bg-white lg:pl-[19.2rem]"> <Sidebar/>
+   <div className="min-h-screen bg-white lg:pl-[19.2rem]">
+    <Helmet>
+  <meta name="robots" content="noindex, nofollow" />
+</Helmet>
+    <Sidebar/>
    <MobileMenu/>
    <Header  disableButtons={loading} />
    {errorInfo && (

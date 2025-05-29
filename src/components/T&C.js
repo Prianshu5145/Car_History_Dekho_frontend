@@ -1,8 +1,12 @@
 import React from 'react';
 import Navbar from './navbar';
+import { Helmet } from "react-helmet";
 const TermsAndConditions = () => {
   return (
     <div>
+    <Helmet>
+      <meta name="robots" content="noindex, nofollow" />
+    </Helmet>
     <Navbar />
     <div className="max-w-4xl mx-auto p-6">
     <h1 className="text-3xl font-semibold mb-4">Terms and Conditions</h1>

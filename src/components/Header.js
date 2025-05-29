@@ -142,19 +142,27 @@ export default function Header({ disableButtons }){
               </button>
     
               {isOpen && (
-                <div className="absolute right-0 mt-2 w-48 bg-white border rounded-lg shadow-lg z-10">
-                <ul>
-  <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
-    <Link to="/profile">Profile</Link>
-  </li>
- 
-  <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
-    <Link to="/support">Support</Link>
-  </li>
-  <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
-    <Link to="/logout">Logout</Link> 
-  </li>
+                <div className="absolute right-0 mt-2 w-48 bg-white border rounded-lg shadow-lg z-50">
+               <ul>
+  <Link to="/profile">
+    <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
+      Profile
+    </li>
+  </Link>
+  
+  <Link to="/support">
+    <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
+      Support
+    </li>
+  </Link>
+  
+  <Link to="/logout">
+    <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
+      Logout
+    </li>
+  </Link>
 </ul>
+
                 </div>
               )}
             </div>

@@ -4,7 +4,7 @@ import axios from 'axios';
 import Navbar from '../components/navbar.js';
 import { auth, provider, signInWithPopup } from "../firebase.js";
 import { FaEnvelope, FaLock, FaGoogle } from 'react-icons/fa';
-
+import { Helmet } from "react-helmet";
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -183,6 +183,9 @@ const startResendTimer = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-blue-100">
+    <Helmet>
+  <meta name="robots" content="noindex, nofollow" />
+</Helmet>
       <Navbar />
       <div className="flex flex-col lg:flex-row">
         {/* Left side */}

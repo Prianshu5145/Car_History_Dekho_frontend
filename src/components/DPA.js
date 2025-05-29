@@ -1,8 +1,12 @@
 import React from 'react';
 import Navbar from './navbar';
+import { Helmet } from "react-helmet";
 const DataProcessingAgreement = () => {
   return (
-   <div> <Navbar /> <div className="max-w-4xl mx-auto p-6">
+   <div>
+   <Helmet>
+     <meta name="robots" content="noindex, nofollow" />
+   </Helmet> <Navbar /> <div className="max-w-4xl mx-auto p-6">
    <h1 className="text-3xl font-semibold mb-4">Data Processing Agreement (DPA)</h1>
    <p className="mb-4"><strong>Effective Date:</strong> 10/05/2025</p>
    <section className="space-y-4">

@@ -1,9 +1,12 @@
 import React from 'react';
 import Navbar from './navbar';
-
+import { Helmet } from "react-helmet";
 const PrivacyPolicy = () => {
   return (
     <div>
+    <Helmet>
+  <meta name="robots" content="noindex, nofollow" />
+</Helmet>
       <Navbar />
       <div className="max-w-4xl mx-auto p-6">
         <h1 className="text-4xl font-semibold text-center text-gray-900 mb-6">Privacy Policy</h1>

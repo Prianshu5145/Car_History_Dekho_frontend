@@ -6,7 +6,7 @@ import MobileMenu from "../components/MobileMenu";
 import DashboardGrid from "../components/dashboardbutton";
 import Header from "../components/Header";
 import { Link } from "react-router-dom";
-
+import { Helmet } from "react-helmet";
 export default function Dashboard() {
   const dropdownRef = useRef(null);
 
@@ -30,6 +30,9 @@ export default function Dashboard() {
 
   return (
     <div className="min-h-screen bg-white lg:pl-[19.2rem]">
+    <Helmet>
+  <meta name="robots" content="noindex, nofollow" />
+</Helmet>
       <Sidebar />
       <MobileMenu />
       <Header />

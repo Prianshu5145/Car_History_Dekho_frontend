@@ -5,9 +5,14 @@ import ButtonGrid from '../components/ButtonGrid';
 import Card from '../components/Cards.js'
 import PosterSection from '../components/howtouseposter.js'
 import Footer from '../components/footer.js';
+import { Helmet } from "react-helmet";
 const Home = () => {
   return (
     <div>
+    <Helmet>
+  <meta name="robots" content="index, follow" />
+</Helmet>
+
       <Navbar/>
 <ImageSlider/>
       <ButtonGrid/>

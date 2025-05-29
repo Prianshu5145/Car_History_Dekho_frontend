@@ -6,6 +6,7 @@ import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import axios from 'axios';
 import AddWalletPopup from '../components/AddWalletPopup';
+import { Helmet } from "react-helmet";
 const MarutiResponse = () => {
   const [vehicleNumber, setVehicleNumber] = useState("");
  const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -200,7 +201,11 @@ const [errorInfo, setErrorInfo] = useState(null);
       };
   return (
     
-   <div className="min-h-screen bg-white lg:pl-[19.2rem]"> <Sidebar/>
+   <div className="min-h-screen bg-white lg:pl-[19.2rem]">
+    <Helmet>
+  <meta name="robots" content="noindex, nofollow" />
+</Helmet>
+    <Sidebar/>
    <MobileMenu/>
    <Header  disableButtons={loading} />
 

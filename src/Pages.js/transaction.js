@@ -3,7 +3,7 @@ import axios from 'axios';
 import Header from "../components/Header";
 import Sidebar from "../components/sidebar";
 import MobileMenu from "../components/MobileMenu";
-
+import { Helmet } from "react-helmet";
 const Transactions = () => {
   const [transactions, setTransactions] = useState([]);
 
@@ -21,6 +21,9 @@ const Transactions = () => {
  
   return (
     <div> 
+    <Helmet>
+  <meta name="robots" content="noindex, nofollow" />
+</Helmet>
       <Sidebar />
       <MobileMenu />
       <Header />

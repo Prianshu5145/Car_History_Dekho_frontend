@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { UserCircle2 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-
+import { Helmet } from "react-helmet";
 const Profile = () => {
   const [email, setEmail] = useState('');
   const navigate = useNavigate();
@@ -18,6 +18,9 @@ const Profile = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center px-4 py-10">
+    <Helmet>
+  <meta name="robots" content="noindex, nofollow" />
+</Helmet>
       <div className="bg-white w-full max-w-sm shadow-xl rounded-2xl p-6 text-center border border-blue-100">
         <div className="flex justify-center mb-4">
           <div className="bg-blue-100 p-3 rounded-full">

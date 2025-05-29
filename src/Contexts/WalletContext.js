@@ -29,7 +29,7 @@ const navigate = useNavigate();
   });
 
   
-const fetchWalletBalance = async (navigate, location) => {
+const fetchWalletBalance = async () => {
   setLoading(prev => ({ ...prev, walletBalance: true }));
   try {
     const res = await axios.get(
@@ -89,9 +89,7 @@ const fetchWalletBalance = async (navigate, location) => {
 
   const refreshAll = () => {
     fetchWalletBalance();
-    // fetchTotalTransactions();
-    // fetchCreditsUsed();
-    // fetchCreditsAdded();
+   
   };
 
   useEffect(() => {
