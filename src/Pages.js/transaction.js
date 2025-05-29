@@ -3,7 +3,7 @@ import axios from 'axios';
 import Header from "../components/Header";
 import Sidebar from "../components/sidebar";
 import MobileMenu from "../components/MobileMenu";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 const Transactions = () => {
   const [transactions, setTransactions] = useState([]);
 

@@ -4,7 +4,7 @@ import axios from 'axios';
 import Navbar from '../components/navbar.js';
 import { auth, provider, signInWithPopup } from "../firebase.js";
 import { FaEnvelope, FaLock, FaGoogle } from 'react-icons/fa';
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

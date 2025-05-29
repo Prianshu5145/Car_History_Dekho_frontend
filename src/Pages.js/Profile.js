@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { UserCircle2 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 const Profile = () => {
   const [email, setEmail] = useState('');
   const navigate = useNavigate();

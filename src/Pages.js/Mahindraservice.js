@@ -6,7 +6,7 @@ import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import axios from 'axios';
 import AddWalletPopup from '../components/AddWalletPopup';
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 const MahindraResponse = () => {
   const [vehicleNumber, setVehicleNumber] = useState("");
 const [isPopupOpen, setIsPopupOpen] = useState(false);

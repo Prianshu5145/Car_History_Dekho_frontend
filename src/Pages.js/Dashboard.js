@@ -6,7 +6,7 @@ import MobileMenu from "../components/MobileMenu";
 import DashboardGrid from "../components/dashboardbutton";
 import Header from "../components/Header";
 import { Link } from "react-router-dom";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 export default function Dashboard() {
   const dropdownRef = useRef(null);
 

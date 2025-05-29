@@ -1,6 +1,6 @@
 import React from 'react';
 import Navbar from './navbar';
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 const DataProcessingAgreement = () => {
   return (
    <div>

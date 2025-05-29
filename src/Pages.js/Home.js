@@ -5,7 +5,7 @@ import ButtonGrid from '../components/ButtonGrid';
 import Card from '../components/Cards.js'
 import PosterSection from '../components/howtouseposter.js'
 import Footer from '../components/footer.js';
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 const Home = () => {
   return (
     <div>

@@ -7,7 +7,7 @@ import autoTable from 'jspdf-autotable';
 
 import axios from 'axios';
 import AddWalletPopup from '../components/AddWalletPopup';
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 const ChallanResponse = () => {
   const [vehicleNumber, setVehicleNumber] = useState("");
 
