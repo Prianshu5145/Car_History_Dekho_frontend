@@ -29,7 +29,7 @@ export const WalletProvider = ({ children }) => {
       const res = await axios.get("https://car-history-dekho-backend-production.up.railway.app/api/payment/balance", { withCredentials: true });
       setData(prev => ({ ...prev, walletBalance: res.data.balance }));
     } catch (err) {
-      navigate('/login');
+      
     } finally {
       setLoading(prev => ({ ...prev, walletBalance: false }));
     }
@@ -41,7 +41,7 @@ export const WalletProvider = ({ children }) => {
       const res = await axios.get("https://car-history-dekho-backend-production.up.railway.app/api/payment/total-transaction", { withCredentials: true });
       setData(prev => ({ ...prev, transactions: res.data.totalTransactions }));
     } catch (err) {
-      
+      navigate('/login');
     } finally {
       setLoading(prev => ({ ...prev, transactions: false }));
     }
