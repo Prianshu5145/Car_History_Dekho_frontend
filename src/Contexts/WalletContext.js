@@ -29,17 +29,18 @@ const navigate = useNavigate();
   });
 
   
-const fetchWalletBalance = async () => {
+const fetchWalletBalance = async (navigate, location) => {
   setLoading(prev => ({ ...prev, walletBalance: true }));
   try {
     const res = await axios.get(
       "https://car-history-dekho-backend-production.up.railway.app/api/payment/balance",
       { withCredentials: true }
     );
+
     setData(prev => ({ ...prev, walletBalance: res.data.balance }));
 
-    // Check current URL path and navigate to /dashboard if on root
-    if (location.pathname === "/") {
+    // Navigate to /Dashboard if path is / or /buy
+    if (location.pathname === "/" || location.pathname === "/buy") {
       navigate("/Dashboard");
     }
   } catch (err) {
@@ -48,6 +49,7 @@ const fetchWalletBalance = async () => {
     setLoading(prev => ({ ...prev, walletBalance: false }));
   }
 };
+
 
 
   const fetchTotalTransactions = async () => {
