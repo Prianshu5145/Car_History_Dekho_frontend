@@ -254,7 +254,7 @@ const startResendTimer = () => {
     setError(null); // Reset the error
     setStep('whatsappOtp'); // Move to the next step
   }}
-  className="w-full flex items-center justify-center gap-3 px-4 py-3 rounded-xl bg-white text-gray-900 border border-gray-600 hover:bg-gray-100  shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all "
+  className="w-full flex items-center justify-center gap-3 px-4 py-3 text-black bg-white border border-gray-800 rounded-lg hover:bg-gray-100 transition-all focus:outline-none focus:ring-2 focus:ring-green-500 whitespace-nowrap"
 >
   <img
     src="https://res.cloudinary.com/dunsl7vvf/image/upload/v1746999003/whatsapp_yvxwny.png"

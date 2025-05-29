@@ -7,7 +7,6 @@ const Logout = async () => {
 
     if (response.ok) {
       const data = await response.json();
-     
       window.location.href = '/login'; // Redirect after logout
     } else {
       console.error('Logout failed');
