@@ -9,7 +9,7 @@ const AddWalletPopup = ({ isOpen, onClose, onSuccess }) => {
   const [amount, setAmount] = useState('');
   const navigate = useNavigate();
   const [razorpayLoaded, setRazorpayLoaded] = useState(false);
-
+const [isProcessing, setIsProcessing] = useState(false);
   // Load Razorpay script dynamically once
   useEffect(() => {
     if (!razorpayLoaded) {
@@ -24,6 +24,8 @@ const AddWalletPopup = ({ isOpen, onClose, onSuccess }) => {
 
   const handlePayment = async (e) => {
     e.preventDefault();
+    setIsProcessing(true);
+
     if (!amount || isNaN(amount)) return alert("Enter a valid amount");
 
     if (typeof window.Razorpay === 'undefined') {
@@ -76,6 +78,8 @@ const AddWalletPopup = ({ isOpen, onClose, onSuccess }) => {
       alert('Payment failed');
     } finally {
       onClose();
+      setIsProcessing(false);
+
     }
   };
 
@@ -125,13 +129,17 @@ const AddWalletPopup = ({ isOpen, onClose, onSuccess }) => {
             </div>
           )}
 
-          <button
-            type="submit"
-            className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition"
-            disabled={!razorpayLoaded}
-          >
-            {razorpayLoaded ? "Add Balance" : "Loading Razorpay..."}
-          </button>
+         <button
+  type="submit"
+  className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
+  disabled={!razorpayLoaded || isProcessing}
+>
+  {isProcessing
+    ? "Processing Payment..."
+    : !razorpayLoaded
+    ? "Loading Payment Page..."
+    : "Add Balance"}
+</button>
         </form>
       </div>
     </div>

@@ -202,7 +202,7 @@ const startResendTimer = () => {
 
         {/* Right side login */}
         <div className="flex-1 flex items-center justify-center p-6 mt-7">
-          <div className="w-full max-w-md bg-white p-8 rounded-2xl shadow-xl space-y-10">
+          <div className="w-full max-w-md bg-white p-8 rounded-2xl shadow-xl space-y-8">
             <h2 className="text-3xl font-extrabold text-center text-gray-800">Login / Sign Up</h2>
 
             {error && <p className="text-red-500 text-center">{error}</p>}
@@ -254,15 +254,16 @@ const startResendTimer = () => {
     setError(null); // Reset the error
     setStep('whatsappOtp'); // Move to the next step
   }}
-  className="w-full py-3 text-black bg-white border border-gray-600 rounded-lg hover:bg-gray-150 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
+  className="w-full flex items-center justify-center gap-3 px-4 py-3 rounded-xl bg-white text-gray-900 border border-gray-600 hover:bg-gray-100  shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all "
 >
   <img
     src="https://res.cloudinary.com/dunsl7vvf/image/upload/v1746999003/whatsapp_yvxwny.png"
     alt="WhatsApp OTP"
-    className="h-5 w-5 mr-3 inline-block"
+    className="h-5 w-5"
   />
-  Continue with WhatsApp OTP
+  <span className="font-medium">Continue with WhatsApp OTP</span>
 </button>
+
 
 
 
