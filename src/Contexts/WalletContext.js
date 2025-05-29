@@ -3,6 +3,11 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from "react-router-dom";
+
+// Inside your component:
+const location = useLocation();
+const navigate = useNavigate();
 
 const WalletContext = createContext();
 
@@ -23,17 +28,27 @@ export const WalletProvider = ({ children }) => {
     creditsAdded: false,
   });
 
-  const fetchWalletBalance = async () => {
-    setLoading(prev => ({ ...prev, walletBalance: true }));
-    try {
-      const res = await axios.get("https://car-history-dekho-backend-production.up.railway.app/api/payment/balance", { withCredentials: true });
-      setData(prev => ({ ...prev, walletBalance: res.data.balance }));
-    } catch (err) {
-      
-    } finally {
-      setLoading(prev => ({ ...prev, walletBalance: false }));
+  
+const fetchWalletBalance = async () => {
+  setLoading(prev => ({ ...prev, walletBalance: true }));
+  try {
+    const res = await axios.get(
+      "https://car-history-dekho-backend-production.up.railway.app/api/payment/balance",
+      { withCredentials: true }
+    );
+    setData(prev => ({ ...prev, walletBalance: res.data.balance }));
+
+    // Check current URL path and navigate to /dashboard if on root
+    if (location.pathname === "/") {
+      navigate("/dashboard");
     }
-  };
+  } catch (err) {
+    // Optionally handle error here
+  } finally {
+    setLoading(prev => ({ ...prev, walletBalance: false }));
+  }
+};
+
 
   const fetchTotalTransactions = async () => {
     setLoading(prev => ({ ...prev, transactions: true }));
